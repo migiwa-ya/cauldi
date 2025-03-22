@@ -88,7 +88,9 @@ try {
       <ul>
         {herb.tags.map((tag: { id: number, name: string, type: string, description: string }) => (
           <li>
-            <span class="font-bold">{tag.name}</span>: {tag.description}
+            <a href={`/tags/${tag.id}`} class="text-blue-500 underline">
+              <span class="font-bold">{tag.name}</span>
+            </a>: {tag.description}
           </li>
         ))}
       </ul>
