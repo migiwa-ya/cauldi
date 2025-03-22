@@ -1,0 +1,108 @@
+---
+export async function getStaticPaths() {
+  try {
+    const response = await fetch('https://your-cloudflare-worker-url/api/reports');
+    const reports = await response.json();
+    return reports.map((report: { id: number }) => ({ params: { id: report.id.toString() } }));
+  } catch (error) {
+    // Fallback to dummy paths for local development
+    return [
+      { params: { id: '1' } },
+      { params: { id: '2' } },
+      { params: { id: '3' } },
+    ];
+  }
+}
+
+import Layout from '../../layouts/Layout.astro';
+
+const { id } = Astro.params;
+type Report = {
+  content: string;
+  summary: string;
+  usage_method: string;
+  images: { url: string; caption: string }[];
+  relatedHerbs: { slug: string; name_jp: string }[];
+  tags: { id: number; name: string; type: string; description: string }[];
+};
+
+let report: Report;
+
+try {
+  const response = await fetch(`https://your-cloudflare-worker-url/api/reports/${id}`);
+  report = await response.json();
+  // Assuming the API returns related herbs and tags as part of the report data
+  report.relatedHerbs = report.relatedHerbs || [];
+  report.tags = report.tags || [];
+} catch (error) {
+  // Fallback to dummy data for local development
+  report = {
+    content: "ここにレポートの内容が入ります。",
+    summary: "レポートの概要",
+    usage_method: "利用方法の説明",
+    images: [
+      { url: "/path/to/report-image1.jpg", caption: "レポート画像1のキャプション" },
+      { url: "/path/to/report-image2.jpg", caption: "レポート画像2のキャプション" }
+    ],
+    relatedHerbs: [
+      { slug: "ScientificName1", name_jp: "ハーブ1" },
+      { slug: "ScientificName2", name_jp: "ハーブ2" }
+    ],
+    tags: [
+      { id: 1, name: "フレーバー", type: "flavor", description: "フレーバーに関するタグ" },
+      { id: 2, name: "ムード", type: "mood", description: "ムードに関するタグ" }
+    ]
+  };
+}
+---
+
+<Layout>
+  <header class="bg-blue-100 p-4">
+    <h1 class="text-3xl font-bold">レポート詳細</h1>
+  </header>
+  <main class="p-4 space-y-6">
+    <section>
+      <h3 class="text-2xl font-semibold">内容</h3>
+      <p class="text-base">{report.content}</p>
+    </section>
+    <section>
+      <h3 class="text-2xl font-semibold">関連タグ</h3>
+      <ul>
+        {report.tags.map((tag: { id: number, name: string, type: string, description: string }) => (
+          <li>
+            <span class="font-bold">{tag.name}</span>: {tag.description}
+          </li>
+        ))}
+      </ul>
+    </section>
+    <section>
+      <h3 class="text-2xl font-semibold">関連ハーブ</h3>
+      <ul>
+        {report.relatedHerbs.map((herb: { slug: string, name_jp: string }) => (
+          <li>
+            <a href={`/herbs/${herb.slug}`} class="text-blue-500 underline">{herb.name_jp}</a>
+          </li>
+        ))}
+      </ul>
+    </section>
+    <section>
+      <h3 class="text-2xl font-semibold">概要</h3>
+      <p class="text-base">{report.summary}</p>
+    </section>
+    <section>
+      <h3 class="text-2xl font-semibold">利用方法</h3>
+      <p class="text-base">{report.usage_method}</p>
+    </section>
+    <section>
+      <h3 class="text-2xl font-semibold">画像</h3>
+      <div class="report-images">
+        {report.images.map((image: { url: string; caption: string }, index: number) => (
+          <figure>
+            <img src={image.url} alt={image.caption} />
+            <figcaption>{image.caption}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
+  </main>
+</Layout>

@@ -1,85 +1,105 @@
 -- ハーブテーブル
 CREATE TABLE herbs (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    name_jp VARCHAR(255) NOT NULL,
-    name_common_jp VARCHAR(255),
-    name_scientific VARCHAR(255) NOT NULL,
-    name_en VARCHAR(255),
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name_jp TEXT NOT NULL,
+    name_common_jp TEXT,
+    name_scientific TEXT NOT NULL,
+    name_en TEXT,
     description TEXT,
-    compound_id INT,
+    compound_id INTEGER,
     flavor_profile TEXT,
     research_papers TEXT,
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (compound_id) REFERENCES compounds(id)
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (compound_id) REFERENCES compounds(id) ON DELETE SET NULL
 );
 
 -- ハーブ画像テーブル
 CREATE TABLE herb_images (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    herb_id INT NOT NULL,
-    image_url VARCHAR(500) NOT NULL,
-    name VARCHAR(255),
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    herb_id INTEGER NOT NULL,
+    image_url TEXT NOT NULL,
+    name TEXT,
     caption TEXT,
     FOREIGN KEY (herb_id) REFERENCES herbs(id) ON DELETE CASCADE
 );
 
 -- 成分テーブル
 CREATE TABLE compounds (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
     effect TEXT NOT NULL,
     research_papers TEXT
 );
 
 -- レポートテーブル
 CREATE TABLE reports (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     content TEXT NOT NULL,
     summary TEXT,
-    usage_method_id INT,
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (usage_method_id) REFERENCES usage_methods(id)
+    usage_method_id INTEGER,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (usage_method_id) REFERENCES usage_methods(id) ON DELETE SET NULL
 );
 
 -- レポート画像テーブル
 CREATE TABLE report_images (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    report_id INT NOT NULL,
-    image_url VARCHAR(500) NOT NULL,
-    name VARCHAR(255),
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    report_id INTEGER NOT NULL,
+    image_url TEXT NOT NULL,
+    name TEXT,
     caption TEXT,
-    sort_order INT DEFAULT 0,
+    sort_order INTEGER DEFAULT 0,
     FOREIGN KEY (report_id) REFERENCES reports(id) ON DELETE CASCADE
 );
 
--- レポートとハーブの関連テーブル
+-- レポートとハーブの関連テーブル（多対多）
 CREATE TABLE report_herbs (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    report_id INT NOT NULL,
-    herb_id INT NOT NULL,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    report_id INTEGER NOT NULL,
+    herb_id INTEGER NOT NULL,
     FOREIGN KEY (report_id) REFERENCES reports(id) ON DELETE CASCADE,
     FOREIGN KEY (herb_id) REFERENCES herbs(id) ON DELETE CASCADE
 );
 
 -- レポートの風味評価テーブル
 CREATE TABLE herb_report_flavors (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    report_id INT NOT NULL,
-    bitterness INT CHECK (bitterness BETWEEN 0 AND 10),
-    sweetness INT CHECK (sweetness BETWEEN 0 AND 10),
-    sourness INT CHECK (sourness BETWEEN 0 AND 10),
-    spiciness INT CHECK (spiciness BETWEEN 0 AND 10),
-    astringency INT CHECK (astringency BETWEEN 0 AND 10),
-    umami INT CHECK (umami BETWEEN 0 AND 10),
-    aroma_type VARCHAR(255),
-    aroma_intensity INT CHECK (aroma_intensity BETWEEN 0 AND 10),
-    aftertaste VARCHAR(255),
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    report_id INTEGER NOT NULL,
+    bitterness INTEGER CHECK (bitterness BETWEEN 0 AND 10),
+    sweetness INTEGER CHECK (sweetness BETWEEN 0 AND 10),
+    sourness INTEGER CHECK (sourness BETWEEN 0 AND 10),
+    spiciness INTEGER CHECK (spiciness BETWEEN 0 AND 10),
+    astringency INTEGER CHECK (astringency BETWEEN 0 AND 10),
+    umami INTEGER CHECK (umami BETWEEN 0 AND 10),
+    aroma_type TEXT,
+    aroma_intensity INTEGER CHECK (aroma_intensity BETWEEN 0 AND 10),
+    aftertaste TEXT,
     FOREIGN KEY (report_id) REFERENCES reports(id) ON DELETE CASCADE
 );
 
 -- 利用方法テーブル
 CREATE TABLE usage_methods (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
     description TEXT NOT NULL
+);
+
+-- タグマスターテーブル
+CREATE TABLE tags (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL UNIQUE,
+    type TEXT CHECK (type IN ('flavor', 'mood', 'time', 'health')),
+    description TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- ハーブとタグの関連付けテーブル（多対多）
+CREATE TABLE herb_tags (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    herb_id INTEGER NOT NULL,
+    tag_id INTEGER NOT NULL,
+    FOREIGN KEY (herb_id) REFERENCES herbs(id) ON DELETE CASCADE,
+    FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE,
+    UNIQUE (herb_id, tag_id)
 );
