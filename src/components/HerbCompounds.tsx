@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface Compound {
   name: string;
@@ -11,15 +11,22 @@ interface HerbCompoundsProps {
 
 const HerbCompounds: React.FC<HerbCompoundsProps> = ({ compounds }) => {
   return (
-    <div className="herb-compounds">
-      <ul>
+    <table className="table">
+      <thead>
+        <tr>
+          <th>成分名</th>
+          <th>特性</th>
+        </tr>
+      </thead>
+      <tbody>
         {compounds.map((compound, index) => (
-          <li key={index}>
-            <strong>{compound.name}</strong>: {compound.effect}
-          </li>
+          <tr key={index}>
+            <td>{compound.name}</td>
+            <td>{compound.effect}</td>
+          </tr>
         ))}
-      </ul>
-    </div>
+      </tbody>
+    </table>
   );
 };
 

@@ -1,56 +1,37 @@
 ---
 import { Image } from "astro:assets";
+import InfiniteScroll from "../components/InfiniteScroll";
 import Layout from "../layouts/Layout.astro";
+import ListItem from "../components/ListItem";
 
 let herbs = [
-  { id: 1, name: "Herb 1", name_scientific: "ScientificName1", description: "Description for Herb 1" },
-  { id: 2, name: "Herb 2", name_scientific: "ScientificName2", description: "Description for Herb 2" },
-  { id: 3, name: "Herb 3", name_scientific: "ScientificName3", description: "Description for Herb 3" },
-  { id: 1, name: "Herb 1", name_scientific: "ScientificName1", description: "Description for Herb 1" },
-  { id: 2, name: "Herb 2", name_scientific: "ScientificName2", description: "Description for Herb 2" },
-  { id: 3, name: "Herb 3", name_scientific: "ScientificName3", description: "Description for Herb 3" },
+  {
+    id: 1,
+    name: "Herb 1",
+    name_scientific: "ScientificName1",
+    description: "Description for Herb 1",
+  },
+  {
+    id: 2,
+    name: "Herb 2",
+    name_scientific: "ScientificName2",
+    description: "Description for Herb 2",
+  },
+  {
+    id: 3,
+    name: "Herb 3",
+    name_scientific: "ScientificName3",
+    description: "Description for Herb 3",
+  },
 ];
 ---
 
 <Layout>
-  <h1 class="p-2 border-b border-black text-center font-bold">POSTS</h1>
-  <nav
-    class="flex justify-around p-2 border-b border-black text-center font-bold"
-  >
-    <span>SPECIES</span>
-    <span>REPORT</span>
-  </nav>
-
   <section
     class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-12 p-[3rem]"
   >
-    {
-      herbs.map((herb) => (
-        <a
-          href={`/herbs/${herb.name_scientific}`}
-          class="relative flex flex-col items-center pb-2 outline-2 outline-black outline-offset-2 border border-black"
-        >
-          <div class="date-view p-1">
-            <time datetime="2025-03-21">
-              <span>03</span>
-              <span>21</span>
-            </time>
-          </div>
+    {herbs.slice(0, 9).map((herb) => <ListItem item={herb} />)}
 
-          <h2 class="p-2 mb-2 w-[90%] border-b border-black text-sm text-center">
-            {herb.name}
-          </h2>
-          <Image
-            src="/ui/001.png"
-            alt={herb.name}
-            width="400"
-            height="300"
-            class="my-4 scale-110 object-cover overflow-visible h-80 w-auto"
-          />
-          <strong class="my-2 text-sm leading-[1]">基本情報</strong>
-          <p class="px-2 line-clamp-3 text-xs">{herb.description}</p>
-        </a>
-      ))
-    }
+    <InfiniteScroll client:load />
   </section>
 </Layout>

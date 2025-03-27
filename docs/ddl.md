@@ -7,7 +7,7 @@ CREATE TABLE herbs (
     name_en TEXT,
     description TEXT,
     compound_id INTEGER,
-    flavor_profile TEXT,
+    <!-- flavor_profile TEXT, -->
     research_papers TEXT,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (compound_id) REFERENCES compounds(id) ON DELETE SET NULL

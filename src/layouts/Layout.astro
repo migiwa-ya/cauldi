@@ -12,8 +12,8 @@ import "../styles/global.css";
     <meta name="generator" content={Astro.generator} />
     <title>Astro Basics</title>
   </head>
-  <body class="flex gap-[1.5rem] bg-vintage">
-    <div class="relative min-h-screen border-r-1 border-black max-w-5xl w-full">
+  <body class="flex gap-[1.5rem] bg-vintage-paper max-lg:flex-col">
+    <div class="flex-4 relative min-h-screen border-r-1 border-black max-w-5xl w-full">
       <p
         class="absolute h-full overflow-hidden -right-[1.5rem] whitespace-nowrap [writing-mode:vertical-rl]"
       >
@@ -27,10 +27,10 @@ import "../styles/global.css";
       >
         <a
           href="/"
-          class="p-2 mx-4 bg-vintage text-7xl bold border border-black"
+          class="p-2 mx-4 bg-vintage-paper text-7xl bold border border-black"
           >Cauldi</a
         >
-        <div class="bg-vintage border-l border-black p-[50px]">
+        <div class="bg-vintage-paper border-l border-black p-[50px]">
           <nav></nav>
           <SearchInput client:load />
         </div>
@@ -40,7 +40,7 @@ import "../styles/global.css";
       </main>
     </div>
     <footer
-      class="max-w-xs w-full flex flex-wrap items-center content-start gap-2 py-2"
+      class="max-w-xs w-full flex flex-1 flex-wrap items-center content-start gap-2 py-2 pr-2"
     >
       <a class="c-footer-tag">Lorem</a>
       <a class="c-footer-tag">ipsum</a>

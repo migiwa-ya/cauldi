@@ -1,15 +1,19 @@
 ---
 export async function getStaticPaths() {
   try {
-    const response = await fetch('https://your-cloudflare-worker-url/api/herbs');
+    const response = await fetch(
+      "https://your-cloudflare-worker-url/api/herbs"
+    );
     const herbs = await response.json();
-    return herbs.map((herb: { name_scientific: string }) => ({ params: { slug: herb.name_scientific } }));
+    return herbs.map((herb: { name_scientific: string }) => ({
+      params: { slug: herb.name_scientific },
+    }));
   } catch (error) {
     // Fallback to dummy paths for local development
     return [
-      { params: { slug: 'ScientificName1' } },
-      { params: { slug: 'ScientificName2' } },
-      { params: { slug: 'ScientificName3' } },
+      { params: { slug: "ScientificName1" } },
+      { params: { slug: "ScientificName2" } },
+      { params: { slug: "ScientificName3" } },
     ];
   }
 }
@@ -46,11 +50,12 @@ try {
 } catch (error) {
   // Fallback to dummy data for local development
   herb = {
-    name_jp: "ハーブ名",
+    name_jp: "イエロードッグ",
     name_common_jp: "一般名",
-    name_scientific: slug,
-    name_en: "English Name",
-    description: "ここにハーブの説明が入ります。",
+    name_scientific: "Rumex crispus",
+    name_en: "Rumex crispus",
+    description:
+      "茎は直立して、多数、枝分かれする。下部の葉は長楕円形で、長い柄があり、縁は細かく波打つ。上につくほど葉は小さくなり、柄が短く、上部では苞葉となる。葉先は丸く、基部は楔形。花は長い総状花序につき、多段に密に輪生する。茎は直立して、多数、枝分かれする。下部の葉は長楕円形で、長い柄があり、縁は細かく波打つ。上につくほど葉は小さくなり、柄が短く、上部では苞葉となる。葉先は丸く、基部は楔形。花は長い総状花序につき、多段に密に輪生する。",
     flavor_profile: "フレーバープロファイル",
     research_papers: "関連研究論文",
     images: [
@@ -63,63 +68,341 @@ try {
     ],
     relatedReports: [
       { id: 1, title: "レポート1" },
-      { id: 2, title: "レポート2" }
+      { id: 2, title: "レポート2" },
     ],
     tags: [
-      { id: 1, name: "フレーバー", type: "flavor", description: "フレーバーに関するタグ" },
-      { id: 2, name: "ムード", type: "mood", description: "ムードに関するタグ" }
-    ]
+      {
+        id: 1,
+        name: "フレーバー",
+        type: "flavor",
+        description: "フレーバーに関するタグ",
+      },
+      {
+        id: 2,
+        name: "ムード",
+        type: "mood",
+        description: "ムードに関するタグ",
+      },
+    ],
   };
 }
 ---
 
 <Layout>
-  <header class="bg-green-100 p-4">
-    <h1 class="text-3xl font-bold">{herb.name_jp} ({herb.name_scientific})</h1>
-    <h2 class="text-xl">{herb.name_common_jp} / {herb.name_en}</h2>
+  <style>
+    .herb-decoration {
+      position: relative;
+      background-color: var(--color-vintage-paper);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      overflow: hidden;
+
+      &::before,
+      &::after {
+        position: absolute;
+        content: "";
+        height: 100%;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+      }
+
+      &::before {
+        left: 0;
+        border-left: 1px solid #000;
+      }
+
+      &::after {
+        right: 0;
+        border-right: 1px solid #000;
+      }
+
+      > div:first-child,
+      > div:last-child {
+        position: relative;
+        width: 100%;
+        height: 5px;
+        background-color: var(--color-vintage-paper);
+        z-index: 2;
+      }
+      > div:first-child {
+        border-top: 2px solid #000;
+      }
+      > div:last-child {
+        border-bottom: 2px solid #000;
+      }
+
+      > div:first-child::before,
+      > div:first-child::after,
+      > div:last-child::before,
+      > div:last-child::after {
+        content: "";
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        background-color: var(--color-vintage-paper);
+        border-radius: 80%;
+        border: 1px solid black;
+      }
+
+      > div:first-child::before {
+        top: -30px;
+        left: -30px;
+      }
+
+      > div:first-child::after {
+        top: -30px;
+        right: -30px;
+      }
+
+      > div:last-child::before {
+        bottom: -30px;
+        left: -30px;
+      }
+
+      > div:last-child::after {
+        bottom: -30px;
+        right: -30px;
+      }
+    }
+  </style>
+  <header class="flex justify-center p-1 border-b-1">
+    Species:<h1 class="pl-2 font-bold">
+      {herb.name_jp} ({herb.name_scientific})
+    </h1>
   </header>
-  <main class="p-4 space-y-6">
+  <main class="p-4 space-y-5">
+    <div class="herb-decoration mb-3">
+      <div class="border-b border-dashed"></div>
+      <div class="flex items-center mb-4 max-md:flex-col">
+        <div
+          class="border-r w-full font-serif my-[3px] p-6 max-md:border-0! max-md:border-b-1!"
+        >
+          <strong class="block mb-1 text-center">Rumex crispus</strong>
+          <p>
+            タデ科ギシギシ属の多年草で、ヨーロッパ原産だが世界各地に分布。葉は細長く波打ち、根は黄色を帯びる。湿地や道端に自生し、耐久性が高い。根は生薬「羊蹄根（ようていこん）」として下剤や皮膚病治療に用いられるほか、葉は若いものが食用となる。
+          </p>
+        </div>
+        <img
+          src="/ui/001.png"
+          alt="aaa"
+          width="400"
+          height="300"
+          class="w-full my-[3px] p-6 object-contain h-[300px]"
+          style="filter: contrast(150%) sepia(100%);"
+        />
+        <div
+          class="border-l w-full font-serif my-[3px] p-6 max-md:border-0! max-md:border-t-1!"
+        >
+          <strong class="block mb-1 text-center">期待される効能</strong>
+          <p>
+            生薬「羊蹄根（ようていこん）」として利用され、主に緩下作用（便秘改善）が期待される。根に含まれるアントラキノン誘導体が腸を刺激し、排便を促す。また、抗炎症作用や抗菌作用があり、皮膚疾患や湿疹の治療にも使われる。さらに、抗酸化作用があり、体内の老化防止やデトックス効果も期待される。
+          </p>
+        </div>
+      </div>
+      <div class="border-t border-dashed"></div>
+    </div>
+    <aside class="report-links">
+      <a href="" class="report-link-card">
+        <div>
+          <div>
+            <time datetime="">2025/03/25</time>
+            <p>(5g, 250ml)</p>
+          </div>
+          <div>
+            <p>浸出法</p>
+            <p>比較的飲みやすいが苦い</p>
+          </div>
+        </div>
+        <img src="/ui/001.png" alt="" />
+      </a>
+      <a href="" class="report-link-card">
+        <div>
+          <div>
+            <time datetime="">2025/03/25</time>
+            <p>(5g, 250ml)</p>
+          </div>
+          <div>
+            <p>浸出法</p>
+            <p>比較的飲みやすいが苦い</p>
+          </div>
+        </div>
+        <img src="/ui/001.png" alt="" />
+      </a>
+    </aside>
+
+    <article>
+      <div class="flex justify-between border-b-2 py-1 m-4 mt-8 mb-1">
+        <strong class="mr-2 text-[3rem] leading-[3rem]">ABOUT</strong>
+        <p class="font-bold line-clamp-1 self-end">
+          Pub. <time class="font-normal" datetime="2024-03-24">24/03/24</time>
+          Upd. <time class="font-normal" datetime="2024-03-25">25/03/24</time>
+        </p>
+      </div>
+      <div class="columns-2 p-4 [column-gap:2rem]">
+        <section class="clear-both">
+          <div class="c-column-head">
+            <strong>Rumex crispus</strong>
+            <h3 class="text-xs italic">
+              {herb.name_jp} ({
+                herb.name_scientific
+              })の基本的な構造と生息地について
+            </h3>
+          </div>
+          <div class="c-column-body">
+            <img src="/001.png" class="w-48 h-48 object-cover float-left m-2" />
+            <p>{herb.description}</p>
+            <img
+              src="/001.png"
+              class="w-48 h-48 object-cover float-right m-2"
+            />
+            <p>{herb.description}</p>
+          </div>
+        </section>
+
+        <section class="clear-both">
+          <div class="c-column-head">
+            <strong>History</strong>
+            <h3 class="text-xs italic">
+              {herb.name_jp} ({herb.name_scientific})の歴史と民俗
+            </h3>
+          </div>
+          <div class="c-column-body space-y-2">
+            <p>{herb.description}</p>
+            <img
+              src="/001.png"
+              alt=""
+              class="w-48 h-48 object-cover float-left m-2"
+            />
+            <p>{herb.description}</p>
+          </div>
+        </section>
+
+        <section class="clear-both">
+          <div class="c-column-head">
+            <strong>Tags</strong>
+            <h3 class="text-xs italic">
+              {herb.name_jp} ({herb.name_scientific})の特徴タグ
+            </h3>
+          </div>
+          <div class="c-column-body flex gap-3">
+            {
+              herb.tags.map(
+                (tag: {
+                  id: number;
+                  name: string;
+                  type: string;
+                  description: string;
+                }) => (
+                  <a href={`/tags/${tag.id}`} class="c-footer-tag">
+                    <span class="font-bold">{tag.name}</span>
+                  </a>
+                )
+              )
+            }
+          </div>
+        </section>
+
+        <section>
+          <h3 class="c-column-head">Images</h3>
+          <div class="c-column-body">
+            <HerbImages images={herb.images} />
+          </div>
+        </section>
+        <section>
+          <h3 class="c-column-head">Compunds</h3>
+          <div class="c-column-body">
+            <HerbCompounds compounds={herb.compounds} />
+          </div>
+        </section>
+        <section>
+          <h3 class="c-column-head">Reserches</h3>
+          <p class="c-column-body">{herb.research_papers}</p>
+        </section>
+      </div>
+    </article>
+
     <section>
-      <h3 class="text-2xl font-semibold">説明</h3>
-      <p class="text-base">{herb.description}</p>
-    </section>
-    <section>
-      <h3 class="text-2xl font-semibold">関連タグ</h3>
-      <ul>
-        {herb.tags.map((tag: { id: number, name: string, type: string, description: string }) => (
-          <li>
-            <a href={`/tags/${tag.id}`} class="text-blue-500 underline">
-              <span class="font-bold">{tag.name}</span>
-            </a>: {tag.description}
-          </li>
-        ))}
-      </ul>
-    </section>
-    <section>
-      <h3 class="text-2xl font-semibold">関連レポート</h3>
-      <ul>
-        {herb.relatedReports.map((report: { id: number, title: string }) => (
-          <li>
-            <a href={`/reports/${report.id}`} class="text-blue-500 underline">{report.title}</a>
-          </li>
-        ))}
-      </ul>
-    </section>
-    <section>
-      <h3 class="text-2xl font-semibold">フレーバープロファイル</h3>
-      <p class="text-base">{herb.flavor_profile}</p>
-    </section>
-    <section>
-      <h3 class="text-2xl font-semibold">画像</h3>
-      <HerbImages images={herb.images} />
-    </section>
-    <section>
-      <h3 class="text-2xl font-semibold">成分</h3>
-      <HerbCompounds compounds={herb.compounds} />
-    </section>
-    <section>
-      <h3 class="text-2xl font-semibold">関連研究論文</h3>
-      <p class="text-base">{herb.research_papers}</p>
+      <div class="flex justify-between border-b-2 py-1 m-4 mt-8">
+        <strong class="mr-2 text-[3rem] leading-[3rem]">OTHER HERBS</strong>
+      </div>
+
+      <aside class="flex flex-wrap justify-items-start gap-4 px-4 mb-12">
+        <a
+          class="herb-decoration relative flex flex-1 basis-auto sm:max-w-xs w-[200px]"
+        >
+          <div></div>
+          <div class="relative max-md:flex-col">
+            <div class="flex flex-col justify-center px-6">
+              <strong class="text-center border-b border-dashed pb-1"
+                >Rumex crispus</strong
+              >
+              <p class="text-sm leading-5 py-3">
+                タデ科ギシギシ属の多年草で、ヨーロッパ原産だが世界各地に分布。葉は細長く波打ち、根は黄色を帯びる。湿地や道端に自生し、耐久性が高い。根は生薬「羊蹄根（ようていこん）」として下剤や皮膚病治療に用いられるほか、葉は若いものが食用となる。
+              </p>
+            </div>
+            <img
+              src="/ui/001.png"
+              alt="aaa"
+              width="400"
+              height="300"
+              class="absolute inset-0 opacity-20 w-full h-full object-contain w-16 h-16 ml-1 rounded-e-xs"
+              style="filter: contrast(150%) sepia(100%);"
+            />
+          </div>
+          <div></div>
+        </a>
+        <a
+          class="herb-decoration relative flex flex-1 basis-auto sm:max-w-xs w-[200px]"
+        >
+          <div></div>
+          <div class="relative max-md:flex-col">
+            <div class="flex flex-col justify-center px-6">
+              <strong class="text-center border-b border-dashed pb-1"
+                >Rumex crispus</strong
+              >
+              <p class="text-sm leading-5 py-3">
+                タデ科ギシギシ属の多年草で、ヨーロッパ原産だが世界各地に分布。葉は細長く波打ち、根は黄色を帯びる。湿地や道端に自生し、耐久性が高い。根は生薬「羊蹄根（ようていこん）」として下剤や皮膚病治療に用いられるほか、葉は若いものが食用となる。
+              </p>
+            </div>
+            <img
+              src="/ui/001.png"
+              alt="aaa"
+              width="400"
+              height="300"
+              class="absolute inset-0 opacity-20 w-full h-full object-contain w-16 h-16 ml-1 rounded-e-xs"
+              style="filter: contrast(150%) sepia(100%);"
+            />
+          </div>
+          <div></div>
+        </a>
+        <a
+          class="herb-decoration relative flex flex-1 basis-auto sm:max-w-xs w-[200px]"
+        >
+          <div></div>
+          <div class="relative max-md:flex-col">
+            <div class="flex flex-col justify-center px-6">
+              <strong class="text-center border-b border-dashed pb-1"
+                >Rumex crispus</strong
+              >
+              <p class="text-sm leading-5 py-3">
+                タデ科ギシギシ属の多年草で、ヨーロッパ原産だが世界各地に分布。葉は細長く波打ち、根は黄色を帯びる。湿地や道端に自生し、耐久性が高い。根は生薬「羊蹄根（ようていこん）」として下剤や皮膚病治療に用いられるほか、葉は若いものが食用となる。
+              </p>
+            </div>
+            <img
+              src="/ui/001.png"
+              alt="aaa"
+              width="400"
+              height="300"
+              class="absolute inset-0 opacity-20 w-full h-full object-contain w-16 h-16 ml-1 rounded-e-xs"
+              style="filter: contrast(150%) sepia(100%);"
+            />
+          </div>
+          <div></div>
+        </a>
+      </aside>
     </section>
   </main>
 </Layout>
