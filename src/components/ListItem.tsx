@@ -11,7 +11,7 @@ const ListItem: React.FC<{ item: Item }> = ({ item }) => {
   return (
     <a
       href={`/herbs/${item.name_scientific}`}
-      className="relative flex flex-col items-center pb-2 outline-2 outline-black outline-offset-2 border border-black"
+      className="relative flex flex-col items-center pb-2 outline-2 outline-vintage-ink outline-offset-2 border border-vintage-ink"
     >
       <div className="date-view p-1">
         <time dateTime="2025-03-21">
@@ -19,7 +19,7 @@ const ListItem: React.FC<{ item: Item }> = ({ item }) => {
           <span>21</span>
         </time>
       </div>
-      <h2 className="p-2 mb-2 w-[90%] border-b border-black text-sm text-center">
+      <h2 className="p-2 mb-2 w-[90%] border-b border-vintage-ink text-sm text-center">
         {item.name}
       </h2>
       <img

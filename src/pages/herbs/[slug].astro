@@ -21,6 +21,7 @@ export async function getStaticPaths() {
 import Layout from "../../layouts/Layout.astro";
 import HerbImages from "../../components/HerbImages.tsx";
 import HerbCompounds from "../../components/HerbCompounds.tsx";
+import ImageModal from "../../components/ImageModal";
 
 const { slug } = Astro.params;
 type Herb = {
@@ -144,7 +145,7 @@ try {
         height: 50px;
         background-color: var(--color-vintage-paper);
         border-radius: 80%;
-        border: 1px solid black;
+        border: 1px solid var(--color-vintage-ink);
       }
 
       > div:first-child::before {
@@ -168,19 +169,39 @@ try {
       }
     }
   </style>
-  <header class="flex justify-center p-1 border-b-1">
-    Species:<h1 class="pl-2 font-bold">
-      {herb.name_jp} ({herb.name_scientific})
-    </h1>
-  </header>
-  <main class="p-4 space-y-5">
+  <div class="flex justify-center border-b-1">
+    <div
+      class="c-content my-1 text-center border-x border-vintage-ink"
+    >
+      <nav class="text-xs text-gray-600" aria-label="パンくずリスト">
+        <ol class="flex flex-wrap items-center justify-center">
+          <li>
+            <a href="/" class="underline text-link">Home</a>
+          </li>
+          <li class="before:content-['›'] before:mx-2 before:text-gray-400">
+            <a href="/natural-therapy/herbs" class="underline text-link">Herbs</a>
+          </li>
+          <li
+            class="before:content-['›'] before:mx-2 before:text-gray-400"
+            aria-current="page"
+          >
+            {herb.name_scientific}
+          </li>
+        </ol>
+      </nav>
+      <h1 class="font-bold">
+        {herb.name_jp} ({herb.name_scientific})とは
+      </h1>
+    </div>
+  </div>
+  <div class="c-content p-7 my-1 space-y-5 border-x border-vintage-ink">
     <div class="herb-decoration mb-3">
       <div class="border-b border-dashed"></div>
       <div class="flex items-center mb-4 max-md:flex-col">
         <div
           class="border-r w-full font-serif my-[3px] p-6 max-md:border-0! max-md:border-b-1!"
         >
-          <strong class="block mb-1 text-center">Rumex crispus</strong>
+          <h2 class="block mb-1 text-center font-bold">{herb.name_jp}の概要</h2>
           <p>
             タデ科ギシギシ属の多年草で、ヨーロッパ原産だが世界各地に分布。葉は細長く波打ち、根は黄色を帯びる。湿地や道端に自生し、耐久性が高い。根は生薬「羊蹄根（ようていこん）」として下剤や皮膚病治療に用いられるほか、葉は若いものが食用となる。
           </p>
@@ -196,7 +217,9 @@ try {
         <div
           class="border-l w-full font-serif my-[3px] p-6 max-md:border-0! max-md:border-t-1!"
         >
-          <strong class="block mb-1 text-center">期待される効能</strong>
+          <h2 class="block mb-1 text-center font-bold">
+            {herb.name_jp}の期待される効能
+          </h2>
           <p>
             生薬「羊蹄根（ようていこん）」として利用され、主に緩下作用（便秘改善）が期待される。根に含まれるアントラキノン誘導体が腸を刺激し、排便を促す。また、抗炎症作用や抗菌作用があり、皮膚疾患や湿疹の治療にも使われる。さらに、抗酸化作用があり、体内の老化防止やデトックス効果も期待される。
           </p>
@@ -204,8 +227,9 @@ try {
       </div>
       <div class="border-t border-dashed"></div>
     </div>
+
     <aside class="report-links">
-      <a href="" class="report-link-card">
+      <a href="/reports/1" class="report-link-card">
         <div>
           <div>
             <time datetime="">2025/03/25</time>
@@ -218,7 +242,7 @@ try {
         </div>
         <img src="/ui/001.png" alt="" />
       </a>
-      <a href="" class="report-link-card">
+      <a href="/reports/2" class="report-link-card">
         <div>
           <div>
             <time datetime="">2025/03/25</time>
@@ -234,17 +258,31 @@ try {
     </aside>
 
     <article>
-      <div class="flex justify-between border-b-2 py-1 m-4 mt-8 mb-1">
-        <strong class="mr-2 text-[3rem] leading-[3rem]">ABOUT</strong>
-        <p class="font-bold line-clamp-1 self-end">
+      <div
+        class="flex flex-col sm:flex-row justify-between border-b-2 pb-2 mt-12 mb-4"
+      >
+        <span
+          class="mr-2 text-[2.5rem] sm:text-[3rem] leading-[3rem] font-[Stoke] font-thin"
+          >About</span
+        >
+        <p class="line-clamp-1 self-end font-[Stoke]">
           Pub. <time class="font-normal" datetime="2024-03-24">24/03/24</time>
           Upd. <time class="font-normal" datetime="2024-03-25">25/03/24</time>
         </p>
       </div>
-      <div class="columns-2 p-4 [column-gap:2rem]">
+
+      <div class="min-md:columns-2 [column-gap:2rem]">
+        <section>
+          <ImageModal
+            imageUrl="/001.png"
+            altText="ランダム画像3"
+            className="w-full max-h-[300px] object-cover mb-2"
+            client:only
+          />
+        </section>
         <section class="clear-both">
           <div class="c-column-head">
-            <strong>Rumex crispus</strong>
+            <span class="font-[Stoke]">Rumex crispus</span>
             <h3 class="text-xs italic">
               {herb.name_jp} ({
                 herb.name_scientific
@@ -252,11 +290,18 @@ try {
             </h3>
           </div>
           <div class="c-column-body">
-            <img src="/001.png" class="w-48 h-48 object-cover float-left m-2" />
+            <ImageModal
+              imageUrl="/001.png"
+              altText="ランダム画像3"
+              className="c-column-img"
+              client:only
+            />
             <p>{herb.description}</p>
-            <img
-              src="/001.png"
-              class="w-48 h-48 object-cover float-right m-2"
+            <ImageModal
+              imageUrl="/001.png"
+              altText="ランダム画像3"
+              className="c-column-img"
+              client:only
             />
             <p>{herb.description}</p>
           </div>
@@ -264,17 +309,18 @@ try {
 
         <section class="clear-both">
           <div class="c-column-head">
-            <strong>History</strong>
+            <span class="font-[Stoke]">History</span>
             <h3 class="text-xs italic">
               {herb.name_jp} ({herb.name_scientific})の歴史と民俗
             </h3>
           </div>
           <div class="c-column-body space-y-2">
             <p>{herb.description}</p>
-            <img
-              src="/001.png"
-              alt=""
-              class="w-48 h-48 object-cover float-left m-2"
+            <ImageModal
+              imageUrl="/001.png"
+              altText="ランダム画像3"
+              className="c-column-img"
+              client:only
             />
             <p>{herb.description}</p>
           </div>
@@ -282,7 +328,7 @@ try {
 
         <section class="clear-both">
           <div class="c-column-head">
-            <strong>Tags</strong>
+            <span class="font-[Stoke]">Tags</span>
             <h3 class="text-xs italic">
               {herb.name_jp} ({herb.name_scientific})の特徴タグ
             </h3>
@@ -319,25 +365,38 @@ try {
         </section>
         <section>
           <h3 class="c-column-head">Reserches</h3>
-          <p class="c-column-body">{herb.research_papers}</p>
+          <p class="c-column-body">
+            {herb.research_papers}
+            <a
+              href="http://"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="c-external-link">test</a
+            >
+          </p>
         </section>
       </div>
     </article>
 
     <section>
-      <div class="flex justify-between border-b-2 py-1 m-4 mt-8">
-        <strong class="mr-2 text-[3rem] leading-[3rem]">OTHER HERBS</strong>
+      <div
+        class="flex flex-col sm:flex-row justify-between border-b-2 pb-2 mt-12 mb-4"
+      >
+        <span
+          class="mr-2 text-[2.5rem] sm:text-[3rem] leading-[3rem] font-[Stoke] font-thin"
+          >Other Herbs</span
+        >
       </div>
 
-      <aside class="flex flex-wrap justify-items-start gap-4 px-4 mb-12">
+      <aside class="flex flex-wrap justify-items-start gap-4 mb-12">
         <a
           class="herb-decoration relative flex flex-1 basis-auto sm:max-w-xs w-[200px]"
         >
           <div></div>
           <div class="relative max-md:flex-col">
             <div class="flex flex-col justify-center px-6">
-              <strong class="text-center border-b border-dashed pb-1"
-                >Rumex crispus</strong
+              <span class="text-center border-b border-dashed pb-1 font-[Stoke]"
+                >Rumex crispus</span
               >
               <p class="text-sm leading-5 py-3">
                 タデ科ギシギシ属の多年草で、ヨーロッパ原産だが世界各地に分布。葉は細長く波打ち、根は黄色を帯びる。湿地や道端に自生し、耐久性が高い。根は生薬「羊蹄根（ようていこん）」として下剤や皮膚病治療に用いられるほか、葉は若いものが食用となる。
@@ -404,5 +463,5 @@ try {
         </a>
       </aside>
     </section>
-  </main>
+  </div>
 </Layout>

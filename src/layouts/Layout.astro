@@ -11,66 +11,41 @@ import "../styles/global.css";
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>Astro Basics</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Gravitas+One&family=Noto+Sans+JP:wght@100..900&family=Noto+Serif+JP:wght@200..900&family=Playwrite+DK+Loopet:wght@100..400&family=Stoke:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
   </head>
-  <body class="flex gap-[1.5rem] bg-vintage-paper max-lg:flex-col">
-    <div class="flex-4 relative min-h-screen border-r-1 border-black max-w-5xl w-full">
-      <p
-        class="absolute h-full overflow-hidden -right-[1.5rem] whitespace-nowrap [writing-mode:vertical-rl]"
+  <body class="bg-vintage-paper">
+    <header
+      class="flex justify-between items-center border-b border-vintage-ink"
+    >
+      <div
+        class="c-content mb-1 py-8 sm:py-12 px-4 sm:px-10 text-center sm:text-left border-x border-vintage-ink"
       >
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda eum
-        libero deserunt aperiam nisi qui voluptas, molestiae odit possimus
-        magnam sapiente nostrum dolore rerum dignissimos sunt quisquam
-        cupiditate sint? Quod.
-      </p>
-      <header
-        class="flex justify-between items-center border-b border-black bg-grid"
-      >
-        <a
-          href="/"
-          class="p-2 mx-4 bg-vintage-paper text-7xl bold border border-black"
+        <a href="/" class="block text-7xl bold font-[Playwrite_DK_Loopet]"
           >Cauldi</a
         >
-        <div class="bg-vintage-paper border-l border-black p-[50px]">
-          <nav></nav>
-          <SearchInput client:load />
-        </div>
-      </header>
-      <main>
-        <slot />
-      </main>
-    </div>
+        <!-- <div class="bg-vintage-paper border-l border-vintage-ink p-[50px]">
+        <nav></nav>
+        <SearchInput client:load />
+      </div> -->
+      </div>
+    </header>
+    <main>
+      <slot />
+    </main>
     <footer
-      class="max-w-xs w-full flex flex-1 flex-wrap items-center content-start gap-2 py-2 pr-2"
+      class="flex justify-between items-center border-t border-vintage-ink"
     >
-      <a class="c-footer-tag">Lorem</a>
-      <a class="c-footer-tag">ipsum</a>
-      <a class="c-footer-tag">dolor</a>
-      <a class="c-footer-tag">sit</a>
-      <a class="c-footer-tag">amet,</a>
-      <a class="c-footer-tag">consectetur</a>
-      <a class="c-footer-tag">adipisicing</a>
-      <a class="c-footer-tag">elit.</a>
-      <a class="c-footer-tag">Accusamus,</a>
-      <a class="c-footer-tag">incidunt,</a>
-      <a class="c-footer-tag">accusantium</a>
-      <a class="c-footer-tag">earum</a>
-      <a class="c-footer-tag">ab</a>
-      <a class="c-footer-tag">eum</a>
-      <a class="c-footer-tag">nobis</a>
-      <a class="c-footer-tag">minus</a>
-      <a class="c-footer-tag">maxime</a>
-      <a class="c-footer-tag">cupiditate</a>
-      <a class="c-footer-tag">laudantium</a>
-      <a class="c-footer-tag">dolores</a>
-      <a class="c-footer-tag">aut</a>
-      <a class="c-footer-tag">mollitia</a>
-      <a class="c-footer-tag">aperiam</a>
-      <a class="c-footer-tag">facilis</a>
-      <a class="c-footer-tag">placeat</a>
-      <a class="c-footer-tag">vel</a>
-      <a class="c-footer-tag">error</a>
-      <a class="c-footer-tag">quos</a>
-      <a class="c-footer-tag">neque</a>
+      <div
+        class="c-content mt-1 py-8 sm:py-12 px-4 sm:px-10 text-center sm:text-left border-x border-vintage-ink"
+      >
+        あｓだｋだおｐｓ
+      </div>
     </footer>
   </body>
 </html>

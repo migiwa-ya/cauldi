@@ -7,20 +7,9 @@ CREATE TABLE herbs (
     name_en TEXT,
     description TEXT,
     compound_id INTEGER,
-    <!-- flavor_profile TEXT, -->
     research_papers TEXT,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (compound_id) REFERENCES compounds(id) ON DELETE SET NULL
-);
-
--- ハーブ画像テーブル
-CREATE TABLE herb_images (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    herb_id INTEGER NOT NULL,
-    image_url TEXT NOT NULL,
-    name TEXT,
-    caption TEXT,
-    FOREIGN KEY (herb_id) REFERENCES herbs(id) ON DELETE CASCADE
 );
 
 -- 成分テーブル
@@ -40,6 +29,31 @@ CREATE TABLE reports (
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (usage_method_id) REFERENCES usage_methods(id) ON DELETE SET NULL
 );
+CREATE TABLE herb_states (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    state TEXT NOT NULL UNIQUE
+);
+CREATE TABLE herb_parts (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    part TEXT NOT NULL UNIQUE
+);
+CREATE TABLE usage_methods (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    method TEXT NOT NULL UNIQUE,
+    description TEXT
+);
+CREATE TABLE report_herbs (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    report_id INTEGER,
+    herb_id INTEGER,
+    herb_state_id INTEGER,
+    herb_part_id INTEGER,
+    description TEXT,
+    FOREIGN KEY (report_id) REFERENCES reports(id) ON DELETE CASCADE,
+    FOREIGN KEY (herb_id) REFERENCES herbs(id) ON DELETE CASCADE,
+    FOREIGN KEY (herb_state_id) REFERENCES herb_states(id) ON DELETE SET NULL,
+    FOREIGN KEY (herb_part_id) REFERENCES herb_parts(id) ON DELETE SET NULL
+);
 
 -- レポート画像テーブル
 CREATE TABLE report_images (
@@ -50,15 +64,6 @@ CREATE TABLE report_images (
     caption TEXT,
     sort_order INTEGER DEFAULT 0,
     FOREIGN KEY (report_id) REFERENCES reports(id) ON DELETE CASCADE
-);
-
--- レポートとハーブの関連テーブル（多対多）
-CREATE TABLE report_herbs (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    report_id INTEGER NOT NULL,
-    herb_id INTEGER NOT NULL,
-    FOREIGN KEY (report_id) REFERENCES reports(id) ON DELETE CASCADE,
-    FOREIGN KEY (herb_id) REFERENCES herbs(id) ON DELETE CASCADE
 );
 
 -- レポートの風味評価テーブル
@@ -75,13 +80,6 @@ CREATE TABLE herb_report_flavors (
     aroma_intensity INTEGER CHECK (aroma_intensity BETWEEN 0 AND 10),
     aftertaste TEXT,
     FOREIGN KEY (report_id) REFERENCES reports(id) ON DELETE CASCADE
-);
-
--- 利用方法テーブル
-CREATE TABLE usage_methods (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
-    description TEXT NOT NULL
 );
 
 -- タグマスターテーブル
