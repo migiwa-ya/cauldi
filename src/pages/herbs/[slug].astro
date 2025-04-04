@@ -1,92 +1,27 @@
 ---
+import { loadAllHerbs, getHerbBySlug } from "../../utils/loadHerbs";
+import type { APIContext } from "astro";
+import type { Herb } from "../../types/herbs";
+
 export async function getStaticPaths() {
-  try {
-    const response = await fetch(
-      "https://your-cloudflare-worker-url/api/herbs"
-    );
-    const herbs = await response.json();
-    return herbs.map((herb: { name_scientific: string }) => ({
-      params: { slug: herb.name_scientific },
-    }));
-  } catch (error) {
-    // Fallback to dummy paths for local development
-    return [
-      { params: { slug: "ScientificName1" } },
-      { params: { slug: "ScientificName2" } },
-      { params: { slug: "ScientificName3" } },
-    ];
-  }
+  const herbs = await loadAllHerbs();
+  return herbs.map((herb) => ({
+    params: { slug: herb.slug }, props: { herb }
+  }));
 }
+
+export function GET({ props }: APIContext) {
+  return new Response(
+    JSON.stringify({ herb: props.herb }),
+  );
+}
+
+const { herb }: { herb: Herb } = Astro.props;
 
 import Layout from "../../layouts/Layout.astro";
 import HerbImages from "../../components/HerbImages.tsx";
 import HerbCompounds from "../../components/HerbCompounds.tsx";
 import ImageModal from "../../components/ImageModal";
-
-const { slug } = Astro.params;
-type Herb = {
-  name_jp: string;
-  name_common_jp: string;
-  name_scientific: string;
-  name_en: string;
-  description: string;
-  flavor_profile: string;
-  research_papers: string;
-  images: { url: string; caption: string }[];
-  compounds: { name: string; effect: string }[];
-  relatedReports: { id: number; title: string }[];
-  tags: { id: number; name: string; type: string; description: string }[];
-};
-
-let herb: Herb;
-
-try {
-  const response = await fetch(
-    `https://your-cloudflare-worker-url/api/herbs/${slug}`
-  );
-  herb = await response.json();
-  // Assuming the API returns related reports and tags as part of the herb data
-  herb.relatedReports = herb.relatedReports || [];
-  herb.tags = herb.tags || [];
-} catch (error) {
-  // Fallback to dummy data for local development
-  herb = {
-    name_jp: "イエロードッグ",
-    name_common_jp: "一般名",
-    name_scientific: "Rumex crispus",
-    name_en: "Rumex crispus",
-    description:
-      "茎は直立して、多数、枝分かれする。下部の葉は長楕円形で、長い柄があり、縁は細かく波打つ。上につくほど葉は小さくなり、柄が短く、上部では苞葉となる。葉先は丸く、基部は楔形。花は長い総状花序につき、多段に密に輪生する。茎は直立して、多数、枝分かれする。下部の葉は長楕円形で、長い柄があり、縁は細かく波打つ。上につくほど葉は小さくなり、柄が短く、上部では苞葉となる。葉先は丸く、基部は楔形。花は長い総状花序につき、多段に密に輪生する。",
-    flavor_profile: "フレーバープロファイル",
-    research_papers: "関連研究論文",
-    images: [
-      { url: "/path/to/image1.jpg", caption: "画像1のキャプション" },
-      { url: "/path/to/image2.jpg", caption: "画像2のキャプション" },
-    ],
-    compounds: [
-      { name: "成分名1", effect: "効果1" },
-      { name: "成分名2", effect: "効果2" },
-    ],
-    relatedReports: [
-      { id: 1, title: "レポート1" },
-      { id: 2, title: "レポート2" },
-    ],
-    tags: [
-      {
-        id: 1,
-        name: "フレーバー",
-        type: "flavor",
-        description: "フレーバーに関するタグ",
-      },
-      {
-        id: 2,
-        name: "ムード",
-        type: "mood",
-        description: "ムードに関するタグ",
-      },
-    ],
-  };
-}
 ---
 
 <Layout>
@@ -170,27 +105,27 @@ try {
     }
   </style>
   <div class="flex justify-center border-b-1">
-    <div
-      class="c-content my-1 text-center border-x border-vintage-ink"
-    >
+    <div class="c-content my-1 text-center border-x border-vintage-ink">
       <nav class="text-xs text-gray-600" aria-label="パンくずリスト">
         <ol class="flex flex-wrap items-center justify-center">
           <li>
             <a href="/" class="underline text-link">Home</a>
           </li>
           <li class="before:content-['›'] before:mx-2 before:text-gray-400">
-            <a href="/natural-therapy/herbs" class="underline text-link">Herbs</a>
+            <a href="/natural-therapy/herbs" class="underline text-link"
+              >Herbs</a
+            >
           </li>
           <li
             class="before:content-['›'] before:mx-2 before:text-gray-400"
             aria-current="page"
           >
-            {herb.name_scientific}
+            {herb.nameScientific}
           </li>
         </ol>
       </nav>
       <h1 class="font-bold">
-        {herb.name_jp} ({herb.name_scientific})とは
+        {herb.nameJa} ({herb.nameScientific})とは
       </h1>
     </div>
   </div>
@@ -201,7 +136,7 @@ try {
         <div
           class="border-r w-full font-serif my-[3px] p-6 max-md:border-0! max-md:border-b-1!"
         >
-          <h2 class="block mb-1 text-center font-bold">{herb.name_jp}の概要</h2>
+          <h2 class="block mb-1 text-center font-bold">{herb.nameJa}の概要</h2>
           <p>
             タデ科ギシギシ属の多年草で、ヨーロッパ原産だが世界各地に分布。葉は細長く波打ち、根は黄色を帯びる。湿地や道端に自生し、耐久性が高い。根は生薬「羊蹄根（ようていこん）」として下剤や皮膚病治療に用いられるほか、葉は若いものが食用となる。
           </p>
@@ -218,7 +153,7 @@ try {
           class="border-l w-full font-serif my-[3px] p-6 max-md:border-0! max-md:border-t-1!"
         >
           <h2 class="block mb-1 text-center font-bold">
-            {herb.name_jp}の期待される効能
+            {herb.nameJa}の期待される効能
           </h2>
           <p>
             生薬「羊蹄根（ようていこん）」として利用され、主に緩下作用（便秘改善）が期待される。根に含まれるアントラキノン誘導体が腸を刺激し、排便を促す。また、抗炎症作用や抗菌作用があり、皮膚疾患や湿疹の治療にも使われる。さらに、抗酸化作用があり、体内の老化防止やデトックス効果も期待される。
@@ -284,8 +219,8 @@ try {
           <div class="c-column-head">
             <span class="font-[Stoke]">Rumex crispus</span>
             <h3 class="text-xs italic">
-              {herb.name_jp} ({
-                herb.name_scientific
+              {herb.nameJa} ({
+                herb.nameScientific
               })の基本的な構造と生息地について
             </h3>
           </div>
@@ -311,7 +246,7 @@ try {
           <div class="c-column-head">
             <span class="font-[Stoke]">History</span>
             <h3 class="text-xs italic">
-              {herb.name_jp} ({herb.name_scientific})の歴史と民俗
+              {herb.nameJa} ({herb.nameScientific})の歴史と民俗
             </h3>
           </div>
           <div class="c-column-body space-y-2">
@@ -330,43 +265,36 @@ try {
           <div class="c-column-head">
             <span class="font-[Stoke]">Tags</span>
             <h3 class="text-xs italic">
-              {herb.name_jp} ({herb.name_scientific})の特徴タグ
+              {herb.nameJa} ({herb.nameScientific})の特徴タグ
             </h3>
           </div>
           <div class="c-column-body flex gap-3">
             {
-              herb.tags.map(
-                (tag: {
-                  id: number;
-                  name: string;
-                  type: string;
-                  description: string;
-                }) => (
-                  <a href={`/tags/${tag.id}`} class="c-footer-tag">
-                    <span class="font-bold">{tag.name}</span>
-                  </a>
-                )
-              )
+              herb.tags?.map((tag) => (
+                <a href={`/tags/${tag.id}`} class="c-footer-tag">
+                  <span class="font-bold">{tag.name}</span>
+                </a>
+              ))
             }
           </div>
         </section>
 
-        <section>
+        <!-- <section>
           <h3 class="c-column-head">Images</h3>
           <div class="c-column-body">
             <HerbImages images={herb.images} />
           </div>
-        </section>
-        <section>
+        </section> -->
+        <!-- <section>
           <h3 class="c-column-head">Compunds</h3>
           <div class="c-column-body">
             <HerbCompounds compounds={herb.compounds} />
           </div>
-        </section>
+        </section> -->
         <section>
           <h3 class="c-column-head">Reserches</h3>
           <p class="c-column-body">
-            {herb.research_papers}
+            {herb.researchPapers}
             <a
               href="http://"
               target="_blank"

@@ -1,171 +1,117 @@
-# 🚀 Astro.js + Cloudflare Workers + D1 + Cache でSEO対応ハーブ紹介サイトを構築する
+# stack
 
-## **🌿 目的**
-- **コストを抑えつつD1からデータを取得**
-- **SEO対応のため、SSR（サーバーサイドレンダリング）を実施**
-- **Cloudflare Workers + Cache API を活用し、高速なレスポンスを実現**
+## 📁 `content/` Directory Structure
 
----
-
-## **🛠️ 技術スタック**
-- **Astro.js**（フロントエンド、SSR対応）
-- **Cloudflare Workers**（APIサーバー）
-- **Cloudflare D1**（データベース）
-- **Cloudflare Cache API**（キャッシュによる高速化）
-
----
-
-## **🔄 仕組み**
-1. **フロントエンド（Astro.js）から Cloudflare Workers の API を `fetch()`**
-2. **Workers が Cache API を確認**
-   - **キャッシュあり →** キャッシュを返す
-   - **キャッシュなし →** D1 にクエリを実行し、取得データをキャッシュしつつレスポンスを返す
-3. **キャッシュを一定時間（例: 1時間）維持し、D1 のクエリ数を削減**
-4. **Astro.js は SSR でデータを取得し、SEO 対応**
-
----
-
-## **📌 1. Cloudflare Workers の設定**
-### **`wrangler.toml`**
-```toml
-name = "herbs-api"
-type = "javascript"
-
-[[ d1_databases ]]
-binding = "DB"
-database_name = "herb-db"
-database_id = "<D1_DATABASE_ID>"
+```txt
+content/
+├── herbs/               # One file per herb, named by slug (scientific name)
+│   └── matricaria-chamomilla.md
+├── reports/             # User-submitted reports
+│   └── {id}.md
+├── herbStates.yaml      # List of herb forms (e.g. dry, fresh)
+├── processes.yaml       # List of extraction methods (e.g. infusion, tincture)
+├── usageMethods.yaml    # List of usage styles (e.g. hot, iced)
 ```
 
 ---
 
-## **📌 2. Cloudflare Workers の実装**
-### **`src/api.js`**
-```js
-export default {
-    async fetch(request, env) {
-        const url = new URL(request.url);
+## 📄 `herbs/{slug}.md` (e.g. `matricaria-chamomilla.md`)
 
-        if (url.pathname === "/api/herbs") {
-            return getHerbs(env);
-        } else if (url.pathname.startsWith("/api/herbs/")) {
-            const id = url.pathname.split("/").pop();
-            return getHerbById(env, id);
-        }
+```yaml
+---
+id: 1
+nameJa: カモミール
+nameCommonJa: ジャーマンカモミール
+nameScientific: Matricaria chamomilla
+nameEn: Chamomile
+compoundId: 1
+updatedAt: 2025-04-01T10:00:00+09:00
+tags:
+  - name: relax
+    type: mood
+  - name: night
+    type: time
+---
 
-        return new Response("Not Found", { status: 404 });
-    }
-};
-
-// キャッシュ取得・更新関数
-async function fetchWithCache(env, cacheKey, query, bindParams = []) {
-    const cache = caches.default;
-
-    // キャッシュを確認
-    let response = await cache.match(cacheKey);
-    if (response) {
-        return response;
-    }
-
-    // D1 からデータを取得
-    const { results } = await env.DB.prepare(query).bind(...bindParams).all();
-    if (results.length === 0) {
-        return new Response("Not Found", { status: 404 });
-    }
-
-    // JSON レスポンスを作成
-    const json = JSON.stringify(results);
-    response = new Response(json, {
-        headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "public, max-age=3600" // 1時間キャッシュ
-        }
-    });
-
-    // キャッシュに保存
-    await cache.put(cacheKey, response.clone());
-
-    return response;
-}
-
-// ハーブ一覧取得（キャッシュ対応）
-async function getHerbs(env) {
-    const cacheKey = new Request("https://cache.herbs.api/herbs");
-    return fetchWithCache(env, cacheKey, "SELECT id, name, description FROM herbs");
-}
-
-// 個別ハーブ取得（キャッシュ対応）
-async function getHerbById(env, id) {
-    const cacheKey = new Request(`https://cache.herbs.api/herbs/${id}`);
-    return fetchWithCache(env, cacheKey, "SELECT * FROM herbs WHERE id = ?", [id]);
-}
+A soothing herb often used before bed...
 ```
 
 ---
 
-## **📌 3. Astro.js フロントエンド**
-### **`src/pages/herbs.astro`（ハーブ一覧ページ）**
-```astro
----
-const response = await fetch("https://your-cloudflare-worker-url/api/herbs");
-const herbs = await response.json();
----
-<html>
-<head>
-    <title>ハーブ一覧</title>
-</head>
-<body>
-    <h1>ハーブ一覧</h1>
-    <ul>
-        {herbs.map(herb => (
-            <li><a href={`/herb/${herb.id}`}>{herb.name}</a></li>
-        ))}
-    </ul>
-</body>
-</html>
-```
+## 📄 `reports/{id}.md`
 
-### **`src/pages/herb/[id].astro`（個別ハーブページ）**
-```astro
+```yaml
 ---
-const { id } = Astro.params;
-const response = await fetch(`https://your-cloudflare-worker-url/api/herbs/${id}`);
-const herb = await response.json();
+id: 1
+summary: Tried chamomile tincture with soda at night
+processId: 2           # e.g. tincture
+usageMethodId: 3       # e.g. sodaMix
+updatedAt: 2025-04-01T23:30:00+09:00
+herbs:
+  - herbId: 1
+    herbStateId: 1     # e.g. dry
+    herbPartId: 2      # e.g. flower
+flavor:
+  bitterness: 2
+  sweetness: 6
+  aromaType: floral
+images:
+  - imageUrl: /images/reports/1_img1.jpg
+    caption: Freshly made
 ---
-<html>
-<head>
-    <title>{herb.name} - ハーブ紹介</title>
-</head>
-<body>
-    <h1>{herb.name}</h1>
-    <p>{herb.description}</p>
-    <a href="/herbs">← 戻る</a>
-</body>
-</html>
+
+I felt more relaxed and warm after drinking this...
 ```
 
 ---
 
-## **📌 4. 仕組みのポイント**
-### ✅ **Cloudflare Workers の Cache API を活用**
-- 初回アクセス時に D1 からデータを取得し、Cloudflare Cache API に保存
-- 次回以降はキャッシュを返し、D1 のクエリを減らしてコスト削減
+## 📄 `herbStates.yaml`
 
-### ✅ **SEO に最適な形で D1 のデータを提供**
-- Astro.js は SSR（サーバーサイドレンダリング）対応
-- 検索エンジンに直接 HTML を渡せるので SEO に有利
-
-### ✅ **コスト削減**
-- **Cloudflare Workers 無料枠**: **月10万リクエスト無料**
-- **D1 無料枠**: **1日10万クエリ無料**
-- **キャッシュを活用し、D1 へのリクエストを最小限に抑える**
+```yaml
+- id: 1
+  state: dry
+- id: 2
+  state: fresh
+```
 
 ---
 
-## **💡 まとめ**
-✅ **Cloudflare Workers 経由で D1 にアクセスし、キャッシュを作成**  
-✅ **キャッシュがない場合は D1 からデータを取得してキャッシュを作成**  
-✅ **Astro.js の SSR により SEO にも対応**  
-✅ **Cloudflare の無料枠を活用し、運用コストを抑える**
+## 📄 `processes.yaml`
 
-この方法なら、**コストを抑えつつ、SEO に強く、高速なハーブ紹介サイト** を構築できます！ 🚀
+```yaml
+- id: 1
+  nameEn: infusion
+  nameJa: ハーブティー
+  description: Extract with hot water (e.g. tea).
+- id: 2
+  nameEn: tincture
+  nameJa: チンキ
+  description: Extract with alcohol.
+```
+
+---
+
+## 📄 `usageMethods.yaml`
+
+```yaml
+- id: 1
+  nameEn: hot
+  nameJa: ホット
+  description: Drink warm.
+- id: 2
+  nameEn: iced
+  nameJa: アイス
+  description: Drink cold.
+- id: 3
+  nameEn: sodaMix
+  nameJa: 炭酸割り
+  description: Mix with soda water.
+```
+
+---
+
+## 🔍 Notes
+
+- `herbs/*.md` files are named using a **slugified version of `nameScientific`**
+- Tags are embedded in each herb file, not stored separately
+- `usageMethodId` is excluded from group ID logic (used for filtering only)

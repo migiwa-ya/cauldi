@@ -1,0 +1,34 @@
+- id: 1
+  nameEn: hot
+  nameJa: ホット
+  description: 温かくして飲む。香りや風味をしっかり感じられる。
+
+- id: 2
+  nameEn: iced
+  nameJa: アイス
+  description: 冷たくして飲む。夏におすすめ。
+
+- id: 3
+  nameEn: sodaMix
+  nameJa: 炭酸割り
+  description: 炭酸水で割ってスッキリとした飲み口に。
+
+- id: 4
+  nameEn: milkMix
+  nameJa: ミルク割り
+  description: ミルクで割ってまろやかさを追加。
+
+- id: 5
+  nameEn: compress
+  nameJa: 湿布
+  description: ハーブ液を布に浸して、肌に貼って使用する。
+
+- id: 6
+  nameEn: inhalation
+  nameJa: 吸入
+  description: 蒸気などを鼻や口から吸って使用する。
+
+- id: 7
+  nameEn: bath
+  nameJa: 入浴
+  description: お風呂にハーブを入れて全身で成分を吸収する。

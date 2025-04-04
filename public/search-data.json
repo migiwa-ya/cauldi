@@ -1,0 +1,42 @@
+{
+  "searchData": {
+    "herbs": [
+      {
+        "id": 1,
+        "nameJa": "カモミール",
+        "nameEn": "Chamomile",
+        "nameScientific": "Matricaria chamomilla",
+        "tagIds": [
+          1,
+          1
+        ]
+      }
+    ],
+    "reports": [
+      {
+        "id": 1,
+        "summary": "夜にホットで飲んだ感想",
+        "updatedAt": "2025-04-01T14:30:00.000Z",
+        "herbIds": [
+          1
+        ],
+        "groupId": "c91649"
+      }
+    ],
+    "tags": [
+      {
+        "id": 1
+      }
+    ]
+  },
+  "herbTags": [
+    {
+      "herbId": 1,
+      "tagId": 1
+    },
+    {
+      "herbId": 1,
+      "tagId": 1
+    }
+  ]
+}

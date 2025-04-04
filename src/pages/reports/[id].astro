@@ -191,7 +191,9 @@ try {
   <div class="flex justify-center border-b-1">
     <div class="c-content my-1 text-center border-x border-vintage-ink">
       <nav class="text-xs text-gray-600" aria-label="パンくずリスト">
-        <ol class="flex flex-nowrap items-center sm:justify-center justify-left line-clamp-1 text-nowrap pl-3 overflow-auto">
+        <ol
+          class="flex flex-nowrap items-center sm:justify-center justify-left line-clamp-1 text-nowrap pl-3 overflow-auto"
+        >
           <li>
             <a href="/" class="underline text-link">Home</a>
           </li>
@@ -206,14 +208,12 @@ try {
           >
             {report.relatedHerbs.map((e) => e.name_jp).join("・")}の{
               report.process
-            }｜{report.usage}（{report.elements.map((e) => e.name).join("・")}）
+            }
           </li>
         </ol>
       </nav>
       <h1 class="font-bold">
-        {report.relatedHerbs.map((e) => e.name_jp).join("・")}の{
-          report.process
-        }｜{report.usage}（{report.elements.map((e) => e.name).join("・")}）
+        {report.relatedHerbs.map((e) => e.name_jp).join("・")}の{report.process}
       </h1>
     </div>
   </div>
@@ -228,7 +228,7 @@ try {
         class="flex gap-1 justify-between absolute right-1 -top-7 w-full line-clamp-1 text-nowrap"
       >
         <h2 class="flex-1 pl-2">
-          {report.elements.map((e) => `${e.name}（${e.desc}）`).join("・")}
+          {report.relatedHerbs.map((e) => e.name_jp).join("・")}の{report.process}の{report.usage}
         </h2>
         <time datetime="">2025/03/05</time>
         <span>RD000000021</span>
@@ -259,7 +259,7 @@ try {
         <dl class="inline relative p-4 py-2 border-r">
           <dt class="inline absolute left-0 px-2 text-xs whitespace-nowrap">
             用途
-          </dt><dd class="inline">炭酸割り</dd>
+          </dt><dd class="inline">お湯割り</dd>
         </dl>
         <dl class="inline relative p-4 py-2 border-r">
           <dt class="inline absolute left-0 px-2 text-xs whitespace-nowrap">
