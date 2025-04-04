@@ -1,6 +1,6 @@
 // 製法（Process）
 export interface Process {
-  id: number;
+  slug: string;
   nameEn: string;
   nameJa: string;
   description: string;
@@ -8,7 +8,7 @@ export interface Process {
 
 // 飲み方・使い方（UsageMethod）
 export interface UsageMethod {
-  id: number;
+  slug: string;
   nameEn: string;
   nameJa: string;
   description: string;
@@ -16,7 +16,7 @@ export interface UsageMethod {
 
 // レポートでのハーブ使用情報
 export interface ReportHerb {
-  herbId: number;
+  slug: string;
   herbStateId?: number;
   herbPartId?: number;
   description?: string;
@@ -47,7 +47,8 @@ export interface ReportFlavor {
 export interface Report {
   id: number;
   summary?: string;
-  processId?: number;
+  processSlug: string;
+  usageSlug: string;
   usageMethodId?: number;
   updatedAt: string;
   herbs: ReportHerb[];
@@ -56,4 +57,3 @@ export interface Report {
   content: string; // markdown body
   groupId?: string; // ← スクリプトで自動生成して追加する
 }
-

@@ -19,7 +19,7 @@ content/
 
 ```yaml
 ---
-id: 1
+slug: matricaria-chamomilla
 nameJa: カモミール
 nameCommonJa: ジャーマンカモミール
 nameScientific: Matricaria chamomilla

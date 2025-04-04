@@ -1,37 +1,32 @@
 ---
-import { Image } from "astro:assets";
-import InfiniteScroll from "../components/InfiniteScroll";
 import Layout from "../layouts/Layout.astro";
-import ListItem from "../components/ListItem";
+import List from "../components/List";
+import InfiniteScroll from "../components/InfiniteScroll";
+import { loadAllHerbs } from "../utils/loadHerbs";
+import { loadAllReports } from "../utils/loadReports";
 
-let herbs = [
-  {
-    id: 1,
-    name: "Herb 1",
-    name_scientific: "ScientificName1",
-    description: "Description for Herb 1",
-  },
-  {
-    id: 2,
-    name: "Herb 2",
-    name_scientific: "ScientificName2",
-    description: "Description for Herb 2",
-  },
-  {
-    id: 3,
-    name: "Herb 3",
-    name_scientific: "ScientificName3",
-    description: "Description for Herb 3",
-  },
-];
+const initialHerbs = (await loadAllHerbs()).slice(0, 2).map((herb) => ({
+  id: herb.id,
+  displayName: herb.nameJa || herb.name,
+  link: `/herbs/${herb.slug}`,
+  content: herb.description,
+  updatedAt: herb.updatedAt,
+}));
+
+const initialReports = (await loadAllReports()).slice(0, 2).map((report) => ({
+  id: report.id,
+  displayName: `Report ${report.id}`,
+  link: `/reports/${report.groupId || report.id}`,
+  content: report.summary || "No content available",
+  updatedAt: report.updatedAt,
+}));
 ---
 
 <Layout>
   <section
     class="c-content grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 my-1 p-7 border-x border-vintage-in"
   >
-    {herbs.slice(0, 9).map((herb) => <ListItem item={herb} />)}
-
+    <List items={[...initialHerbs, ...initialReports]} />
     <InfiniteScroll client:load />
   </section>
 </Layout>

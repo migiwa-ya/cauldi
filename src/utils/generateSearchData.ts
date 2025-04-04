@@ -9,16 +9,16 @@ import type { Report } from "../types/reports";
 /**
  * グループIDを生成（herbs + processId を元に）
  */
-function generateReportGroupId(
-  herbs: { herbId: number; herbStateId?: number; herbPartId?: number }[],
-  processId?: number
+export function generateReportGroupId(
+  herbs: { slug: string; herbStateId?: number; herbPartId?: number }[],
+  process?: string
 ): string {
   const herbKey = herbs
-    .map((h) => `${h.herbId}-${h.herbStateId ?? 0}-${h.herbPartId ?? 0}`)
+    .map((h) => `${h.slug}-${h.herbStateId ?? 0}-${h.herbPartId ?? 0}`)
     .sort()
     .join("|");
 
-  const baseKey = `${herbKey}::${processId ?? 0}`;
+  const baseKey = `${herbKey}::${process ?? "unknown"}`;
   const hash = crypto.createHash("md5").update(baseKey).digest("hex");
 
   return hash.slice(0, 6);
@@ -76,32 +76,32 @@ async function main() {
   const REPORTS_DIR = "src/content/reports";
   const OUTPUT_FILE = "public/search-data.json";
 
-  const herbs = await loadMarkdownFiles<Herb>(HERBS_DIR);
-  const reports = await loadMarkdownFiles<Report>(REPORTS_DIR);
+  const herbs = (await loadMarkdownFiles<Herb>(HERBS_DIR)).slice(0, 10);
+  const reports = (await loadMarkdownFiles<Report>(REPORTS_DIR)).slice(0, 10);
 
   const tags = extractTagsFromHerbs(herbs);
   const tagMap = new Map(tags.map((t) => [t.name, t.id]));
 
   const reportsWithGroupId = reports.map((r) => ({
     ...r,
-    groupId: generateReportGroupId(r.herbs ?? [], r.processId),
+    groupId: generateReportGroupId(r.herbs ?? [], r.processSlug),
   }));
 
   const searchData = {
     herbs: herbs.map((h) => ({
-      id: h.id,
-      nameJa: h.nameJa,
-      nameEn: h.nameEn,
-      nameScientific: h.nameScientific,
-      tagIds: (h.tags || [])
-        .map((tag) => tagMap.get(tag.name)!)
-        .filter(Boolean),
+      id: h.slug,
+      displayName: h.nameJa || h.nameEn,
+      link: `/herbs/${h.slug}`,
+      content: h.description,
+      updatedAt: h.updatedAt,
     })),
     reports: reportsWithGroupId.map((r) => ({
       id: r.id,
-      summary: r.summary,
+      displayName: `Report ${r.id}`,
+      link: `/reports/${r.groupId || r.id}`,
+      content: r.summary || "No content available",
       updatedAt: r.updatedAt,
-      herbIds: r.herbs?.map((h) => h.herbId) || [],
+      herbSlugs: r.herbs?.map((h) => h.slug) || [],
       groupId: r.groupId,
     })),
     tags,
@@ -110,7 +110,7 @@ async function main() {
   const herbTags = herbs
     .flatMap((h) =>
       (h.tags || []).map((tag) => ({
-        herbId: h.id,
+        herbSlug: h.slug,
         tagId: tagMap.get(tag.name) ?? -1,
       }))
     )

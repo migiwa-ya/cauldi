@@ -2,25 +2,68 @@
   "searchData": {
     "herbs": [
       {
-        "id": 1,
-        "nameJa": "カモミール",
-        "nameEn": "Chamomile",
-        "nameScientific": "Matricaria chamomilla",
-        "tagIds": [
-          1,
-          1
-        ]
+        "id": "matricaria-chamomilla",
+        "displayName": "カモミール",
+        "link": "/herbs/matricaria-chamomilla",
+        "updatedAt": "2025-04-01T01:00:00.000Z"
+      },
+      {
+        "id": "mentha-piperita",
+        "displayName": "ペパーミント",
+        "link": "/herbs/mentha-piperita",
+        "updatedAt": "2025-04-03T01:00:00.000Z"
+      },
+      {
+        "id": "rosmarinus-officinalis",
+        "displayName": "ローズマリー",
+        "link": "/herbs/rosmarinus-officinalis",
+        "updatedAt": "2025-04-02T01:00:00.000Z"
       }
     ],
     "reports": [
       {
         "id": 1,
-        "summary": "夜にホットで飲んだ感想",
+        "displayName": "Report 1",
+        "link": "/reports/7a9f15",
+        "content": "夜にホットで飲んだ感想",
         "updatedAt": "2025-04-01T14:30:00.000Z",
-        "herbIds": [
-          1
+        "herbSlugs": [
+          "chamomile"
         ],
-        "groupId": "c91649"
+        "groupId": "7a9f15"
+      },
+      {
+        "id": 2,
+        "displayName": "Report 2",
+        "link": "/reports/11ef0d",
+        "content": "朝にアイスで飲んだ感想",
+        "updatedAt": "2025-04-01T23:00:00.000Z",
+        "herbSlugs": [
+          "peppermint"
+        ],
+        "groupId": "11ef0d"
+      },
+      {
+        "id": 3,
+        "displayName": "Report 3",
+        "link": "/reports/dd958b",
+        "content": "昼にソーダ割りで飲んだ感想",
+        "updatedAt": "2025-04-02T03:30:00.000Z",
+        "herbSlugs": [
+          "lavender"
+        ],
+        "groupId": "dd958b"
+      },
+      {
+        "id": 4,
+        "displayName": "Report 4",
+        "link": "/reports/5801de",
+        "content": "夕方にミルク割りで飲んだ感想",
+        "updatedAt": "2025-04-02T08:00:00.000Z",
+        "herbSlugs": [
+          "ginger"
+        ],
+        "groupId": "5801de"
       }
     ],
     "tags": [
@@ -31,11 +74,27 @@
   },
   "herbTags": [
     {
-      "herbId": 1,
+      "herbSlug": "matricaria-chamomilla",
       "tagId": 1
     },
     {
-      "herbId": 1,
+      "herbSlug": "matricaria-chamomilla",
+      "tagId": 1
+    },
+    {
+      "herbSlug": "mentha-piperita",
+      "tagId": 1
+    },
+    {
+      "herbSlug": "mentha-piperita",
+      "tagId": 1
+    },
+    {
+      "herbSlug": "rosmarinus-officinalis",
+      "tagId": 1
+    },
+    {
+      "herbSlug": "rosmarinus-officinalis",
       "tagId": 1
     }
   ]

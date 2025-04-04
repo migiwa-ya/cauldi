@@ -35,6 +35,7 @@ export interface Tag {
 export interface Herb {
   id: number;
   slug: string;
+  name: string;
   nameJa: string;
   nameCommonJa?: string;
   nameScientific: string;
