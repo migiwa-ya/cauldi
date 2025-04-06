@@ -1,48 +1,51 @@
-// 成分（Compound）
+import type { Report } from "./reports";
+
 export interface Compound {
-  id: number;
+  slug: string;
   name: string;
-  nameJa?: string;
   nameEn?: string;
   effect: string;
   researchPapers?: string[];
 }
 
-// ハーブ状態（例：ドライ、フレッシュ）
 export interface HerbState {
-  id: number;
-  state: string;
+  slug: string;
+  name: string;
 }
 
-// ハーブ部位（例：花、葉、茎）
 export interface HerbPart {
-  id: number;
-  part: string;
+  slug: string;
+  name: string;
 }
 
-// タグの種類
-export type TagType = 'flavor' | 'mood' | 'time' | 'health';
+export type TagType = "flavor" | "mood" | "time" | "health";
 
-// タグ型（src/types/herbs.ts）
 export interface Tag {
-  id: number;
+  slug: string;
   name: string;
   type: TagType;
   description?: string;
 }
 
-// ハーブ本体
 export interface Herb {
-  id: number;
   slug: string;
   name: string;
-  nameJa: string;
-  nameCommonJa?: string;
   nameScientific: string;
-  nameEn?: string;
+  nameAliases?: string[];
   compoundId?: number;
-  researchPapers?: string[];
+  overview: string;
+  efficacy: string;
+  researchPapers: string[];
   updatedAt: string;
-  tags?: Tag[]; // tag id list
-  description: string; // markdown body
+  createdAt: string;
+  groupIds: string[];
+  tags?: Tag[];
+  description: HerbDescriptionSection[];
+  reports?: Report[];
+}
+
+export interface HerbDescriptionSection {
+  heading: string;
+  subheading: string;
+  text: string;
 }

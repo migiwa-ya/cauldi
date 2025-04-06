@@ -1,6 +1,5 @@
 ---
-id: 1
-nameJa: アピゲニン
+name: アピゲニン
 nameEn: Apigenin
 effect: 鎮静作用、抗炎症作用
 researchPapers:

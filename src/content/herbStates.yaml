@@ -1,4 +1,4 @@
-- id: 1
-  state: ドライ
-- id: 2
-  state: フレッシュ
+- slug: root
+  name: 根
+- slug: leaf
+  name: 葉

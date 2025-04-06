@@ -1,7 +1,7 @@
 import React from 'react';
 
 export interface ListItemData {
-  id: number;
+  id: number | string;
   displayName: string;
   link: string;
   content: string;

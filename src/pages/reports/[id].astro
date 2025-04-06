@@ -139,14 +139,14 @@ const { report } = Astro.props;
             class="before:content-['›'] before:mx-2 before:text-gray-400"
             aria-current="page"
           >
-            {report.herbs.map((e) => e.slug).join("・")}の{
+            {report.herbs.map((rh) => rh.herb.slug).join("・")}の{
               report.processSlug
             }
           </li>
         </ol>
       </nav>
       <h1 class="font-bold">
-        {report.herbs.map((e) => e.slug).join("・")}の{report.processSlug}
+        {report.herbs.map((rh) => rh.herb.name).join("・")}の{report.processSlug}
       </h1>
     </div>
   </div>
@@ -161,7 +161,7 @@ const { report } = Astro.props;
         class="flex gap-1 justify-between absolute right-1 -top-7 w-full line-clamp-1 text-nowrap"
       >
         <h2 class="flex-1 pl-2">
-          {report.herbs.map((e) => e.slug).join("・")}の{report.processSlug}の{report.usageSlug}
+          {report.herbs.map((rh) => rh.herb.slug).join("・")}の{report.processSlug}の{report.usageSlug}
         </h2>
         <time datetime="">2025/03/05</time>
         <span>RD000000021</span>
@@ -178,12 +178,12 @@ const { report } = Astro.props;
             Herbs
           </dt><dd class="inline">
             {
-              report.herbs.map((e) => (
+              report.herbs.map((rh) => (
                 <a
                   href="/herbs"
                   class="text-link mr-2 last:mr-0 after:text-vintage-ink after:ml-2 after:content-['・'] last:after:content-none"
                 >
-                  {e.slug}
+                  {rh.herb.slug}
                 </a>
               ))
             }

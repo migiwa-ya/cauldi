@@ -3,18 +3,18 @@ import fg from "fast-glob";
 import fs from "fs-extra";
 import path from "path";
 import crypto from "crypto";
-import type { Herb, Tag } from "../types/herbs";
-import type { Report } from "../types/reports";
+import type { Herb, HerbPart, HerbState, Tag } from "../types/herbs";
+import type { Report, ReportHerb } from "../types/reports";
 
 /**
- * グループIDを生成（herbs + processId を元に）
+ * グループIDを生成（herbs + processSlug を元に）
  */
 export function generateReportGroupId(
-  herbs: { slug: string; herbStateId?: number; herbPartId?: number }[],
+  reportHerbs: ReportHerb[],
   process?: string
 ): string {
-  const herbKey = herbs
-    .map((h) => `${h.slug}-${h.herbStateId ?? 0}-${h.herbPartId ?? 0}`)
+  const herbKey = reportHerbs
+    .map((rh) => `${rh.herb.slug}-${rh.herbState.slug ?? 0}-${rh.herbPart.slug ?? 0}`)
     .sort()
     .join("|");
 
@@ -50,7 +50,7 @@ function extractTagsFromHerbs(herbs: Herb[]): Tag[] {
     (h.tags || []).forEach((tag) => {
       if (!tagMap.has(tag.name)) {
         tagMap.set(tag.name, {
-          id: tagMap.size + 1,
+          slug: tag.slug,
           name: tag.name,
           type: tag.type,
           description: tag.description,
@@ -80,7 +80,7 @@ async function main() {
   const reports = (await loadMarkdownFiles<Report>(REPORTS_DIR)).slice(0, 10);
 
   const tags = extractTagsFromHerbs(herbs);
-  const tagMap = new Map(tags.map((t) => [t.name, t.id]));
+  const tagMap = new Map(tags.map((t) => [t.name, t.slug]));
 
   const reportsWithGroupId = reports.map((r) => ({
     ...r,
@@ -90,7 +90,7 @@ async function main() {
   const searchData = {
     herbs: herbs.map((h) => ({
       id: h.slug,
-      displayName: h.nameJa || h.nameEn,
+      displayName: h.name,
       link: `/herbs/${h.slug}`,
       content: h.description,
       updatedAt: h.updatedAt,
@@ -101,7 +101,7 @@ async function main() {
       link: `/reports/${r.groupId || r.id}`,
       content: r.summary || "No content available",
       updatedAt: r.updatedAt,
-      herbSlugs: r.herbs?.map((h) => h.slug) || [],
+      herbSlugs: r.herbs?.map((h) => h.herb.slug) || [],
       groupId: r.groupId,
     })),
     tags,

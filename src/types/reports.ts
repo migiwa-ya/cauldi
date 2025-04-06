@@ -1,8 +1,10 @@
+import type { Herb, HerbPart, HerbState } from "./herbs";
+
 // 製法（Process）
 export interface Process {
   slug: string;
   nameEn: string;
-  nameJa: string;
+  name: string;
   description: string;
 }
 
@@ -10,15 +12,15 @@ export interface Process {
 export interface UsageMethod {
   slug: string;
   nameEn: string;
-  nameJa: string;
+  name: string;
   description: string;
 }
 
 // レポートでのハーブ使用情報
 export interface ReportHerb {
-  slug: string;
-  herbStateId?: number;
-  herbPartId?: number;
+  herb: Herb;
+  herbState: HerbState;
+  herbPart: HerbPart;
   description?: string;
 }
 
@@ -54,6 +56,28 @@ export interface Report {
   herbs: ReportHerb[];
   flavor?: ReportFlavor;
   images?: ReportImage[];
-  content: string; // markdown body
-  groupId?: string; // ← スクリプトで自動生成して追加する
+  content: string;
+  groupId?: string;
+}
+
+
+export interface ReportHerbRaw {
+  slug: Herb['slug'];
+  herbStateSlug: HerbState['slug'];
+  herbPartSlug: HerbPart['slug'];
+  description?: string;
+}
+
+export interface ReportRaw {
+  id: number;
+  summary?: string;
+  processSlug: string;
+  usageSlug: string;
+  usageMethodId?: number;
+  updatedAt: string;
+  herbs: ReportHerbRaw[];
+  flavor?: ReportFlavor;
+  images?: ReportImage[];
+  content: string;
+  groupId?: string;
 }

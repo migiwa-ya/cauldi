@@ -1,19 +1,18 @@
 ---
-import { loadAllHerbs, getHerbBySlug } from "../../utils/loadHerbs";
+import { loadAllHerbs } from "../../utils/loadHerbs";
 import type { APIContext } from "astro";
 import type { Herb } from "../../types/herbs";
 
 export async function getStaticPaths() {
   const herbs = await loadAllHerbs();
   return herbs.map((herb) => ({
-    params: { slug: herb.slug }, props: { herb }
+    params: { slug: herb.slug },
+    props: { herb },
   }));
 }
 
 export function GET({ props }: APIContext) {
-  return new Response(
-    JSON.stringify({ herb: props.herb }),
-  );
+  return new Response(JSON.stringify({ herb: props.herb }));
 }
 
 const { herb }: { herb: Herb } = Astro.props;
@@ -22,6 +21,7 @@ import Layout from "../../layouts/Layout.astro";
 import HerbImages from "../../components/HerbImages.tsx";
 import HerbCompounds from "../../components/HerbCompounds.tsx";
 import ImageModal from "../../components/ImageModal";
+import ColumnUnit from "../../components/ColumnUnit";
 ---
 
 <Layout>
@@ -125,7 +125,7 @@ import ImageModal from "../../components/ImageModal";
         </ol>
       </nav>
       <h1 class="font-bold">
-        {herb.nameJa} ({herb.nameScientific})とは
+        {herb.name} ({herb.nameScientific})とは
       </h1>
     </div>
   </div>
@@ -136,10 +136,8 @@ import ImageModal from "../../components/ImageModal";
         <div
           class="border-r w-full font-serif my-[3px] p-6 max-md:border-0! max-md:border-b-1!"
         >
-          <h2 class="block mb-1 text-center font-bold">{herb.nameJa}の概要</h2>
-          <p>
-            タデ科ギシギシ属の多年草で、ヨーロッパ原産だが世界各地に分布。葉は細長く波打ち、根は黄色を帯びる。湿地や道端に自生し、耐久性が高い。根は生薬「羊蹄根（ようていこん）」として下剤や皮膚病治療に用いられるほか、葉は若いものが食用となる。
-          </p>
+          <h2 class="block mb-1 text-center font-bold">{herb.name}の概要</h2>
+          <p>{herb.overview}</p>
         </div>
         <img
           src="/ui/001.png"
@@ -153,43 +151,33 @@ import ImageModal from "../../components/ImageModal";
           class="border-l w-full font-serif my-[3px] p-6 max-md:border-0! max-md:border-t-1!"
         >
           <h2 class="block mb-1 text-center font-bold">
-            {herb.nameJa}の期待される効能
+            {herb.name}の期待される効果・効能
           </h2>
-          <p>
-            生薬「羊蹄根（ようていこん）」として利用され、主に緩下作用（便秘改善）が期待される。根に含まれるアントラキノン誘導体が腸を刺激し、排便を促す。また、抗炎症作用や抗菌作用があり、皮膚疾患や湿疹の治療にも使われる。さらに、抗酸化作用があり、体内の老化防止やデトックス効果も期待される。
-          </p>
+          <p>{herb.efficacy}</p>
         </div>
       </div>
       <div class="border-t border-dashed"></div>
     </div>
 
     <aside class="report-links">
-      <a href="/reports/1" class="report-link-card">
-        <div>
-          <div>
-            <time datetime="">2025/03/25</time>
-            <p>(5g, 250ml)</p>
-          </div>
-          <div>
-            <p>浸出法</p>
-            <p>比較的飲みやすいが苦い</p>
-          </div>
-        </div>
-        <img src="/ui/001.png" alt="" />
-      </a>
-      <a href="/reports/2" class="report-link-card">
-        <div>
-          <div>
-            <time datetime="">2025/03/25</time>
-            <p>(5g, 250ml)</p>
-          </div>
-          <div>
-            <p>浸出法</p>
-            <p>比較的飲みやすいが苦い</p>
-          </div>
-        </div>
-        <img src="/ui/001.png" alt="" />
-      </a>
+      {
+        herb.reports &&
+          herb.reports.map((report) => (
+            <a href={`/reports/${report.groupId}`} class="report-link-card">
+              <div>
+                <div>
+                  <time datetime="">2025/03/25</time>
+                  <p>(5g, 250ml)</p>
+                </div>
+                <div>
+                  <p>浸出法</p>
+                  <p>比較的飲みやすいが苦い</p>
+                </div>
+              </div>
+              <img src="/ui/001.png" alt="" />
+            </a>
+          ))
+      }
     </aside>
 
     <article>
@@ -200,9 +188,17 @@ import ImageModal from "../../components/ImageModal";
           class="mr-2 text-[2.5rem] sm:text-[3rem] leading-[3rem] font-[Stoke] font-thin"
           >About</span
         >
-        <p class="line-clamp-1 self-end font-[Stoke]">
-          Pub. <time class="font-normal" datetime="2024-03-24">24/03/24</time>
-          Upd. <time class="font-normal" datetime="2024-03-25">25/03/24</time>
+        <p class="line-clamp-1 self-end font-[Stoke] text-sm">
+          Pub. <time datetime={herb.createdAt}>
+            {new Date(herb.createdAt).getFullYear().toString().substring(2)}/{
+              new Date(herb.createdAt).getMonth() + 1
+            }/{new Date(herb.createdAt).getDate()}
+          </time>
+          Upd. <time datetime={herb.updatedAt}>
+            {new Date(herb.updatedAt).getFullYear().toString().substring(2)}/{
+              new Date(herb.updatedAt).getMonth() + 1
+            }/{new Date(herb.updatedAt).getDate()}
+          </time>
         </p>
       </div>
 
@@ -216,62 +212,19 @@ import ImageModal from "../../components/ImageModal";
           />
         </section>
         <section class="clear-both">
-          <div class="c-column-head">
-            <span class="font-[Stoke]">Rumex crispus</span>
-            <h3 class="text-xs italic">
-              {herb.nameJa} ({
-                herb.nameScientific
-              })の基本的な構造と生息地について
-            </h3>
-          </div>
-          <div class="c-column-body">
-            <ImageModal
-              imageUrl="/001.png"
-              altText="ランダム画像3"
-              className="c-column-img"
-              client:only
-            />
-            <p>{herb.description}</p>
-            <ImageModal
-              imageUrl="/001.png"
-              altText="ランダム画像3"
-              className="c-column-img"
-              client:only
-            />
-            <p>{herb.description}</p>
-          </div>
+          {herb.description.map((desc) => <ColumnUnit {...desc} />)}
         </section>
-
-        <section class="clear-both">
-          <div class="c-column-head">
-            <span class="font-[Stoke]">History</span>
-            <h3 class="text-xs italic">
-              {herb.nameJa} ({herb.nameScientific})の歴史と民俗
-            </h3>
-          </div>
-          <div class="c-column-body space-y-2">
-            <p>{herb.description}</p>
-            <ImageModal
-              imageUrl="/001.png"
-              altText="ランダム画像3"
-              className="c-column-img"
-              client:only
-            />
-            <p>{herb.description}</p>
-          </div>
-        </section>
-
         <section class="clear-both">
           <div class="c-column-head">
             <span class="font-[Stoke]">Tags</span>
             <h3 class="text-xs italic">
-              {herb.nameJa} ({herb.nameScientific})の特徴タグ
+              {herb.name} ({herb.nameScientific})の特徴タグ
             </h3>
           </div>
           <div class="c-column-body flex gap-3">
             {
               herb.tags?.map((tag) => (
-                <a href={`/tags/${tag.id}`} class="c-footer-tag">
+                <a href={`/tags/${tag.slug}`} class="c-footer-tag">
                   <span class="font-bold">{tag.name}</span>
                 </a>
               ))

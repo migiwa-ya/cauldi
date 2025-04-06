@@ -20,10 +20,10 @@ content/
 ```yaml
 ---
 slug: matricaria-chamomilla
-nameJa: カモミール
-nameCommonJa: ジャーマンカモミール
+name: カモミール
 nameScientific: Matricaria chamomilla
 nameEn: Chamomile
+nameAliases: [ジャーマンカモミール]
 compoundId: 1
 updatedAt: 2025-04-01T10:00:00+09:00
 tags:
@@ -44,13 +44,13 @@ A soothing herb often used before bed...
 ---
 id: 1
 summary: Tried chamomile tincture with soda at night
-processId: 2           # e.g. tincture
+processSlug: 2           # e.g. tincture
 usageMethodId: 3       # e.g. sodaMix
 updatedAt: 2025-04-01T23:30:00+09:00
 herbs:
-  - herbId: 1
-    herbStateId: 1     # e.g. dry
-    herbPartId: 2      # e.g. flower
+  - slug: 1
+    herbStateSlug: 1     # e.g. dry
+    herbPartSlug: 2      # e.g. flower
 flavor:
   bitterness: 2
   sweetness: 6
@@ -81,11 +81,11 @@ I felt more relaxed and warm after drinking this...
 ```yaml
 - id: 1
   nameEn: infusion
-  nameJa: ハーブティー
+  name: ハーブティー
   description: Extract with hot water (e.g. tea).
 - id: 2
   nameEn: tincture
-  nameJa: チンキ
+  name: チンキ
   description: Extract with alcohol.
 ```
 
@@ -96,15 +96,15 @@ I felt more relaxed and warm after drinking this...
 ```yaml
 - id: 1
   nameEn: hot
-  nameJa: ホット
+  name: ホット
   description: Drink warm.
 - id: 2
   nameEn: iced
-  nameJa: アイス
+  name: アイス
   description: Drink cold.
 - id: 3
   nameEn: sodaMix
-  nameJa: 炭酸割り
+  name: 炭酸割り
   description: Mix with soda water.
 ```
 

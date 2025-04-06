@@ -6,10 +6,10 @@ import { loadAllHerbs } from "../utils/loadHerbs";
 import { loadAllReports } from "../utils/loadReports";
 
 const initialHerbs = (await loadAllHerbs()).slice(0, 2).map((herb) => ({
-  id: herb.id,
-  displayName: herb.nameJa || herb.name,
+  id: herb.slug,
+  displayName: herb.name || herb.name,
   link: `/herbs/${herb.slug}`,
-  content: herb.description,
+  content: herb.overview,
   updatedAt: herb.updatedAt,
 }));
 

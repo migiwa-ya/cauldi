@@ -24,46 +24,46 @@
       {
         "id": 1,
         "displayName": "Report 1",
-        "link": "/reports/7a9f15",
+        "link": "/reports/448e80",
         "content": "夜にホットで飲んだ感想",
         "updatedAt": "2025-04-01T14:30:00.000Z",
         "herbSlugs": [
-          "chamomile"
+          "matricaria-chamomilla"
         ],
-        "groupId": "7a9f15"
+        "groupId": "448e80"
       },
       {
         "id": 2,
         "displayName": "Report 2",
-        "link": "/reports/11ef0d",
+        "link": "/reports/0359ee",
         "content": "朝にアイスで飲んだ感想",
         "updatedAt": "2025-04-01T23:00:00.000Z",
         "herbSlugs": [
           "peppermint"
         ],
-        "groupId": "11ef0d"
+        "groupId": "0359ee"
       },
       {
         "id": 3,
         "displayName": "Report 3",
-        "link": "/reports/dd958b",
+        "link": "/reports/dbeee2",
         "content": "昼にソーダ割りで飲んだ感想",
         "updatedAt": "2025-04-02T03:30:00.000Z",
         "herbSlugs": [
           "lavender"
         ],
-        "groupId": "dd958b"
+        "groupId": "dbeee2"
       },
       {
         "id": 4,
         "displayName": "Report 4",
-        "link": "/reports/5801de",
+        "link": "/reports/9fee15",
         "content": "夕方にミルク割りで飲んだ感想",
         "updatedAt": "2025-04-02T08:00:00.000Z",
         "herbSlugs": [
           "ginger"
         ],
-        "groupId": "5801de"
+        "groupId": "9fee15"
       }
     ],
     "tags": [
@@ -72,30 +72,5 @@
       }
     ]
   },
-  "herbTags": [
-    {
-      "herbSlug": "matricaria-chamomilla",
-      "tagId": 1
-    },
-    {
-      "herbSlug": "matricaria-chamomilla",
-      "tagId": 1
-    },
-    {
-      "herbSlug": "mentha-piperita",
-      "tagId": 1
-    },
-    {
-      "herbSlug": "mentha-piperita",
-      "tagId": 1
-    },
-    {
-      "herbSlug": "rosmarinus-officinalis",
-      "tagId": 1
-    },
-    {
-      "herbSlug": "rosmarinus-officinalis",
-      "tagId": 1
-    }
-  ]
+  "herbTags": []
 }
