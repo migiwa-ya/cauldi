@@ -1,23 +1,42 @@
 ---
-import { loadAllReports } from "../../utils/loadReports";
 import type { APIContext } from "astro";
+import db from "../../../staticql.config.ts";
+import Layout from "../../layouts/Layout.astro";
+
+import type { Report, Process } from "../../types/reports";
+import { formatDate } from "../../utils/date";
 
 export async function getStaticPaths() {
-  const reports = await loadAllReports();
-  return reports.map((report) => ({
-    params: { id: report.groupId }, props: { report }
-  }));
-}
+  const reports: Report[] = await db
+    .from("reports")
+    .join("herbs")
+    .join("reportGroups")
+    .join("usageMethods")
+    .options({ indexMode: "only" })
+    .exec();
 
-export function GET({ props }: APIContext) {
-  return new Response(
-    JSON.stringify({ report: props.report }),
+  return await Promise.all(
+    reports.map(async (report) => {
+      const process: Process[] = await db
+        .from("processes")
+        .where("slug", "eq", report.reportGroups[0].processSlug)
+        .options({ indexMode: "only" })
+        .exec();
+
+      report.process = process[0];
+      return {
+        params: { slug: report.reportGroupSlug },
+        props: { report },
+      };
+    })
   );
 }
 
-import Layout from "../../layouts/Layout.astro";
+export function GET({ props }: APIContext) {
+  return new Response(JSON.stringify({ report: props.report }));
+}
 
-const { report } = Astro.props;
+const { report }: { report: Report } = Astro.props;
 ---
 
 <Layout>
@@ -139,14 +158,16 @@ const { report } = Astro.props;
             class="before:content-['›'] before:mx-2 before:text-gray-400"
             aria-current="page"
           >
-            {report.herbs.map((rh) => rh.herb.slug).join("・")}の{
-              report.processSlug
+            {report.herbs.map((herb) => herb.name).join("・")}の{
+              report.process?.name
             }
           </li>
         </ol>
       </nav>
       <h1 class="font-bold">
-        {report.herbs.map((rh) => rh.herb.name).join("・")}の{report.processSlug}
+        {report.herbs.map((herb) => herb.name).join("・")}の{
+          report.process?.name
+        }
       </h1>
     </div>
   </div>
@@ -161,10 +182,14 @@ const { report } = Astro.props;
         class="flex gap-1 justify-between absolute right-1 -top-7 w-full line-clamp-1 text-nowrap"
       >
         <h2 class="flex-1 pl-2">
-          {report.herbs.map((rh) => rh.herb.slug).join("・")}の{report.processSlug}の{report.usageSlug}
+          {report.herbs.map((herb) => herb.name).join("・")}の{
+            report.process?.name
+          }の{report.usageMethods[0].name}
         </h2>
-        <time datetime="">2025/03/05</time>
-        <span>RD000000021</span>
+        <time datetime={formatDate(report.updatedAt)}
+          >{formatDate(report.updatedAt, "Y-m-d")}</time
+        >
+        <span>{report.slug.replaceAll("-", "")}</span>
       </header>
       <strong
         class="block w-64 py-2 mt-6 mb-4 m-auto border-2 border-dashed border-vintage-ink text-vintage-ink text-[3rem] text-center"
@@ -178,12 +203,12 @@ const { report } = Astro.props;
             Herbs
           </dt><dd class="inline">
             {
-              report.herbs.map((rh) => (
+              report.herbs.map((herb) => (
                 <a
-                  href="/herbs"
+                  href={`/herbs/${herb.slug}`}
                   class="text-link mr-2 last:mr-0 after:text-vintage-ink after:ml-2 after:content-['・'] last:after:content-none"
                 >
-                  {rh.herb.slug}
+                  {herb.name}
                 </a>
               ))
             }
@@ -192,20 +217,20 @@ const { report } = Astro.props;
         <dl class="inline relative p-4 py-2 border-r">
           <dt class="inline absolute left-0 px-2 text-xs whitespace-nowrap">
             用途
-          </dt><dd class="inline">お湯割り</dd>
+          </dt><dd class="inline">{report.usageMethods[0].name}</dd>
         </dl>
         <dl class="inline relative p-4 py-2 border-r">
           <dt class="inline absolute left-0 px-2 text-xs whitespace-nowrap">
             構成要素
           </dt><dd class="inline">
-            熱湯（200ml）・レモン果汁（10ml）・水（250ml）・ハチミツ（5g）
+            {report.ingredients.join("・")}
           </dd>
         </dl>
         <dl class="inline relative p-4 py-2 border-r">
           <dt class="inline absolute left-0 px-2 text-xs whitespace-nowrap">
             総合評価
           </dt><dd class="inline">
-            ★★★★★ / {report.summary}
+            {report.summary}
           </dd>
         </dl>
       </section>
@@ -218,18 +243,12 @@ const { report } = Astro.props;
         >
           <strong class="absolute top-2 left-2 text-sm">作り方</strong>
           <ul class="note list-decimal list-inside">
-            <li>カップにカモミールドライ(2g)の花を入れる</li>
-            <li>熱湯200mLを注ぐ</li>
-            <li>フタをして5分蒸らす</li>
-            <li>茶こしでこしてカップに注ぐ</li>
-            <li>好みではちみつを加えて完成</li>
+            {report.recipe.map((r) => <li>{r}</li>)}
           </ul>
         </section>
         <section class="relative w-full px-6 pt-10 pb-6">
           <strong class="absolute top-2 left-2 text-sm">感想</strong>
-          <p class="note">
-            初めの数口、ゴボウらしいやや土っぽいがしつこくない、香ばしい風味。根菜らしいの優しい甘さ。飲みやすく感じる。飲み進めると少しえぐみや、薄い生臭さが目立ち始める。少量のレモン果汁だと却って生臭さが目立つ上、香ばしさも感じられなくなる。ショウガとの相性が良いか？
-          </p>
+          <p class="note">{report.content}</p>
           <ul class="py-4">
             <li
               class="flex items-center justify-start gap-2 w-full font-bold whitespace-nowrap"

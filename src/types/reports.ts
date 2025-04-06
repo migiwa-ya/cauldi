@@ -47,24 +47,33 @@ export interface ReportFlavor {
 
 // レポート全体
 export interface Report {
-  id: number;
+  slug: string;
+  reportGroupSlug: string;
+  ingredients: string[];
   summary?: string;
-  processSlug: string;
   usageSlug: string;
-  usageMethodId?: number;
-  updatedAt: string;
-  herbs: ReportHerb[];
+  recipe: string[];
+  updatedAt: Date;
+  herbs: Herb[];
   flavor?: ReportFlavor;
   images?: ReportImage[];
   content: string;
-  groupId?: string;
+  reportGroups: ReportGroup[];
+  usageMethods: UsageMethod[];
+
+  process?: Process;
 }
 
+export interface ReportGroup {
+  slug: string;
+  herbSlugs: Herb["slug"];
+  processSlug: string;
+}
 
 export interface ReportHerbRaw {
-  slug: Herb['slug'];
-  herbStateSlug: HerbState['slug'];
-  herbPartSlug: HerbPart['slug'];
+  slug: Herb["slug"];
+  herbStateSlug: HerbState["slug"];
+  herbPartSlug: HerbPart["slug"];
   description?: string;
 }
 
@@ -80,4 +89,10 @@ export interface ReportRaw {
   images?: ReportImage[];
   content: string;
   groupId?: string;
+}
+
+export interface Process {
+  slug: string;
+  name: string;
+  description: string;
 }

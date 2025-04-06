@@ -8,16 +8,32 @@ const InfiniteScroll: React.FC = () => {
   const loader = React.useRef(null);
 
   const loadMore = async () => {
-    const response = await fetch("/search-data.json");
-    const data = await response.json();
-    const newHerbs = data.searchData.herbs.slice(
-      visibleItems.length,
-      visibleItems.length + 5
-    );
-    const newReports = data.searchData.reports.slice(
-      visibleItems.length,
-      visibleItems.length + 5
-    );
+    const herbs = await (await fetch("/data/herbs.index.json")).json();
+    const newHerbs = herbs.records
+      .slice(visibleItems.length, visibleItems.length + 5)
+      .map(
+        (h: any): ListItemData => ({
+          id: h.slug,
+          displayName: h.values.name,
+          link: `/herbs/${h.slug}`,
+          content: h.values["tags.name"],
+          updatedAt: h.values.updatedAt,
+        })
+      );
+
+    const reports = await (await fetch("/data/reports.index.json")).json();
+    const newReports = reports.records
+      .slice(visibleItems.length, visibleItems.length + 5)
+      .map(
+        (h: any): ListItemData => ({
+          id: h.slug,
+          displayName: "Report:" + h.values["herbs.name"],
+          link: `/reports/${h.values.reportGroupSlug}`,
+          content: "Report:" + h.values["herbs.name"],
+          updatedAt: h.values.updatedAt,
+        })
+      );
+
     const newItems = [...newHerbs, ...newReports];
 
     if (newItems.length === 0) {

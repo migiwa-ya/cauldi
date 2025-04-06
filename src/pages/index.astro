@@ -2,21 +2,22 @@
 import Layout from "../layouts/Layout.astro";
 import List from "../components/List";
 import InfiniteScroll from "../components/InfiniteScroll";
-import { loadAllHerbs } from "../utils/loadHerbs";
-import { loadAllReports } from "../utils/loadReports";
+import db from "../../staticql.config.ts";
 
-const initialHerbs = (await loadAllHerbs()).slice(0, 2).map((herb) => ({
+const initialHerbs = (await db.from("herbs").exec()).map((herb) => ({
   id: herb.slug,
-  displayName: herb.name || herb.name,
+  displayName: herb.name,
   link: `/herbs/${herb.slug}`,
   content: herb.overview,
   updatedAt: herb.updatedAt,
 }));
 
-const initialReports = (await loadAllReports()).slice(0, 2).map((report) => ({
-  id: report.id,
-  displayName: `Report ${report.id}`,
-  link: `/reports/${report.groupId || report.id}`,
+const initialReports = (
+  await db.from("reports").join("herbs").options({ indexMode: "only" }).exec()
+).map((report) => ({
+  id: report.reportGroupSlug + report.slug,
+  displayName: `Report ${report.slug}`,
+  link: `/reports/${report.reportGroupSlug}`,
   content: report.summary || "No content available",
   updatedAt: report.updatedAt,
 }));

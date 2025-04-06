@@ -1,5 +1,7 @@
 - slug: RG00001
-  herbs: [matricaria-chamomilla]
+  herbSlugs: [matricaria-chamomilla]
+  processSlug: infusion
 
 - slug: RG00002
-  herbs: [mentha-piperita]
+  herbSlugs: [mentha-piperita]
+  processSlug: infusion

@@ -1,14 +1,50 @@
 ---
-import { loadAllHerbs } from "../../utils/loadHerbs";
 import type { APIContext } from "astro";
 import type { Herb } from "../../types/herbs";
+import db from "../../../staticql.config.ts";
+import { formatDate } from "../../utils/date";
 
 export async function getStaticPaths() {
-  const herbs = await loadAllHerbs();
-  return herbs.map((herb) => ({
-    params: { slug: herb.slug },
-    props: { herb },
-  }));
+  const herbs: Herb[] = await db
+    .from("herbs")
+    .join("reports")
+    .join("tags")
+    .options({ indexMode: "only" })
+    .exec();
+
+  return await Promise.all(
+    herbs.map(async (herb) => {
+      herb.description = yamlContentSplitSection(herb.content);
+
+      if (herb.reports) {
+        for await (const report of herb.reports) {
+          if (!report.reportGroupSlug) {
+            herb.reports = [];
+            continue;
+          }
+
+          const reportGroups: ReportGroup[] = await db
+            .from("reportGroups")
+            .where("slug", "eq", report.reportGroupSlug)
+            .options({ indexMode: "only" })
+            .exec();
+
+          const processes = await db
+            .from("processes")
+            .where("slug", "eq", reportGroups[0].processSlug)
+            .options({ indexMode: "only" })
+            .exec();
+
+          report.process = processes[0];
+        }
+      }
+
+      return {
+        params: { slug: herb.slug },
+        props: { herb },
+      };
+    })
+  );
 }
 
 export function GET({ props }: APIContext) {
@@ -22,6 +58,9 @@ import HerbImages from "../../components/HerbImages.tsx";
 import HerbCompounds from "../../components/HerbCompounds.tsx";
 import ImageModal from "../../components/ImageModal";
 import ColumnUnit from "../../components/ColumnUnit";
+import { yamlContentSplitSection } from "../../utils/herbs";
+import type { ReportGroup } from "../../types/reports";
+import { undefined } from "astro:schema";
 ---
 
 <Layout>
@@ -163,15 +202,22 @@ import ColumnUnit from "../../components/ColumnUnit";
       {
         herb.reports &&
           herb.reports.map((report) => (
-            <a href={`/reports/${report.groupId}`} class="report-link-card">
+            <a
+              href={`/reports/${report.reportGroupSlug}`}
+              class="report-link-card"
+            >
               <div>
                 <div>
-                  <time datetime="">2025/03/25</time>
-                  <p>(5g, 250ml)</p>
+                  <time datetime={formatDate(report.updatedAt)}>
+                    {formatDate(report.updatedAt, "Y/m/d")}
+                  </time>
+                  <p class="w-32 line-clamp-1">
+                    ({report.ingredients?.join("・")})
+                  </p>
                 </div>
                 <div>
-                  <p>浸出法</p>
-                  <p>比較的飲みやすいが苦い</p>
+                  <p>{report.process?.name}</p>
+                  <p>{report.summary}</p>
                 </div>
               </div>
               <img src="/ui/001.png" alt="" />
@@ -189,16 +235,12 @@ import ColumnUnit from "../../components/ColumnUnit";
           >About</span
         >
         <p class="line-clamp-1 self-end font-[Stoke] text-sm">
-          Pub. <time datetime={herb.createdAt}>
-            {new Date(herb.createdAt).getFullYear().toString().substring(2)}/{
-              new Date(herb.createdAt).getMonth() + 1
-            }/{new Date(herb.createdAt).getDate()}
-          </time>
-          Upd. <time datetime={herb.updatedAt}>
-            {new Date(herb.updatedAt).getFullYear().toString().substring(2)}/{
-              new Date(herb.updatedAt).getMonth() + 1
-            }/{new Date(herb.updatedAt).getDate()}
-          </time>
+          Pub. <time datetime={formatDate(herb.createdAt)}
+            >{formatDate(herb.createdAt, "Y/m/d")}</time
+          >
+          Upd. <time datetime={formatDate(herb.updatedAt)}
+            >{formatDate(herb.updatedAt, "Y/m/d")}</time
+          >
         </p>
       </div>
 
@@ -212,7 +254,10 @@ import ColumnUnit from "../../components/ColumnUnit";
           />
         </section>
         <section class="clear-both">
-          {herb.description.map((desc) => <ColumnUnit {...desc} />)}
+          {
+            herb.description &&
+              herb.description.map((desc) => <ColumnUnit {...desc} />)
+          }
         </section>
         <section class="clear-both">
           <div class="c-column-head">
@@ -223,11 +268,12 @@ import ColumnUnit from "../../components/ColumnUnit";
           </div>
           <div class="c-column-body flex gap-3">
             {
-              herb.tags?.map((tag) => (
-                <a href={`/tags/${tag.slug}`} class="c-footer-tag">
-                  <span class="font-bold">{tag.name}</span>
-                </a>
-              ))
+              herb.tags &&
+                herb.tags.map((tag) => (
+                  <a href={`/tags/${tag.slug}`} class="c-footer-tag">
+                    <span class="font-bold">{tag.name}</span>
+                  </a>
+                ))
             }
           </div>
         </section>

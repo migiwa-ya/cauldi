@@ -10,15 +10,11 @@
   },
   "dependencies": {
     "@astrojs/react": "^4.2.1",
+    "@migiwa-ya/staticql": "^0.2.2",
     "@tailwindcss/vite": "^4.0.15",
-    "@types/fs-extra": "^11.0.4",
     "@types/react": "^19.0.12",
     "@types/react-dom": "^19.0.4",
     "astro": "^5.5.3",
-    "fast-glob": "^3.3.3",
-    "fs-extra": "^11.3.0",
-    "gray-matter": "^4.0.3",
-    "path": "^0.12.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tailwind": "^4.0.0",
@@ -30,8 +26,5 @@
   "volta": {
     "node": "23.8.0",
     "npm": "10.9.2"
-  },
-  "devDependencies": {
-    "@types/js-yaml": "^4.0.9"
   }
 }

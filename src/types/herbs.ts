@@ -23,8 +23,6 @@ export type TagType = "flavor" | "mood" | "time" | "health";
 export interface Tag {
   slug: string;
   name: string;
-  type: TagType;
-  description?: string;
 }
 
 export interface Herb {
@@ -36,11 +34,12 @@ export interface Herb {
   overview: string;
   efficacy: string;
   researchPapers: string[];
-  updatedAt: string;
-  createdAt: string;
+  updatedAt: Date;
+  createdAt: Date;
   groupIds: string[];
   tags?: Tag[];
-  description: HerbDescriptionSection[];
+  content: string;
+  description?: HerbDescriptionSection[];
   reports?: Report[];
 }
 

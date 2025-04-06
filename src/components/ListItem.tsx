@@ -1,11 +1,12 @@
 import React from 'react';
+import { formatDate } from "../utils/date";
 
 export interface ListItemData {
   id: number | string;
   displayName: string;
   link: string;
   content: string;
-  updatedAt: string;
+  updatedAt: Date;
 }
 
 const ListItem: React.FC<{ item: ListItemData }> = ({ item }) => {
@@ -16,9 +17,9 @@ const ListItem: React.FC<{ item: ListItemData }> = ({ item }) => {
       className="relative flex flex-col items-center pb-2 outline-2 outline-vintage-ink outline-offset-2 border border-vintage-ink"
     >
       <div className="date-view p-1">
-        <time dateTime={item.updatedAt}>
-          <span>{new Date(item.updatedAt).getMonth() + 1}</span>
-          <span>{new Date(item.updatedAt).getDate()}</span>
+        <time dateTime={formatDate(item.updatedAt)}>
+          <span>{formatDate(item.updatedAt, 'm')}</span>
+          <span>{formatDate(item.updatedAt, 'd')}</span>
         </time>
       </div>
       <h2 className="p-2 mb-2 w-[90%] border-b border-vintage-ink text-sm text-center">
