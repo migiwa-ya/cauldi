@@ -37,6 +37,7 @@ export interface Herb {
   updatedAt: Date;
   createdAt: Date;
   groupIds: string[];
+  tagSlugs: string[];
   tags?: Tag[];
   content: string;
   description?: HerbDescriptionSection[];

@@ -150,8 +150,8 @@ const { report }: { report: Report } = Astro.props;
             <a href="/" class="underline text-link">Home</a>
           </li>
           <li class="before:content-['›'] before:mx-2 before:text-gray-400">
-            <a href="/natural-therapy/herbs" class="underline text-link"
-              >Reports</a
+            <a href="/reports" class="underline text-link"
+              >ハーブ利用レポート</a
             >
           </li>
           <li
@@ -160,26 +160,26 @@ const { report }: { report: Report } = Astro.props;
           >
             {report.herbs.map((herb) => herb.name).join("・")}の{
               report.process?.name
-            }
+            }の作り方
           </li>
         </ol>
       </nav>
       <h1 class="font-bold">
         {report.herbs.map((herb) => herb.name).join("・")}の{
           report.process?.name
-        }
+        }の作り方
       </h1>
     </div>
   </div>
 
   <div
-    class="c-content flex flex-col items-center p-7 my-1 space-y-5 border-x border-vintage-ink"
+    class="c-content flex flex-col items-center p-8 sm:p-10 my-1 space-y-5 border-x border-vintage-ink"
   >
     <article
       class="relative mt-4 bg-vintage-paper border border-vintage-ink outline-2 outline-vintage-ink outline-offset-2 rounded-md"
     >
       <header
-        class="flex gap-1 justify-between absolute right-1 -top-7 w-full line-clamp-1 text-nowrap"
+        class="flex gap-2 justify-between absolute right-2 -top-7 w-full line-clamp-1 text-nowrap text-xs"
       >
         <h2 class="flex-1 pl-2">
           {report.herbs.map((herb) => herb.name).join("・")}の{

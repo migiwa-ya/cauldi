@@ -9,7 +9,7 @@
 
 @layer components {
   .c-content {
-    @apply max-w-5xl w-full m-auto;
+    @apply max-w-7xl w-full m-auto;
   }
 
   .c-footer-tag {
@@ -37,7 +37,7 @@
   }
 
   .c-external-link {
-    @apply inline-flex items-center underline text-link;
+    @apply block underline text-link break-all;
     @apply after:bg-[url(/ui/external.svg)] after:bg-contain after:inline-block after:w-4 after:h-4;
   }
 }

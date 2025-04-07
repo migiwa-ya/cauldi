@@ -53,6 +53,10 @@ export function GET({ props }: APIContext) {
 
 const { herb }: { herb: Herb } = Astro.props;
 
+const relationHerbs: Herb[] = (
+  await db.from("herbs").where("tagSlugs", "in", herb.tagSlugs).exec()
+).filter((rh) => rh.slug !== herb.slug);
+
 import Layout from "../../layouts/Layout.astro";
 import HerbImages from "../../components/HerbImages.tsx";
 import HerbCompounds from "../../components/HerbCompounds.tsx";
@@ -60,7 +64,6 @@ import ImageModal from "../../components/ImageModal";
 import ColumnUnit from "../../components/ColumnUnit";
 import { yamlContentSplitSection } from "../../utils/herbs";
 import type { ReportGroup } from "../../types/reports";
-import { undefined } from "astro:schema";
 ---
 
 <Layout>
@@ -151,9 +154,7 @@ import { undefined } from "astro:schema";
             <a href="/" class="underline text-link">Home</a>
           </li>
           <li class="before:content-['›'] before:mx-2 before:text-gray-400">
-            <a href="/natural-therapy/herbs" class="underline text-link"
-              >Herbs</a
-            >
+            <a href="/herbs" class="underline text-link">ハーブ一覧</a>
           </li>
           <li
             class="before:content-['›'] before:mx-2 before:text-gray-400"
@@ -168,7 +169,7 @@ import { undefined } from "astro:schema";
       </h1>
     </div>
   </div>
-  <div class="c-content p-7 my-1 space-y-5 border-x border-vintage-ink">
+  <div class="c-content p-6 sm:p-10 my-1 space-y-5 border-x border-vintage-ink">
     <div class="herb-decoration mb-3">
       <div class="border-b border-dashed"></div>
       <div class="flex items-center mb-4 max-md:flex-col">
@@ -250,7 +251,6 @@ import { undefined } from "astro:schema";
             imageUrl="/001.png"
             altText="ランダム画像3"
             className="w-full max-h-[300px] object-cover mb-2"
-            client:only
           />
         </section>
         <section class="clear-both">
@@ -293,13 +293,19 @@ import { undefined } from "astro:schema";
         <section>
           <h3 class="c-column-head">Reserches</h3>
           <p class="c-column-body">
-            {herb.researchPapers}
-            <a
-              href="http://"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="c-external-link">test</a
-            >
+            {
+              herb.researchPapers &&
+                herb.researchPapers.map((link) => (
+                  <a
+                    href=""
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="c-external-link"
+                  >
+                    {herb.researchPapers}
+                  </a>
+                ))
+            }
           </p>
         </section>
       </div>
@@ -316,78 +322,33 @@ import { undefined } from "astro:schema";
       </div>
 
       <aside class="flex flex-wrap justify-items-start gap-4 mb-12">
-        <a
-          class="herb-decoration relative flex flex-1 basis-auto sm:max-w-xs w-[200px]"
-        >
-          <div></div>
-          <div class="relative max-md:flex-col">
-            <div class="flex flex-col justify-center px-6">
-              <span class="text-center border-b border-dashed pb-1 font-[Stoke]"
-                >Rumex crispus</span
-              >
-              <p class="text-sm leading-5 py-3">
-                タデ科ギシギシ属の多年草で、ヨーロッパ原産だが世界各地に分布。葉は細長く波打ち、根は黄色を帯びる。湿地や道端に自生し、耐久性が高い。根は生薬「羊蹄根（ようていこん）」として下剤や皮膚病治療に用いられるほか、葉は若いものが食用となる。
-              </p>
-            </div>
-            <img
-              src="/ui/001.png"
-              alt="aaa"
-              width="400"
-              height="300"
-              class="absolute inset-0 opacity-20 w-full h-full object-contain w-16 h-16 ml-1 rounded-e-xs"
-              style="filter: contrast(150%) sepia(100%);"
-            />
-          </div>
-          <div></div>
-        </a>
-        <a
-          class="herb-decoration relative flex flex-1 basis-auto sm:max-w-xs w-[200px]"
-        >
-          <div></div>
-          <div class="relative max-md:flex-col">
-            <div class="flex flex-col justify-center px-6">
-              <strong class="text-center border-b border-dashed pb-1"
-                >Rumex crispus</strong
-              >
-              <p class="text-sm leading-5 py-3">
-                タデ科ギシギシ属の多年草で、ヨーロッパ原産だが世界各地に分布。葉は細長く波打ち、根は黄色を帯びる。湿地や道端に自生し、耐久性が高い。根は生薬「羊蹄根（ようていこん）」として下剤や皮膚病治療に用いられるほか、葉は若いものが食用となる。
-              </p>
-            </div>
-            <img
-              src="/ui/001.png"
-              alt="aaa"
-              width="400"
-              height="300"
-              class="absolute inset-0 opacity-20 object-contain w-16 h-16 ml-1 rounded-e-xs"
-              style="filter: contrast(150%) sepia(100%);"
-            />
-          </div>
-          <div></div>
-        </a>
-        <a
-          class="herb-decoration relative flex flex-1 basis-auto sm:max-w-xs w-[200px]"
-        >
-          <div></div>
-          <div class="relative max-md:flex-col">
-            <div class="flex flex-col justify-center px-6">
-              <strong class="text-center border-b border-dashed pb-1"
-                >Rumex crispus</strong
-              >
-              <p class="text-sm leading-5 py-3">
-                タデ科ギシギシ属の多年草で、ヨーロッパ原産だが世界各地に分布。葉は細長く波打ち、根は黄色を帯びる。湿地や道端に自生し、耐久性が高い。根は生薬「羊蹄根（ようていこん）」として下剤や皮膚病治療に用いられるほか、葉は若いものが食用となる。
-              </p>
-            </div>
-            <img
-              src="/ui/001.png"
-              alt="aaa"
-              width="400"
-              height="300"
-              class="absolute inset-0 opacity-20 w-full h-full object-contain w-16 h-16 ml-1 rounded-e-xs"
-              style="filter: contrast(150%) sepia(100%);"
-            />
-          </div>
-          <div></div>
-        </a>
+        {
+          relationHerbs.map((rh) => (
+            <a
+              href={`/herbs/${rh.slug}`}
+              class="herb-decoration relative flex flex-1 basis-auto sm:max-w-xs w-[200px]"
+            >
+              <div />
+              <div class="relative max-md:flex-col">
+                <div class="flex flex-col justify-center px-6">
+                  <span class="text-center border-b border-dashed pb-1 font-[Stoke]">
+                    {rh.nameScientific}
+                  </span>
+                  <p class="text-sm leading-5 py-3">{rh.overview}</p>
+                </div>
+                <img
+                  src="/ui/001.png"
+                  alt="aaa"
+                  width="400"
+                  height="300"
+                  class="absolute inset-0 opacity-20 w-full h-full object-contain w-16 h-16 ml-1 rounded-e-xs"
+                  style="filter: contrast(150%) sepia(100%);"
+                />
+              </div>
+              <div />
+            </a>
+          ))
+        }
       </aside>
     </section>
   </div>
