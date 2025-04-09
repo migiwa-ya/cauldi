@@ -4,6 +4,7 @@ import InfiniteScroll from "./InfiniteScroll";
 
 interface Props {
   offset: number;
+  slug: string;
 }
 
 type ListItemData = {
@@ -14,35 +15,24 @@ type ListItemData = {
   updatedAt: Date;
 };
 
-const ListNewsInfinite: React.FC<Props> = ({ offset }) => {
+const ListHerbsByTagInfinite: React.FC<Props> = ({ offset, slug }) => {
   const [items, setItems] = useState<ListItemData[]>([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
   const fetchItems = async () => {
     const herbs = await (await fetch("/data/herbs.index.json")).json();
-    const newHerbs = herbs.records.map(
-      (h: any): ListItemData => ({
+    const newHerbs: ListItemData[] = herbs.records
+      .filter((h: any) => (h.values["tags.slug"] ?? "").includes(slug))
+      .map((h: any) => ({
         key: h.slug,
         displayName: h.values.name,
         link: `/herbs/${h.slug}`,
         content: h.values["tags.name"],
         updatedAt: h.values.updatedAt,
-      })
-    );
+      }));
 
-    const reports = await (await fetch("/data/reports.index.json")).json();
-    const newReports = reports.records.map(
-      (h: any): ListItemData => ({
-        key: h.slug,
-        displayName: "Report:" + h.values["herbs.name"],
-        link: `/reports/${h.values.reportGroupSlug}`,
-        content: "Report:" + h.values["herbs.name"],
-        updatedAt: h.values.updatedAt,
-      })
-    );
-
-    const newItems = [...newHerbs, ...newReports]
+    const newItems = newHerbs
       .sort(
         (a, b) =>
           new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
@@ -64,4 +54,4 @@ const ListNewsInfinite: React.FC<Props> = ({ offset }) => {
   );
 };
 
-export default ListNewsInfinite;
+export default ListHerbsByTagInfinite;

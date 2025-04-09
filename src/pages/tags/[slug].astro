@@ -1,10 +1,11 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import List from "../../components/List";
-import InfiniteScroll from "../../components/InfiniteScroll";
 import db from "../../../staticql.config.ts";
 import type { Tag } from "../../types/herbs";
 import type { APIContext } from "astro";
+import ListHerbsByTagItem from "../../components/ListHerbsByTagItem";
+import ListHerbsByTagInfinite from "../../components/ListHerbsByTagInfinite";
+import Breadcrumb, { type BreadcrumbProps } from "../../components/Breadcrumb";
 
 export async function getStaticPaths() {
   const tags: Tag[] = await db.from("tags").exec();
@@ -26,30 +27,32 @@ const { tag }: { tag: Tag } = Astro.props;
 const initialHerbs = (
   await db.from("herbs").where("tagSlugs", "contains", tag.slug).exec()
 ).map((herb) => ({
-  id: herb.slug,
+  key: herb.slug,
   displayName: herb.name,
   link: `/herbs/${herb.slug}`,
   content: herb.overview,
   updatedAt: herb.updatedAt,
 }));
+
+const offset = 6;
+
+const newsItems = initialHerbs
+  .sort(
+    (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+  )
+  .splice(0, offset);
+
+const breadCrumbItems: BreadcrumbProps["items"] = [
+  { label: "Home", link: "/" },
+  { label: `${tag.name}におすすめのハーブ一覧` },
+];
 ---
 
 <Layout>
   <div class="flex justify-center border-b-1">
     <div class="c-content my-1 text-center border-x border-vintage-ink">
-      <nav class="text-xs text-gray-600" aria-label="パンくずリスト">
-        <ol class="flex flex-wrap items-center justify-center">
-          <li>
-            <a href="/" class="underline text-link">Home</a>
-          </li>
-          <li
-            class="before:content-['›'] before:mx-2 before:text-gray-400"
-            aria-current="page"
-          >
-            {tag.name}におすすめのハーブ一覧
-          </li>
-        </ol>
-      </nav>
+      <Breadcrumb items={breadCrumbItems} />
+
       <h1 class="font-bold">
         {tag.name}におすすめのハーブ一覧
       </h1>
@@ -58,7 +61,8 @@ const initialHerbs = (
   <section
     class="c-content grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 sm:gap-10 p-6 sm:p-10 my-1 border-x border-vintage-in"
   >
-    <List items={initialHerbs} />
-    <!-- <InfiniteScroll client:load /> -->
+    {newsItems.map((item) => <ListHerbsByTagItem item={item} />)}
+
+    <ListHerbsByTagInfinite offset={offset} slug={tag.slug} client:only />
   </section>
 </Layout>
