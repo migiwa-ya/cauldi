@@ -64,6 +64,13 @@ import ImageModal from "../../components/ImageModal";
 import ColumnUnit from "../../components/ColumnUnit";
 import { yamlContentSplitSection } from "../../utils/herbs";
 import type { ReportGroup } from "../../types/reports";
+import Breadcrumb, { type BreadcrumbProps } from "../../components/Breadcrumb";
+
+const breadCrumbItems: BreadcrumbProps["items"] = [
+  { label: "Home", link: "/" },
+  { label: "ハーブ一覧", link: "/herbs" },
+  { label: herb.nameScientific },
+];
 ---
 
 <Layout>
@@ -148,22 +155,8 @@ import type { ReportGroup } from "../../types/reports";
   </style>
   <div class="flex justify-center border-b-1">
     <div class="c-content my-1 text-center border-x border-vintage-ink">
-      <nav class="text-xs text-gray-600" aria-label="パンくずリスト">
-        <ol class="flex flex-wrap items-center justify-center">
-          <li>
-            <a href="/" class="underline text-link">Home</a>
-          </li>
-          <li class="before:content-['›'] before:mx-2 before:text-gray-400">
-            <a href="/herbs" class="underline text-link">ハーブ一覧</a>
-          </li>
-          <li
-            class="before:content-['›'] before:mx-2 before:text-gray-400"
-            aria-current="page"
-          >
-            {herb.nameScientific}
-          </li>
-        </ol>
-      </nav>
+      <Breadcrumb items={breadCrumbItems} />
+
       <h1 class="font-bold">
         {herb.name} ({herb.nameScientific})とは
       </h1>

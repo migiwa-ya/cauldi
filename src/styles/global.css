@@ -202,3 +202,13 @@
     }
   }
 }
+
+progress::-moz-progress-bar {
+  background: var(--color-vintage-ink);
+}
+progress::-webkit-progress-value {
+  background: var(--color-vintage-ink);
+}
+progress {
+  color: var(--color-vintage-ink);
+}

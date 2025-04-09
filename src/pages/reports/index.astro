@@ -1,8 +1,10 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import List from "../../components/List";
 import InfiniteScroll from "../../components/InfiniteScroll";
+import Promotion from "../../components/Promotion";
 import db from "../../../staticql.config.ts";
+import List from "../../components/List";
+import Breadcrumb, { type BreadcrumbProps } from "../../components/Breadcrumb";
 
 const initialReports = (
   await db.from("reports").join("herbs").options({ indexMode: "only" }).exec()
@@ -14,24 +16,17 @@ const initialReports = (
   updatedAt: report.updatedAt,
 }));
 
+const breadCrumbItems: BreadcrumbProps["items"] = [
+  { label: "Home", link: "/" },
+  { label: "ハーブの使い方・レポート一覧" },
+];
 ---
 
 <Layout>
   <div class="flex justify-center border-b-1">
     <div class="c-content my-1 text-center border-x border-vintage-ink">
-      <nav class="text-xs text-gray-600" aria-label="パンくずリスト">
-        <ol class="flex flex-wrap items-center justify-center">
-          <li>
-            <a href="/" class="underline text-link">Home</a>
-          </li>
-          <li
-            class="before:content-['›'] before:mx-2 before:text-gray-400"
-            aria-current="page"
-          >
-            ハーブの使い方・レポート一覧
-          </li>
-        </ol>
-      </nav>
+      <Breadcrumb items={breadCrumbItems} />
+
       <h1 class="font-bold">ハーブの使い方・レポート一覧</h1>
     </div>
   </div>
@@ -39,6 +34,6 @@ const initialReports = (
     class="c-content grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 sm:gap-10 p-6 sm:p-10 my-1 border-x border-vintage-in"
   >
     <List items={initialReports} />
-    <!-- <InfiniteScroll client:load /> -->
+    <Promotion />
   </section>
 </Layout>

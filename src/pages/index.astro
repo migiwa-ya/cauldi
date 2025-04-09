@@ -1,8 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import List from "../components/List";
-import InfiniteScroll from "../components/InfiniteScroll";
 import db from "../../staticql.config.ts";
+import List from "../components/List";
 
 const initialHerbs = (await db.from("herbs").exec()).map((herb) => ({
   id: herb.slug,
@@ -28,6 +27,5 @@ const initialReports = (
     class="c-content grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 sm:gap-10 p-6 sm:p-10 my-1 border-x border-vintage-in"
   >
     <List items={[...initialHerbs, ...initialReports]} />
-    <InfiniteScroll client:load />
   </section>
 </Layout>

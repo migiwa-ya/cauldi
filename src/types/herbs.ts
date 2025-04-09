@@ -38,6 +38,7 @@ export interface Herb {
   createdAt: Date;
   groupIds: string[];
   tagSlugs: string[];
+  imageUrl?: string; // Added imageUrl property
   tags?: Tag[];
   content: string;
   description?: HerbDescriptionSection[];

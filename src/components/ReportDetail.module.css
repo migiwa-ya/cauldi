@@ -1,0 +1,15 @@
+.gridLine {
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 47px,
+    var(--color-vintage-ink) 47px,
+    var(--color-vintage-ink) 48px
+  );
+}
+.note {
+  line-height: 30px;
+  background: conic-gradient(from 95deg at 0%, #000 1%, #0000 0%);
+  background-size: 10px 30px;
+  background-position: 0 12px;
+}
