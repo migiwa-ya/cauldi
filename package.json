@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@astrojs/react": "^4.2.1",
+    "@astrojs/sitemap": "^3.3.0",
     "@migiwa-ya/staticql": "^0.3.2",
     "@tailwindcss/vite": "^4.0.15",
     "@types/react": "^19.0.12",

@@ -1,5 +1,4 @@
 ---
-import SearchInput from "../components/SearchInput";
 import "../styles/global.css";
 ---
 
@@ -12,6 +11,7 @@ import "../styles/global.css";
     <meta name="generator" content={Astro.generator} />
     <title>Astro Basics</title>
 
+    <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -29,10 +29,6 @@ import "../styles/global.css";
         <a href="/" class="block text-7xl bold font-[Playwrite_DK_Loopet]"
           >Cauldi</a
         >
-        <!-- <div class="bg-vintage-paper border-l border-vintage-ink p-[50px]">
-        <nav></nav>
-        <SearchInput client:load />
-      </div> -->
       </div>
     </header>
     <main>

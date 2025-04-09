@@ -10,6 +10,7 @@ export default defineContentDB({
         z.object({
           slug: z.string(),
           name: z.string(),
+          tagSlugs: z.array(z.string()),
           content: z.string(),
           updatedAt: z.date(),
           createdAt: z.date(),
@@ -35,6 +36,7 @@ export default defineContentDB({
       index: [
         "name",
         "herbState.name",
+        "tags.slug",
         "tags.name",
         "reports.slug",
         "updatedAt",
