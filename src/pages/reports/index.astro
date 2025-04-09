@@ -1,20 +1,37 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import InfiniteScroll from "../../components/InfiniteScroll";
 import Promotion from "../../components/Promotion";
 import db from "../../../staticql.config.ts";
-import List from "../../components/List";
 import Breadcrumb, { type BreadcrumbProps } from "../../components/Breadcrumb";
+import ListReportsItem from "../../components/ListReportsItem";
+import ListReportsInfinite from "../../components/ListReportsInfinite";
+import type { Report, ReportGroup } from "../../types/reports";
 
-const initialReports = (
-  await db.from("reports").join("herbs").options({ indexMode: "only" }).exec()
-).map((report) => ({
-  id: report.reportGroupSlug + report.slug,
-  displayName: `Report ${report.slug}`,
-  link: `/reports/${report.reportGroupSlug}`,
-  content: report.summary || "No content available",
-  updatedAt: report.updatedAt,
-}));
+const initialReports = await Promise.all(
+  (await db.from("reports").join("herbs").exec()).map(
+    async (report: Report) => {
+      const reportGroup: ReportGroup = (
+        await db.from("reportGroups").join("processes").exec()
+      )[0];
+
+      return {
+        key: report.reportGroupSlug + report.slug,
+        displayName: `${report.herbs.map((herb) => herb.name).join("・")}の${reportGroup.processes[0].name}の作り方`,
+        link: `/reports/${report.reportGroupSlug}`,
+        content: report.summary || "No content available",
+        updatedAt: report.updatedAt,
+      };
+    }
+  )
+);
+
+const offset = 1;
+
+const newsItems = initialReports
+  .sort(
+    (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+  )
+  .splice(0, offset);
 
 const breadCrumbItems: BreadcrumbProps["items"] = [
   { label: "Home", link: "/" },
@@ -33,7 +50,10 @@ const breadCrumbItems: BreadcrumbProps["items"] = [
   <section
     class="c-content grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 sm:gap-10 p-6 sm:p-10 my-1 border-x border-vintage-in"
   >
-    <List items={initialReports} />
+    {newsItems.map((item) => <ListReportsItem item={item} />)}
+
+    <ListReportsInfinite offset={offset} client:only />
+
     <Promotion />
   </section>
 </Layout>

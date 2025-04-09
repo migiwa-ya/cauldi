@@ -68,6 +68,8 @@ export interface ReportGroup {
   slug: string;
   herbSlugs: Herb["slug"];
   processSlug: string;
+
+  processes: Process[];
 }
 
 export interface ReportHerbRaw {

@@ -111,7 +111,14 @@ export default defineContentDB({
           processSlug: z.string(),
         })
       ),
-      index: ["herbSlugs", "processSlug"],
+      relations: {
+        processes: {
+          to: "processes",
+          localKey: "processSlug",
+          foreignKey: "slug",
+        },
+      },
+      index: ["herbSlugs", "processSlug", "processes.name"],
     },
 
     tags: {

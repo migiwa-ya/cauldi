@@ -1,10 +1,11 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import db from "../../staticql.config.ts";
-import List from "../components/List";
+import ListNewsInfinite from "../components/ListNewsInfinite";
+import ListNewsItem from "../components/ListNewsItem.tsx";
 
 const initialHerbs = (await db.from("herbs").exec()).map((herb) => ({
-  id: herb.slug,
+  key: herb.slug,
   displayName: herb.name,
   link: `/herbs/${herb.slug}`,
   content: herb.overview,
@@ -14,18 +15,28 @@ const initialHerbs = (await db.from("herbs").exec()).map((herb) => ({
 const initialReports = (
   await db.from("reports").join("herbs").options({ indexMode: "only" }).exec()
 ).map((report) => ({
-  id: report.reportGroupSlug + report.slug,
+  key: report.reportGroupSlug + report.slug,
   displayName: `Report ${report.slug}`,
   link: `/reports/${report.reportGroupSlug}`,
   content: report.summary || "No content available",
   updatedAt: report.updatedAt,
 }));
+
+const offset = 3;
+
+const newsItems = [...initialHerbs, ...initialReports]
+  .sort(
+    (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+  )
+  .splice(0, offset);
 ---
 
 <Layout>
   <section
     class="c-content grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 sm:gap-10 p-6 sm:p-10 my-1 border-x border-vintage-in"
   >
-    <List items={[...initialHerbs, ...initialReports]} />
+    {newsItems.map((item) => <ListNewsItem item={item} />)}
+
+    <ListNewsInfinite offset={offset} client:only />
   </section>
 </Layout>
