@@ -27,18 +27,22 @@
   .c-column-body {
     @apply mb-6 text-[0.9rem] leading-[1.5] font-mono text-left;
 
-    > *:nth-of-type(2n) .c-column-img {
-      @apply float-right;
+    > p {
+      @apply mb-2 last:mb-0;
+    }
+
+    > table {
+      @apply w-full text-xs my-4 first:mt-0 last:mb-0;
+    }
+
+    img {
+      @apply max-h-[300px] object-cover w-full;
     }
   }
 
-  .c-column-img {
-    @apply w-full sm:w-48 h-64 sm:h-48 object-cover float-none sm:float-left my-2 sm:m-2;
-  }
-
   .c-external-link {
-    @apply block underline text-link break-all;
-    @apply after:bg-[url(/ui/external.svg)] after:bg-contain after:inline-block after:w-4 after:h-4;
+    @apply inline underline text-link break-all;
+    @apply after:bg-[url(/ui/external.svg)] after:inline-block after:w-4 after:h-4 after:bg-no-repeat after:bg-center after:[background-size:60%];
   }
 }
 
@@ -160,7 +164,6 @@
 
   > img {
     @apply object-contain w-16 h-16 rounded-e-xs;
-    filter: contrast(150%) sepia(100%);
   }
 }
 

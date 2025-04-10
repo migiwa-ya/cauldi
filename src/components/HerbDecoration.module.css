@@ -1,0 +1,77 @@
+.herbDecoration {
+  position: relative;
+  background-color: var(--color-vintage-paper);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+
+  &::before,
+  &::after {
+    position: absolute;
+    content: "";
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+  }
+
+  &::before {
+    left: 0;
+    border-left: 1px solid #000;
+  }
+
+  &::after {
+    right: 0;
+    border-right: 1px solid #000;
+  }
+
+  > div:first-child,
+  > div:last-child {
+    position: relative;
+    width: 100%;
+    height: 5px;
+    background-color: var(--color-vintage-paper);
+    z-index: 2;
+  }
+  > div:first-child {
+    border-top: 2px solid #000;
+  }
+  > div:last-child {
+    border-bottom: 2px solid #000;
+  }
+
+  > div:first-child::before,
+  > div:first-child::after,
+  > div:last-child::before,
+  > div:last-child::after {
+    content: "";
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: var(--color-vintage-paper);
+    border-radius: 80%;
+    border: 1px solid var(--color-vintage-ink);
+  }
+
+  > div:first-child::before {
+    top: -30px;
+    left: -30px;
+  }
+
+  > div:first-child::after {
+    top: -30px;
+    right: -30px;
+  }
+
+  > div:last-child::before {
+    bottom: -30px;
+    left: -30px;
+  }
+
+  > div:last-child::after {
+    bottom: -30px;
+    right: -30px;
+  }
+}

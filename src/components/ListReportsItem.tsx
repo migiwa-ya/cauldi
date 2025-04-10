@@ -31,7 +31,6 @@ const ListReportsItem: React.FC<{ item: ListItemData }> = ({ item }) => {
         width="400"
         height="300"
         className="my-4 scale-110 object-cover overflow-visible h-80 w-auto"
-        style={{ filter: "contrast(150%) sepia(100%);" }}
       />
       <strong className="my-2 text-sm leading-[1]">基本情報</strong>
       <p className="px-2 line-clamp-3 text-xs">{item.content}</p>

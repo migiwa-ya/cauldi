@@ -3,6 +3,8 @@ import type { APIContext } from "astro";
 import type { Herb } from "../../types/herbs";
 import db from "../../../staticql.config.ts";
 import { formatDate } from "../../utils/date";
+import { renderMarkdownWithCustomLayout } from "../../utils/herbs";
+import ModalActivator from "../../components/ModalActivator";
 
 export async function getStaticPaths() {
   const herbs: Herb[] = await db
@@ -58,13 +60,11 @@ const relationHerbs: Herb[] = (
 ).filter((rh) => rh.slug !== herb.slug);
 
 import Layout from "../../layouts/Layout.astro";
-import HerbImages from "../../components/HerbImages.tsx";
 import HerbCompounds from "../../components/HerbCompounds.tsx";
-import ImageModal from "../../components/ImageModal";
-import ColumnUnit from "../../components/ColumnUnit";
 import { yamlContentSplitSection } from "../../utils/herbs";
 import type { ReportGroup } from "../../types/reports";
 import Breadcrumb, { type BreadcrumbProps } from "../../components/Breadcrumb";
+import HerbDecoration from "../../components/HerbDecoration";
 
 const breadCrumbItems: BreadcrumbProps["items"] = [
   { label: "Home", link: "/" },
@@ -73,86 +73,21 @@ const breadCrumbItems: BreadcrumbProps["items"] = [
 ];
 ---
 
+<style is:global>
+  .footnotes {
+    padding-bottom: calc(var(--spacing) * 6);
+  }
+  .footnotes ol {
+    list-style-type: decimal;
+    padding-left: 2rem;
+  }
+  .footnotes li {
+    margin-bottom: 0.5rem;
+    font-size: small;
+  }
+</style>
+
 <Layout>
-  <style>
-    .herb-decoration {
-      position: relative;
-      background-color: var(--color-vintage-paper);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      overflow: hidden;
-
-      &::before,
-      &::after {
-        position: absolute;
-        content: "";
-        height: 100%;
-        top: 0;
-        bottom: 0;
-        margin: auto;
-      }
-
-      &::before {
-        left: 0;
-        border-left: 1px solid #000;
-      }
-
-      &::after {
-        right: 0;
-        border-right: 1px solid #000;
-      }
-
-      > div:first-child,
-      > div:last-child {
-        position: relative;
-        width: 100%;
-        height: 5px;
-        background-color: var(--color-vintage-paper);
-        z-index: 2;
-      }
-      > div:first-child {
-        border-top: 2px solid #000;
-      }
-      > div:last-child {
-        border-bottom: 2px solid #000;
-      }
-
-      > div:first-child::before,
-      > div:first-child::after,
-      > div:last-child::before,
-      > div:last-child::after {
-        content: "";
-        position: absolute;
-        width: 50px;
-        height: 50px;
-        background-color: var(--color-vintage-paper);
-        border-radius: 80%;
-        border: 1px solid var(--color-vintage-ink);
-      }
-
-      > div:first-child::before {
-        top: -30px;
-        left: -30px;
-      }
-
-      > div:first-child::after {
-        top: -30px;
-        right: -30px;
-      }
-
-      > div:last-child::before {
-        bottom: -30px;
-        left: -30px;
-      }
-
-      > div:last-child::after {
-        bottom: -30px;
-        right: -30px;
-      }
-    }
-  </style>
   <div class="flex justify-center border-b-1">
     <div class="c-content my-1 text-center border-x border-vintage-ink">
       <Breadcrumb items={breadCrumbItems} />
@@ -163,34 +98,7 @@ const breadCrumbItems: BreadcrumbProps["items"] = [
     </div>
   </div>
   <div class="c-content p-6 sm:p-10 my-1 space-y-5 border-x border-vintage-ink">
-    <div class="herb-decoration mb-3">
-      <div class="border-b border-dashed"></div>
-      <div class="flex items-center mb-4 max-md:flex-col">
-        <div
-          class="border-r w-full font-serif my-[3px] p-6 max-md:border-0! max-md:border-b-1!"
-        >
-          <h2 class="block mb-1 text-center font-bold">{herb.name}の概要</h2>
-          <p>{herb.overview}</p>
-        </div>
-        <img
-          src="/ui/001.png"
-          alt="aaa"
-          width="400"
-          height="300"
-          class="w-full my-[3px] p-6 object-contain h-[300px]"
-          style="filter: contrast(150%) sepia(100%);"
-        />
-        <div
-          class="border-l w-full font-serif my-[3px] p-6 max-md:border-0! max-md:border-t-1!"
-        >
-          <h2 class="block mb-1 text-center font-bold">
-            {herb.name}の期待される効果・効能
-          </h2>
-          <p>{herb.efficacy}</p>
-        </div>
-      </div>
-      <div class="border-t border-dashed"></div>
-    </div>
+    <HerbDecoration herb={herb} />
 
     <aside class="report-links">
       {
@@ -240,18 +148,21 @@ const breadCrumbItems: BreadcrumbProps["items"] = [
 
       <div class="min-md:columns-2 [column-gap:2rem]">
         <section>
-          <ImageModal
+          <!-- <ImageModal
             imageUrl="/001.png"
             altText="ランダム画像3"
             className="w-full max-h-[300px] object-cover mb-2"
-          />
+          /> -->
         </section>
-        <section class="clear-both">
+        <!-- <section class="clear-both">
           {
             herb.description &&
               herb.description.map((desc) => <ColumnUnit {...desc} />)
           }
-        </section>
+        </section> -->
+        <section set:html={renderMarkdownWithCustomLayout(herb.content)} />
+        <!-- <HerbColumn content={herb.content} client:only /> -->
+
         <section class="clear-both">
           <div class="c-column-head">
             <span class="font-[Stoke]">Tags</span>
@@ -334,8 +245,7 @@ const breadCrumbItems: BreadcrumbProps["items"] = [
                   alt="aaa"
                   width="400"
                   height="300"
-                  class="absolute inset-0 opacity-20 w-full h-full object-contain w-16 h-16 ml-1 rounded-e-xs"
-                  style="filter: contrast(150%) sepia(100%);"
+                  class="absolute inset-0 opacity-20 object-contain w-16 h-16 ml-1 rounded-e-xs"
                 />
               </div>
               <div />
@@ -345,4 +255,6 @@ const breadCrumbItems: BreadcrumbProps["items"] = [
       </aside>
     </section>
   </div>
+
+  <ModalActivator client:only />
 </Layout>
