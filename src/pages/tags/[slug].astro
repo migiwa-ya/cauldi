@@ -6,6 +6,7 @@ import type { APIContext } from "astro";
 import ListHerbsByTagItem from "../../components/ListHerbsByTagItem";
 import ListHerbsByTagInfinite from "../../components/ListHerbsByTagInfinite";
 import Breadcrumb, { type BreadcrumbProps } from "../../components/Breadcrumb";
+import "../../styles/index.css";
 
 export async function getStaticPaths() {
   const tags: Tag[] = await db.from("tags").exec();
@@ -49,20 +50,17 @@ const breadCrumbItems: BreadcrumbProps["items"] = [
 ---
 
 <Layout>
-  <div class="flex justify-center border-b-1">
-    <div class="c-content my-1 text-center border-x border-vintage-ink">
+  <div class="globalHeading">
+    <div class="globalHeadingBody container">
       <Breadcrumb items={breadCrumbItems} />
 
-      <h1 class="font-bold">
-        {tag.name}におすすめのハーブ一覧
-      </h1>
+      <h1 class="bold">{tag.name}におすすめのハーブ一覧</h1>
     </div>
   </div>
-  <section
-    class="c-content grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 sm:gap-10 p-6 sm:p-10 my-1 border-x border-vintage-in"
-  >
+
+  <div class="index content container">
     {newsItems.map((item) => <ListHerbsByTagItem item={item} />)}
 
     <ListHerbsByTagInfinite offset={offset} slug={tag.slug} client:only />
-  </section>
+  </div>
 </Layout>

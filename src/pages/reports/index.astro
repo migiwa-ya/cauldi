@@ -6,6 +6,7 @@ import Breadcrumb, { type BreadcrumbProps } from "../../components/Breadcrumb";
 import ListReportsItem from "../../components/ListReportsItem";
 import ListReportsInfinite from "../../components/ListReportsInfinite";
 import type { Report, ReportGroup } from "../../types/reports";
+import "../../styles/index.css";
 
 const initialReports = await Promise.all(
   (await db.from("reports").join("herbs").exec()).map(
@@ -40,20 +41,19 @@ const breadCrumbItems: BreadcrumbProps["items"] = [
 ---
 
 <Layout>
-  <div class="flex justify-center border-b-1">
-    <div class="c-content my-1 text-center border-x border-vintage-ink">
+  <div class="globalHeading">
+    <div class="globalHeadingBody container">
       <Breadcrumb items={breadCrumbItems} />
 
-      <h1 class="font-bold">ハーブの使い方・レポート一覧</h1>
+      <h1 class="bold">ハーブの使い方・レポート一覧</h1>
     </div>
   </div>
-  <section
-    class="c-content grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 sm:gap-10 p-6 sm:p-10 my-1 border-x border-vintage-in"
-  >
+
+  <div class="index content container">
     {newsItems.map((item) => <ListReportsItem item={item} />)}
 
     <ListReportsInfinite offset={offset} client:only />
 
     <Promotion />
-  </section>
+  </div>
 </Layout>

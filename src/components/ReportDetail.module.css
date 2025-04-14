@@ -1,3 +1,158 @@
+progress::-moz-progress-bar {
+  background: var(--color-vintage-ink);
+}
+progress::-webkit-progress-value {
+  background: var(--color-vintage-ink);
+}
+progress {
+  color: var(--color-vintage-ink);
+}
+
+.article {
+  position: relative;
+  margin-top: 1em;
+  border: 1px solid;
+  outline: 1px solid;
+  outline-offset: 2px;
+  border-radius: 0.375em;
+}
+
+.header {
+  display: flex;
+  gap: 0.5em;
+  justify-content: space-between;
+  position: absolute;
+  right: 0.5em;
+  top: -1.75em;
+  width: 100%;
+  overflow: hidden;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  white-space: nowrap;
+  font-size: 0.75em;
+
+  h2 {
+    flex: 1;
+    padding-left: 1em;
+  }
+}
+
+.reportLabel {
+  display: block;
+  width: fit-content;
+  padding-block: 0.2em;
+  padding-inline: 0.5em;
+  margin: auto;
+  margin-block: 0.7em;
+  border-width: 2px;
+  border-style: dashed;
+  font-size: 2em;
+  text-align: center;
+}
+
+.reportContent {
+  --tw-leading: calc(var(--spacing) * 12);
+  line-height: calc(var(--spacing) * 12);
+  border-block: 1px solid;
+}
+
+.dataItem {
+  display: inline;
+  position: relative;
+  padding: 1em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-right: 1px solid var(--color-vintage-ink);
+
+  dt {
+    display: inline;
+    top: -1.8em;
+    left: 0.4em;
+    position: absolute;
+    font-size: 0.7em;
+    white-space: nowrap;
+  }
+
+  dd {
+    display: inline;
+  }
+
+  a {
+    margin-right: 0.5em;
+
+    &::after {
+      content: "・";
+      color: var(--color-vintage-ink);
+      margin-left: 0.5em;
+    }
+
+    &:last-child {
+      margin: 0;
+
+      &::after {
+        content: none;
+      }
+    }
+  }
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  @media (min-width: 640px) {
+    flex-direction: row;
+  }
+}
+
+.footerSection {
+  position: relative;
+  width: 100%;
+  padding: 3.5em 2.5em 1.5em;
+  @media (max-width: 640px) {
+    border: none;
+  }
+
+  &:first-child {
+    border-right-width: 1px;
+  }
+}
+
+.noteTitle {
+  position: absolute;
+  left: 1.5em;
+  top: 1.5em;
+  font-size: 0.875em;
+}
+
+.note {
+  list-style-type: decimal;
+  list-style-position: inside;
+  line-height: 30px;
+  background: conic-gradient(from 95deg at 0%, #000 1%, #0000 0%);
+  background-size: 10px 30px;
+  background-position: 0 12px;
+}
+
+.flavorRating {
+  padding-block: 1em;
+
+  li {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.5em;
+    width: 100%;
+    font-weight: bold;
+    white-space: nowrap;
+  }
+}
+
+.progress {
+  width: 100%;
+  max-width: 150px;
+  height: 0.5em;
+}
+
 .gridLine {
   background: repeating-linear-gradient(
     to bottom,
@@ -6,10 +161,4 @@
     var(--color-vintage-ink) 47px,
     var(--color-vintage-ink) 48px
   );
-}
-.note {
-  line-height: 30px;
-  background: conic-gradient(from 95deg at 0%, #000 1%, #0000 0%);
-  background-size: 10px 30px;
-  background-position: 0 12px;
 }

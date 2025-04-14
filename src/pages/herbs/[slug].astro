@@ -5,6 +5,9 @@ import db from "../../../staticql.config.ts";
 import { formatDate } from "../../utils/date";
 import { renderMarkdownWithCustomLayout } from "../../utils/herbs";
 import ModalActivator from "../../components/ModalActivator";
+import ReportLinks from "../../components/ReportLinks";
+import "../../styles/herbs/show.css";
+import "../../components/HerbDecoration.module.css";
 
 export async function getStaticPaths() {
   const herbs: Herb[] = await db
@@ -60,11 +63,11 @@ const relationHerbs: Herb[] = (
 ).filter((rh) => rh.slug !== herb.slug);
 
 import Layout from "../../layouts/Layout.astro";
-import HerbCompounds from "../../components/HerbCompounds.tsx";
 import { yamlContentSplitSection } from "../../utils/herbs";
 import type { ReportGroup } from "../../types/reports";
 import Breadcrumb, { type BreadcrumbProps } from "../../components/Breadcrumb";
 import HerbDecoration from "../../components/HerbDecoration";
+import HerbDecorationLink from "../../components/HerbDecorationLink";
 
 const breadCrumbItems: BreadcrumbProps["items"] = [
   { label: "Home", link: "/" },
@@ -73,70 +76,24 @@ const breadCrumbItems: BreadcrumbProps["items"] = [
 ];
 ---
 
-<style is:global>
-  .footnotes {
-    padding-bottom: calc(var(--spacing) * 6);
-  }
-  .footnotes ol {
-    list-style-type: decimal;
-    padding-left: 2rem;
-  }
-  .footnotes li {
-    margin-bottom: 0.5rem;
-    font-size: small;
-  }
-</style>
-
 <Layout>
-  <div class="flex justify-center border-b-1">
-    <div class="c-content my-1 text-center border-x border-vintage-ink">
+  <div class="globalHeading">
+    <div class="globalHeadingBody container">
       <Breadcrumb items={breadCrumbItems} />
 
-      <h1 class="font-bold">
-        {herb.name} ({herb.nameScientific})とは
-      </h1>
+      <h1 class="bold">{herb.name} ({herb.nameScientific})とは</h1>
     </div>
   </div>
-  <div class="c-content p-6 sm:p-10 my-1 space-y-5 border-x border-vintage-ink">
+
+  <div class="content container">
     <HerbDecoration herb={herb} />
 
-    <aside class="report-links">
-      {
-        herb.reports &&
-          herb.reports.map((report) => (
-            <a
-              href={`/reports/${report.reportGroupSlug}`}
-              class="report-link-card"
-            >
-              <div>
-                <div>
-                  <time datetime={formatDate(report.updatedAt)}>
-                    {formatDate(report.updatedAt, "Y/m/d")}
-                  </time>
-                  <p class="w-32 line-clamp-1">
-                    ({report.ingredients?.join("・")})
-                  </p>
-                </div>
-                <div>
-                  <p>{report.process?.name}</p>
-                  <p>{report.summary}</p>
-                </div>
-              </div>
-              <img src="/ui/001.png" alt="" />
-            </a>
-          ))
-      }
-    </aside>
+    {herb.reports && <ReportLinks reports={herb.reports} />}
 
     <article>
-      <div
-        class="flex flex-col sm:flex-row justify-between border-b-2 pb-2 mt-12 mb-4"
-      >
-        <span
-          class="mr-2 text-[2.5rem] sm:text-[3rem] leading-[3rem] font-[Stoke] font-thin"
-          >About</span
-        >
-        <p class="line-clamp-1 self-end font-[Stoke] text-sm">
+      <div class="headingLine">
+        <strong>About</strong>
+        <p class="clamp-1">
           Pub. <time datetime={formatDate(herb.createdAt)}
             >{formatDate(herb.createdAt, "Y/m/d")}</time
           >
@@ -146,36 +103,21 @@ const breadCrumbItems: BreadcrumbProps["items"] = [
         </p>
       </div>
 
-      <div class="min-md:columns-2 [column-gap:2rem]">
-        <section>
-          <!-- <ImageModal
-            imageUrl="/001.png"
-            altText="ランダム画像3"
-            className="w-full max-h-[300px] object-cover mb-2"
-          /> -->
-        </section>
-        <!-- <section class="clear-both">
-          {
-            herb.description &&
-              herb.description.map((desc) => <ColumnUnit {...desc} />)
-          }
-        </section> -->
+      <div class="columnContainer">
         <section set:html={renderMarkdownWithCustomLayout(herb.content)} />
-        <!-- <HerbColumn content={herb.content} client:only /> -->
 
-        <section class="clear-both">
-          <div class="c-column-head">
-            <span class="font-[Stoke]">Tags</span>
-            <h3 class="text-xs italic">
-              {herb.name} ({herb.nameScientific})の特徴タグ
-            </h3>
+        <section>
+          <div class="columnHead">
+            <strong>Tags</strong>
+            <h2>{herb.name} ({herb.nameScientific})の関連タグ</h2>
           </div>
-          <div class="c-column-body flex gap-3">
+          <div class="columnBody tags">
             {
               herb.tags &&
                 herb.tags.map((tag) => (
-                  <a href={`/tags/${tag.slug}`} class="c-footer-tag">
-                    <span class="font-bold">{tag.name}</span>
+                  <a href={`/tags/${tag.slug}`} class="tag">
+                    <span>{tag.slug}</span>
+                    <span>{tag.name}</span>
                   </a>
                 ))
             }
@@ -183,74 +125,24 @@ const breadCrumbItems: BreadcrumbProps["items"] = [
         </section>
 
         <!-- <section>
-          <h3 class="c-column-head">Images</h3>
-          <div class="c-column-body">
-            <HerbImages images={herb.images} />
-          </div>
-        </section> -->
-        <!-- <section>
-          <h3 class="c-column-head">Compunds</h3>
-          <div class="c-column-body">
+          <h3 class="columnHead">Compunds</h3>
+          <div class="columnBody">
             <HerbCompounds compounds={herb.compounds} />
           </div>
         </section> -->
-        <section>
-          <h3 class="c-column-head">Reserches</h3>
-          <p class="c-column-body">
-            {
-              herb.researchPapers &&
-                herb.researchPapers.map((link) => (
-                  <a
-                    href=""
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="c-external-link"
-                  >
-                    {herb.researchPapers}
-                  </a>
-                ))
-            }
-          </p>
-        </section>
       </div>
     </article>
 
     <section>
-      <div
-        class="flex flex-col sm:flex-row justify-between border-b-2 pb-2 mt-12 mb-4"
-      >
-        <span
-          class="mr-2 text-[2.5rem] sm:text-[3rem] leading-[3rem] font-[Stoke] font-thin"
-          >Other Herbs</span
-        >
+      <div class="headingLine">
+        <strong>Other Herbs</strong>
       </div>
 
-      <aside class="flex flex-wrap justify-items-start gap-4 mb-12">
+      <aside class="otherHerbs">
         {
-          relationHerbs.map((rh) => (
-            <a
-              href={`/herbs/${rh.slug}`}
-              class="herb-decoration relative flex flex-1 basis-auto sm:max-w-xs w-[200px]"
-            >
-              <div />
-              <div class="relative max-md:flex-col">
-                <div class="flex flex-col justify-center px-6">
-                  <span class="text-center border-b border-dashed pb-1 font-[Stoke]">
-                    {rh.nameScientific}
-                  </span>
-                  <p class="text-sm leading-5 py-3">{rh.overview}</p>
-                </div>
-                <img
-                  src="/ui/001.png"
-                  alt="aaa"
-                  width="400"
-                  height="300"
-                  class="absolute inset-0 opacity-20 object-contain w-16 h-16 ml-1 rounded-e-xs"
-                />
-              </div>
-              <div />
-            </a>
-          ))
+          relationHerbs
+            .slice(0, 5)
+            .map((herb) => <HerbDecorationLink herb={herb} />)
         }
       </aside>
     </section>

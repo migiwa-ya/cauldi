@@ -1,0 +1,32 @@
+.breadcrumb {
+  font-size: 0.7em;
+  margin-bottom: 0.5em;
+
+  ol {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    padding-left: 1em;
+    overflow: auto;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+  }
+
+  span {
+    margin-inline: 1em;
+
+    &:last-child {
+      margin: 0;
+    }
+  }
+
+  a {
+    text-decoration: underline;
+    color: var(--color-link);
+  }
+}

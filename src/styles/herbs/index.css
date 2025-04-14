@@ -1,0 +1,41 @@
+.headingLine {
+  font-weight: bold;
+  font-style: italic;
+  font-size: 1.5em;
+  margin-bottom: 2em;
+}
+
+.index {
+  columns: 2;
+  column-rule: 1px solid;
+  column-gap: 2em;
+  margin-bottom: 2em;
+  @media (max-width: 640px) {
+    columns: 1;
+  }
+}
+
+.indexItem {
+  text-align: right;
+
+  strong {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    width: 100%;
+    &::after {
+      content: "";
+      border-bottom: 1px solid;
+      width: 100%;
+      font-weight: bold;
+    }
+  }
+
+  a {
+    display: block;
+    color: var(--color-link);
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

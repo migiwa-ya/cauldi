@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import db from "../../staticql.config.ts";
 import ListNewsInfinite from "../components/ListNewsInfinite";
 import ListNewsItem from "../components/ListNewsItem.tsx";
+import "../styles/index.css";
 
 const initialHerbs = (await db.from("herbs").exec()).map((herb) => ({
   key: herb.slug,
@@ -32,11 +33,9 @@ const newsItems = [...initialHerbs, ...initialReports]
 ---
 
 <Layout>
-  <section
-    class="c-content grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 sm:gap-10 p-6 sm:p-10 my-1 border-x border-vintage-in"
-  >
+  <div class="index content container">
     {newsItems.map((item) => <ListNewsItem item={item} />)}
 
     <ListNewsInfinite offset={offset} client:only />
-  </section>
+  </div>
 </Layout>

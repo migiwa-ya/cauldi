@@ -5,7 +5,6 @@ export interface Compound {
   name: string;
   nameEn?: string;
   effect: string;
-  researchPapers?: string[];
 }
 
 export interface HerbState {
@@ -33,7 +32,6 @@ export interface Herb {
   compoundId?: number;
   overview: string;
   efficacy: string;
-  researchPapers: string[];
   updatedAt: Date;
   createdAt: Date;
   groupIds: string[];

@@ -1,17 +1,54 @@
-- slug: relax
-  name: リラックス
+- slug: allergy
+  name: アレルギー緩和
 
-- slug: night
-  name: 夜
+- slug: anemia
+  name: 貧血予防
 
-- slug: refresh
-  name: リフレッシュ
+- slug: antibacterial
+  name: 抗菌作用
 
-- slug: digestion
+- slug: antiinflammatory
+  name: 抗炎症作用
+
+- slug: antioxidant
+  name: 抗酸化作用
+
+- slug: antiviral
+  name: 抗ウイルス作用
+
+- slug: anxiety
+  name: 不安緩和
+
+- slug: calming
+  name: 鎮静作用
+
+- slug: detox
+  name: デトックス
+
+- slug: digestive
   name: 消化促進
 
-- slug: focus
-  name: 集中力向上
+- slug: diuretic
+  name: 利尿作用
+
+- slug: immune
+  name: 免疫機能
+
+- slug: immunity
+  name: 免疫力向上
+
+- slug: liver
+  name: 肝機能サポート
 
 - slug: memory
-  name: 記憶力向上
+  name: 記憶力サポート
+
+- slug: relaxation
+  name: リラックス
+
+- slug: skin
+  name: 皮膚の健康
+
+- slug: sleep-aid
+  name: 睡眠補助
+

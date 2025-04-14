@@ -1,0 +1,37 @@
+import React from "react";
+import styles from "./ReportLinks.module.css";
+import { formatDate } from "../utils/date";
+import type { Report } from "../types/reports";
+
+interface Props {
+  reports: Report[];
+}
+
+const HerbDecoration: React.FC<Props> = ({ reports }) => {
+  return (
+    <aside className={styles.reportLinks}>
+      {reports.map((report) => (
+        <a
+          href={`/reports/${report.reportGroupSlug}`}
+          className={styles.reportLinkCard}
+        >
+          <div>
+            <div>
+              <time dateTime={formatDate(report.updatedAt)}>
+                {formatDate(report.updatedAt, "Y/m/d")}
+              </time>
+              <p className="clamp-1">({report.ingredients?.join("・")})</p>
+            </div>
+            <div>
+              <p>{report.process?.name}</p>
+              <p>{report.summary}</p>
+            </div>
+          </div>
+          <img src="/ui/001.png" alt="" />
+        </a>
+      ))}
+    </aside>
+  );
+};
+
+export default HerbDecoration;

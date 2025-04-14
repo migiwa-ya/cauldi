@@ -4,6 +4,7 @@ import db from "../../../staticql.config.ts";
 import type { Herb } from "../../types/herbs";
 import Breadcrumb, { type BreadcrumbProps } from "../../components/Breadcrumb";
 import { groupByKeyInitial } from "../../utils/array";
+import "../../styles/herbs/index.css";
 
 const herbs: Herb[] = await db.from("herbs").exec();
 
@@ -22,32 +23,24 @@ const breadCrumbItems: BreadcrumbProps["items"] = [
 ---
 
 <Layout>
-  <div class="flex justify-center border-b-1">
-    <div class="c-content my-1 text-center border-x border-vintage-ink">
+  <div class="globalHeading">
+    <div class="globalHeadingBody container">
       <Breadcrumb items={breadCrumbItems} />
-      <h1 class="font-bold">ハーブ一覧</h1>
+
+      <h1 class="bold">ハーブ一覧</h1>
     </div>
   </div>
 
-  <div
-    class="c-content p-6 sm:p-10 my-1 border-x border-vintage-ink space-y-10"
-  >
+  <div class="content container">
     <article>
-      <h2 class="font-bold italic text-lg mb-4">ハーブ名一覧</h2>
-      <div
-        class="columns-1 sm:columns-2"
-        style="column-rule: 1px solid var(--color-vintage-ink)"
-      >
+      <h2 class="headingLine">ハーブ名一覧</h2>
+      <div class="index">
         {
           names.map((name) => (
-            <section class="text-right">
-              <div class="flex items-center gap-1 w-full after:border-b after:border-vintage-ink after:w-full font-bold">
-                {name}
-              </div>
+            <section class="indexItem">
+              <strong>{name}</strong>
               {groupByName[name].map((herb) => (
-                <a href={`/herbs/${herb.slug}`} class="block hover:underline">
-                  {herb.name}
-                </a>
+                <a href={`/herbs/${herb.slug}`}>{herb.name}</a>
               ))}
             </section>
           ))
@@ -56,21 +49,14 @@ const breadCrumbItems: BreadcrumbProps["items"] = [
     </article>
 
     <article>
-      <h2 class="font-bold italic text-lg mb-4">ハーブ学名一覧</h2>
-      <div
-        class="columns-1 sm:columns-2"
-        style="column-rule: 1px solid var(--color-vintage-ink)"
-      >
+      <h2 class="headingLine">ハーブ学名一覧</h2>
+      <div class="index">
         {
           scientifics.map((scientific) => (
-            <section class="text-right">
-              <div class="flex items-center gap-1 w-full after:border-b after:border-vintage-ink after:w-full font-bold">
-                {scientific}
-              </div>
+            <section class="indexItem">
+              <strong>{scientific}</strong>
               {groupByScientific[scientific].map((herb) => (
-                <a href={`/herbs/${herb.slug}`} class="block hover:underline">
-                  {herb.nameScientific}
-                </a>
+                <a href={`/herbs/${herb.slug}`}>{herb.nameScientific}</a>
               ))}
             </section>
           ))

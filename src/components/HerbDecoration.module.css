@@ -6,6 +6,7 @@
   justify-content: space-between;
   align-items: center;
   overflow: hidden;
+  margin-bottom: 0.5em;
 
   &::before,
   &::after {
@@ -36,10 +37,12 @@
     z-index: 2;
   }
   > div:first-child {
-    border-top: 2px solid #000;
+    border-top: 2px solid;
+    border-bottom: 1px dashed;
   }
   > div:last-child {
-    border-bottom: 2px solid #000;
+    border-bottom: 2px solid;
+    border-top: 1px dashed;
   }
 
   > div:first-child::before,
@@ -73,5 +76,95 @@
   > div:last-child::after {
     bottom: -30px;
     right: -30px;
+  }
+}
+
+.herbDecorationContent {
+  display: flex;
+  align-items: center;
+  margin-block: 2rem;
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  > div {
+    align-self: stretch;
+    width: 100%;
+    margin-block: 3px;
+    padding: 3em;
+
+    &:first-child {
+      border-right: 1px solid;
+      @media (max-width: 1024px) {
+        border-right: 0;
+        border-bottom: 1px solid;
+        padding: 2em;
+      }
+    }
+
+    &:last-child {
+      border-left: 1px solid;
+      @media (max-width: 1024px) {
+        border-left: 0;
+        border-top: 1px solid;
+        padding: 2em;
+      }
+    }
+  }
+
+  h2 {
+    margin-bottom: 1em;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1em;
+  }
+
+  img {
+    object-fit: contain;
+    height: 300px;
+    width: 100%;
+    margin-block: 3px;
+    padding: 1em;
+  }
+}
+
+.herbDecorationLink {
+  flex: 1;
+  flex-basis: fit-content;
+  max-width: 200px;
+  text-align: center;
+  width: 100%;
+  border-color: var(--color-vintage-ink);
+  color: var(--color-vintage-ink);
+  @media (max-width: 784px) {
+    max-width: 100%;
+    min-height: 200px;
+  }
+
+  > div:nth-child(2) {
+    padding: 2em;
+
+    span {
+      font-weight: bold;
+    }
+  }
+
+  p {
+    font-size: 0.8em;
+  }
+
+  img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    object-fit: contain;
+    opacity: 0.3;
+    filter: sepia(1);
+    width: 100%;
+    margin: auto;
+    padding: 3em;
   }
 }

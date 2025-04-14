@@ -57,11 +57,11 @@ const breadCrumbItems: BreadcrumbProps["items"] = [
 ---
 
 <Layout>
-  <div class="flex justify-center border-b-1">
-    <div class="c-content my-1 text-center border-x border-vintage-ink">
+  <div class="globalHeading">
+    <div class="globalHeadingBody container">
       <Breadcrumb items={breadCrumbItems} />
 
-      <h1 class="font-bold">
+      <h1 class="bold">
         {reports[0].herbs.map((herb) => herb.name).join("・")}の{
           reports[0].process?.name
         }の作り方
@@ -69,9 +69,7 @@ const breadCrumbItems: BreadcrumbProps["items"] = [
     </div>
   </div>
 
-  <div
-    class="c-content flex flex-col items-center p-8 sm:p-10 my-1 space-y-5 border-x border-vintage-ink"
-  >
+  <div class="content container">
     {reports.map((report) => <ReportDetail report={report} />)}
     <Promotion />
   </div>
