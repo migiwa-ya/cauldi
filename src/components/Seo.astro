@@ -1,0 +1,66 @@
+---
+import type { BreadcrumbProps } from "./Breadcrumb";
+
+// components/Seo.astro
+export interface Props {
+  title: string;
+  description: string;
+  url: string;
+  image?: string;
+  type?: "website" | "article" | "product";
+  ldJson?: Record<string, any> | Record<string, any>[];
+  breadcrumb?: BreadcrumbProps;
+}
+
+const {
+  title,
+  description,
+  url,
+  image = `${Astro.site}ogp.jpg`,
+  type = "website",
+  ldJson,
+  breadcrumb = { items: [] },
+} = Astro.props;
+
+const breadcrumbJson =
+  breadcrumb.items.length > 0
+    ? {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: breadcrumb.items.map((item, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name: item.label,
+          item: item.link,
+        })),
+      }
+    : null;
+
+const structuredData = Array.isArray(ldJson) ? ldJson : ldJson ? [ldJson] : [];
+if (breadcrumbJson) structuredData.push(breadcrumbJson);
+---
+
+<head>
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content={type} />
+  <meta property="og:url" content={url} />
+  <meta property="og:image" content={image} />
+  <meta property="og:site_name" content="Cauldi" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={image} />
+
+  {
+    structuredData.map((schema) => (
+      <script
+        type="application/ld+json"
+        set:html={JSON.stringify(schema, null, 2)}
+      />
+    ))
+  }
+</head>

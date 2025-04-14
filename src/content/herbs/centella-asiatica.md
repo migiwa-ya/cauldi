@@ -4,7 +4,7 @@ nameScientific: Centella asiatica
 nameEn: Gotu kola
 nameAliases: [ツボクサ, センテラ, タイガーハーブ]
 compoundSlugs: [asiaticoside, madecassoside, asiatic-acid, madecassic-acid]
-tagSlugs: [memory, skin, anxiety]
+tagSlugs: [memory, skin, relaxation, anxiety]
 overview: ゴツコラ（ツボクサ）はアジア原産のセリ科の多年草で、伝統医学で古くから重用されてきたハーブです。その葉や茎は食用や薬用に利用され、アーユルヴェーダや中医学では「若返りの薬」として知られています。記憶力の向上や傷の治癒促進、ストレス緩和など多様な健康効果が期待されており、最近では美容や健康維持の観点からも注目されています。また、有効成分としてアシアチコシドやマデカッソシドなどのトリテルペン配糖体を含みます。
 efficacy: ゴツコラには抗酸化・抗炎症作用があり、記憶力や認知機能の改善、不安の軽減、創傷治癒の促進などが期待されています。動物や細胞を用いた研究で神経保護作用やコラーゲン産生促進作用が確認されており、静脈瘤など血行障害の改善にも利用されています。また、皮膚の炎症や瘢痕の修復を助け、免疫機能を調整する作用も報告されています。ただし、人での十分な有効性はまだ研究段階です。
 createdAt: 2025-04-11T13:39:51+09:00

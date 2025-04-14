@@ -1,19 +1,18 @@
 .breadcrumb {
   font-size: 0.7em;
   margin-bottom: 0.5em;
+  width: 100%;
+  overflow: auto;
 
   ol {
-    display: flex;
     flex-wrap: nowrap;
     align-items: center;
-    justify-content: center;
     white-space: nowrap;
     padding-left: 1em;
-    overflow: auto;
   }
 
   li {
-    display: flex;
+    display: inline-block;
     align-items: center;
   }
 

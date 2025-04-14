@@ -50,6 +50,7 @@
   div:last-child {
     text-align: center;
     padding: 1rem;
+    overflow: hidden;
 
     strong {
       font-family: "Gravitas One", serif;

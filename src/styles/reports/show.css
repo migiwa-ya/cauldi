@@ -1,0 +1,16 @@
+.intro {
+  max-width: 640px;
+  margin-bottom: 2em;
+  margin-inline: auto;
+
+  svg {
+    width: 40px;
+    float: left;
+    margin-inline-end: 0.5em;
+  }
+
+  p {
+    font-size: 0.8em;
+    line-height: 1.7;
+  }
+}

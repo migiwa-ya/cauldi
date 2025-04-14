@@ -4,6 +4,7 @@ import db from "../../staticql.config.ts";
 import ListNewsInfinite from "../components/ListNewsInfinite";
 import ListNewsItem from "../components/ListNewsItem.tsx";
 import "../styles/index.css";
+import Seo from "../components/Seo.astro";
 
 const initialHerbs = (await db.from("herbs").exec()).map((herb) => ({
   key: herb.slug,
@@ -33,6 +34,29 @@ const newsItems = [...initialHerbs, ...initialReports]
 ---
 
 <Layout>
+  <Seo
+    slot="head"
+    title="Cauldi | 植物を五感で楽しむ。ハーブの効能・使い方・解説。"
+    description="Cauldi（コールディ）は、ハーブの効能や使い方を丁寧にまとめ、五感で楽しむための情報と体験レポートを発信するハーブ専門サイトです。"
+    url=`${Astro.site}`
+    ldJson={{
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: "Cauldi",
+      url: `${Astro.site}`,
+    }}
+  />
+
+  <div class="globalHeading">
+    <div class="globalHeadingBody container">
+      <p>
+        ハーブの知識と暮らしの工夫を紹介する、五感で楽しむハーブ情報サイト「<strong
+          >Cauldi</strong
+        >」。
+      </p>
+    </div>
+  </div>
+
   <div class="index content container">
     {newsItems.map((item) => <ListNewsItem item={item} />)}
 

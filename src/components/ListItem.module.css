@@ -16,13 +16,13 @@
     border-bottom: 1px solid;
     font-size: 0.8em;
     text-align: center;
+    padding-left: 3em;
   }
 
   img {
     margin-block: 1em;
     object-fit: cover;
     overflow: hidden;
-    height: calc(var(--spacing) * 80);
     width: auto;
   }
 

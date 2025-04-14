@@ -1,6 +1,5 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import Promotion from "../../components/Promotion";
 import db from "../../../staticql.config.ts";
 import Breadcrumb, { type BreadcrumbProps } from "../../components/Breadcrumb";
 import ListReportsItem from "../../components/ListReportsItem";
@@ -53,7 +52,5 @@ const breadCrumbItems: BreadcrumbProps["items"] = [
     {newsItems.map((item) => <ListReportsItem item={item} />)}
 
     <ListReportsInfinite offset={offset} client:only />
-
-    <Promotion />
   </div>
 </Layout>

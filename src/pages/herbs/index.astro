@@ -5,6 +5,7 @@ import type { Herb } from "../../types/herbs";
 import Breadcrumb, { type BreadcrumbProps } from "../../components/Breadcrumb";
 import { groupByKeyInitial } from "../../utils/array";
 import "../../styles/herbs/index.css";
+import Seo from "../../components/Seo.astro";
 
 const herbs: Herb[] = await db.from("herbs").exec();
 
@@ -16,16 +17,39 @@ const scientifics = [
 ];
 const groupByScientific = groupByKeyInitial(herbs, "nameScientific");
 
-const breadCrumbItems: BreadcrumbProps["items"] = [
-  { label: "Home", link: "/" },
-  { label: "ハーブ一覧" },
-];
+const breadcrumb: BreadcrumbProps = {
+  items: [
+    { label: "Cauldi", link: `${Astro.site}` },
+    { label: "ハーブ一覧", link: `${Astro.site}herbs` },
+  ],
+};
 ---
 
 <Layout>
+  <Seo
+    slot="head"
+    title="ハーブ一覧 | Cauldi - 和名・学名から探せる植物ガイド"
+    description="Cauldiのハーブ一覧ページでは、和名・学名の両方から目的のハーブを探すことができます。植物の効能や使い方を知る第一歩に。"
+    url=`${Astro.site}herbs`
+    image=`${Astro.site}ogp/herbs.jpg`
+    type="website"
+    ldJson={{
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name: "ハーブ一覧",
+      itemListElement: herbs.map((herb, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: `${herb.name}（${herb.nameScientific}）`,
+        url: `${Astro.site}herbs/${herb.slug}`,
+      })),
+    }}
+    breadcrumb={breadcrumb}
+  />
+
   <div class="globalHeading">
     <div class="globalHeadingBody container">
-      <Breadcrumb items={breadCrumbItems} />
+      <Breadcrumb items={breadcrumb["items"]} />
 
       <h1 class="bold">ハーブ一覧</h1>
     </div>

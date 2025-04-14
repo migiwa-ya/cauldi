@@ -13,3 +13,7 @@
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 }
+
+.globalHeading p {
+  font-size: 0.8em;
+}

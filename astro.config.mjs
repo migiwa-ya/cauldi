@@ -7,7 +7,11 @@ import db from "./staticql.config.ts";
 // https://astro.build/config
 export default defineConfig({
   vite: {},
-  site: "https://cauldi.com",
+  site: "http://localhost:4321",
+  // site: "https://cauldi.com",
+  experimental: {
+    svg: true,
+  },
   integrations: [
     react(),
     sitemap({

@@ -8,7 +8,7 @@ export interface BreadcrumbProps {
 const Breadcrumb: React.FC<BreadcrumbProps> = ({ items }) => {
   return (
     <nav className={styles.breadcrumb} aria-label="Breadcrumb">
-      <ol className="clamp-1">
+      <ol>
         {items.map((item, index) => (
           <li key={index}>
             {index > 0 && <span>›</span>}

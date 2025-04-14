@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import LogoMark from "../assets/logomark.svg";
 ---
 
 <!doctype html>
@@ -8,28 +9,39 @@ import "../styles/global.css";
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Astro Basics</title>
 
     <link rel="sitemap" href="/sitemap-index.xml" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Gravitas+One&family=Noto+Sans+JP:wght@100..900&family=Noto+Serif+JP:wght@200..900&family=Playwrite+DK+Loopet:wght@100..400&family=Stoke:wght@300;400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Gravitas+One&family=Noto+Sans+JP:wght@100..900&family=Noto+Serif+JP:wght@200..900&family=Pixelify+Sans:wght@400..700&family=Playwrite+DK+Loopet:wght@100..400&family=Stoke:wght@300;400&display=swap"
       rel="stylesheet"
     />
+
+    <slot name="head" />
   </head>
   <body>
     <header class="globalHeader">
       <div class="container content">
-        <a href="/">Cauldi</a>
+        <a class="logo" href="/"><LogoMark class="logomark" />Cauldi</a>
+        <nav>
+          <a href="/about">About</a>
+          <a href="/herbs">Herbs</a>
+          <a href="/reports">Reports</a>
+        </nav>
       </div>
     </header>
     <main>
       <slot />
     </main>
     <footer class="globalFooter">
-      <div class="container content">© cauldia</div>
+      <div class="container content">
+        <div>
+          © 2025 <LogoMark class="logomark" width={30} fill="white" /> Cauldi. All
+          rights reserved.
+        </div>
+      </div>
     </footer>
   </body>
 </html>

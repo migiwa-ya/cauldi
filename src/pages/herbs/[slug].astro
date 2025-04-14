@@ -68,18 +68,43 @@ import type { ReportGroup } from "../../types/reports";
 import Breadcrumb, { type BreadcrumbProps } from "../../components/Breadcrumb";
 import HerbDecoration from "../../components/HerbDecoration";
 import HerbDecorationLink from "../../components/HerbDecorationLink";
+import Seo from "../../components/Seo.astro";
 
-const breadCrumbItems: BreadcrumbProps["items"] = [
-  { label: "Home", link: "/" },
-  { label: "ハーブ一覧", link: "/herbs" },
-  { label: herb.nameScientific },
-];
+const breadcrumb: BreadcrumbProps = {
+  items: [
+    { label: "Cauldi", link: `${Astro.site}` },
+    { label: "ハーブ一覧", link: `${Astro.site}herbs` },
+    { label: `${herb.name}（${herb.nameScientific}）`, link: `${Astro.site}herbs/${herb.slug}` },
+  ],
+};
 ---
 
 <Layout>
+  <Seo
+    slot="head"
+    title=`${herb.name}（${herb.nameScientific}）の効能と使い方 | Cauldi`
+    description=`${herb.name}の効能や使い方、学術的な背景をわかりやすく解説。${herb.tags?.map(t => t.name).join("・")}で注目されています。Cauldiはハーブを五感で楽しみ、学べる専門サイトです。`
+    url=`${Astro.site}herbs/${herb.slug}`
+    image=`${Astro.site}image/herbs/arctium-lappa.jpg`
+    type="article"
+    ldJson={{
+      "@context": "https://schema.org",
+      "@type": "Product",
+      name: `${herb.name}（${herb.nameScientific}）`,
+      image: `${Astro.site}image/herbs/arctium-lappa.jpg`,
+      description: `${herb.name}の効能や使い方、学術的な背景をわかりやすく解説。${herb.tags?.map((t) => t.name).join("・")}で注目されています。Cauldiはハーブを五感で楽しみ、学べる専門サイトです。`,
+      brand: {
+        "@type": "Brand",
+        name: "Cauldi",
+      },
+      url: `${Astro.site}herbs/${herb.slug}`,
+    }}
+    breadcrumb={breadcrumb}
+  />
+
   <div class="globalHeading">
     <div class="globalHeadingBody container">
-      <Breadcrumb items={breadCrumbItems} />
+      <Breadcrumb items={breadcrumb["items"]} />
 
       <h1 class="bold">{herb.name} ({herb.nameScientific})とは</h1>
     </div>

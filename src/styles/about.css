@@ -1,0 +1,23 @@
+.privacy, .term {
+  height: 300px;
+  overflow: auto;
+  background-color: aliceblue;
+  padding: 2em;
+  border: 1px solid;
+
+  * {
+    font-size: 0.9em;
+  }
+
+  h1,
+  h2,
+  h3 {
+    margin-block: 1em;
+  }
+
+  hr {
+    border: 1px solid;
+    border-width: 0 0 1px 0;
+    margin-block: 2em;
+  }
+}

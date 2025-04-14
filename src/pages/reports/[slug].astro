@@ -8,6 +8,12 @@ import Promotion from "../../components/Promotion";
 import Breadcrumb, { type BreadcrumbProps } from "../../components/Breadcrumb";
 import { groupBy } from "../../utils/array";
 import ReportDetail from "../../components/ReportDetail";
+import Seo from "../../components/Seo.astro";
+import { formatDate } from "../../utils/date";
+import type { Tag } from "../../types/herbs";
+import "../../styles/reports/show.css";
+
+import LogoMark from "../../assets/logomark.svg";
 
 export async function getStaticPaths() {
   const reports: Report[] = await db
@@ -29,6 +35,16 @@ export async function getStaticPaths() {
 
         report.process = process[0];
 
+        await Promise.all(
+          report.herbs.map(
+            async (h) =>
+              (h.tags = await db
+                .from("tags")
+                .where("slug", "in", h.tagSlugs)
+                .exec())
+          )
+        );
+
         return report;
       })
     ),
@@ -46,30 +62,89 @@ export function GET({ props }: APIContext) {
 }
 
 const { reports }: { reports: Report[] } = Astro.props;
+const { slug }: { slug: string } = Astro.params;
 
-const breadCrumbItems: BreadcrumbProps["items"] = [
-  { label: "Home", link: "/" },
-  { label: "ハーブ利用レポート", link: "/reports" },
-  {
-    label: `${reports[0].herbs.map((herb) => herb.name).join("・")}の${reports[0].process?.name}の作り方`,
-  },
+const title = `${reports[0].herbs.map((herb) => herb.name).join("・")}の${reports[0].process?.name}のレポート`;
+
+const tags = [
+  ...new Set(
+    reports
+      .map((r) => r.herbs.map((h) => h?.tags?.map((t) => t)))
+      .flat()
+      .flat()
+  ),
 ];
+
+const description = `${tags
+  .slice(0, 10)
+  .map((t) => t?.name)
+  .join("・")}で知られる${title}の体験レポート。`;
+
+const breadcrumb: BreadcrumbProps = {
+  items: [
+    { label: "Cauldi", link: `${Astro.site}` },
+    { label: "ハーブ利用レポート", link: `${Astro.site}reports` },
+    { label: title, link: `${Astro.site}reports/${slug}` },
+  ],
+};
 ---
 
 <Layout>
+  <Seo
+    slot="head"
+    title=`${title}レポート | Cauldi`
+    description={description}
+    url=`${Astro.site}reports/${slug}`
+    image=`${Astro.site}/ogp/reports/abc123.jpg`
+    type="article"
+    ldJson={[
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: `${title}レポート | Cauldi`,
+        description: description,
+        author: { "@type": "Organization", name: "Cauldi" },
+        datePublished: formatDate(reports[0].createdAt),
+        dateModified: formatDate(reports[0].updatedAt),
+        image: `${Astro.site}ogp/reports/abc123.jpg`,
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": `${Astro.site}reports/${slug}`,
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "Cauldi",
+          logo: {
+            "@type": "ImageObject",
+            url: `${Astro.site}logo.png`,
+          },
+        },
+      },
+    ]}
+    ,
+    breadcrumb={breadcrumb}
+  />
+
   <div class="globalHeading">
     <div class="globalHeadingBody container">
-      <Breadcrumb items={breadCrumbItems} />
+      <Breadcrumb items={breadcrumb["items"]} />
 
       <h1 class="bold">
         {reports[0].herbs.map((herb) => herb.name).join("・")}の{
           reports[0].process?.name
-        }の作り方
+        }のレポート
       </h1>
     </div>
   </div>
 
   <div class="content container">
+    <div class="intro">
+      <LogoMark />
+      <p>
+        お酒は好きだけど、健康診断の数値が気になってきたので、%herbs%でチンキを仕込んでみました。美味しく続けるのがいちばん、ということで、いろんな飲み方を試した結果をまとめています。
+      </p>
+    </div>
+
     {reports.map((report) => <ReportDetail report={report} />)}
     <Promotion />
   </div>

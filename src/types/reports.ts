@@ -54,6 +54,7 @@ export interface Report {
   usageSlug: string;
   recipe: string[];
   updatedAt: Date;
+  createdAt: Date;
   herbs: Herb[];
   flavor?: ReportFlavor;
   images?: ReportImage[];

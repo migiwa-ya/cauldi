@@ -17,7 +17,7 @@
   name: 抗ウイルス作用
 
 - slug: anxiety
-  name: 不安緩和
+  name: 精神安定
 
 - slug: calming
   name: 鎮静作用
@@ -31,14 +31,11 @@
 - slug: diuretic
   name: 利尿作用
 
-- slug: immune
-  name: 免疫機能
-
 - slug: immunity
   name: 免疫力向上
 
 - slug: liver
-  name: 肝機能サポート
+  name: 肝臓サポート
 
 - slug: memory
   name: 記憶力サポート
@@ -47,8 +44,8 @@
   name: リラックス
 
 - slug: skin
-  name: 皮膚の健康
+  name: スキンケア
 
 - slug: sleep-aid
-  name: 睡眠補助
+  name: 睡眠サポート
 
