@@ -9,12 +9,12 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/react": "^4.2.1",
+    "@astrojs/react": "^4.2.4",
     "@astrojs/sitemap": "^3.3.0",
     "@migiwa-ya/staticql": "^0.3.2",
     "@types/react": "^19.0.12",
     "@types/react-dom": "^19.0.4",
-    "astro": "^5.5.3",
+    "astro": "^5.7.0",
     "classnames": "^2.5.1",
     "marked": "^15.0.8",
     "marked-footnote": "^1.2.4",

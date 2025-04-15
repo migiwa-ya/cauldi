@@ -9,9 +9,6 @@ export default defineConfig({
   vite: {},
   site: "http://localhost:4321",
   // site: "https://cauldi.com",
-  experimental: {
-    svg: true,
-  },
   integrations: [
     react(),
     sitemap({
