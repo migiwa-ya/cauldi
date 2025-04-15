@@ -1,6 +1,11 @@
-import type { HerbDescriptionSection } from "../types/herbs";
 import { marked, type Token, type Tokens } from "marked";
 import markedFootnote from "marked-footnote";
+
+interface HerbDescriptionSection {
+  heading: string;
+  subheading: string;
+  text: string;
+}
 
 export function yamlContentSplitSection(content: string) {
   return content
@@ -39,7 +44,8 @@ export function renderMarkdownWithCustomLayout(markdown: string) {
   // ステップ1: h2+h3 を <div class="columnHead"> でラップ
   const groupedHtml = rawHtml.replace(
     /<h2>([\s\S]*?)<\/h2>\s*<h3>([\s\S]*?)<\/h3>\s*?/g,
-    (match, h2, h3) => `<div class="columnHead">\n<strong>${h2}</strong><h2>${h3}</h2></div>\n`
+    (match, h2, h3) =>
+      `<div class="columnHead">\n<strong>${h2}</strong><h2>${h3}</h2></div>\n`
   );
 
   // ステップ2: 各 columnHead の直後のパラグラフ群を <div class="columnBody"> でラップ

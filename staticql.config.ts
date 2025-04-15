@@ -10,6 +10,9 @@ export default defineContentDB({
         z.object({
           slug: z.string(),
           name: z.string(),
+          nameScientific: z.string(),
+          overview: z.string(),
+          efficacy: z.string(),
           tagSlugs: z.array(z.string()),
           content: z.string(),
           updatedAt: z.date(),
@@ -21,23 +24,24 @@ export default defineContentDB({
           to: "tags",
           localKey: "tagSlugs",
           foreignKey: "slug",
-        },
-        herbState: {
-          to: "herbStates",
-          localKey: "herbStateSlug",
-          foreignKey: "slug",
+          type: "hasMany",
         },
         reports: {
           to: "reports",
-          localKey: "slug",
-          foreignKey: "combinedHerbs.slug",
+          through: "reportGroups",
+          sourceLocalKey: "slug",
+          throughForeignKey: "combinedHerbs.slug",
+          throughLocalKey: "slug",
+          targetForeignKey: "reportGroupSlug",
+          type: "hasManyThrough",
         },
       },
-      index: [
+      index: ["name"],
+      meta: [
+        "slug",
         "name",
         "herbState.name",
-        "tags.slug",
-        "tags.name",
+        "tags",
         "reports.slug",
         "updatedAt",
       ],
@@ -65,39 +69,47 @@ export default defineContentDB({
           ingredients: z.array(z.string()),
           recipe: z.array(z.string()),
           content: z.string(),
-          combinedHerbs: z.array(
-            z.object({
-              slug: z.string(),
-              herbStateSlug: z.string(),
-              herbPartSlug: z.string(),
-              description: z.string(),
-            })
-          ),
           updatedAt: z.date(),
           createdAt: z.date(),
         })
       ),
       relations: {
-        herbs: {
-          to: "herbs",
-          localKey: "combinedHerbs.slug",
-          foreignKey: "slug",
-        },
         reportGroups: {
           to: "reportGroups",
           localKey: "reportGroupSlug",
           foreignKey: "slug",
         },
-        usageMethods: {
+        herbs: {
+          to: "herbs",
+          through: "reportGroups",
+          sourceLocalKey: "reportGroupSlug",
+          throughForeignKey: "slug",
+          throughLocalKey: "combinedHerbs.slug",
+          targetForeignKey: "slug",
+          type: "hasManyThrough",
+        },
+        process: {
+          to: "processes",
+          through: "reportGroups",
+          sourceLocalKey: "reportGroupSlug",
+          throughForeignKey: "slug",
+          throughLocalKey: "processSlug",
+          targetForeignKey: "slug",
+          type: "hasOneThrough",
+        },
+        usageMethod: {
           to: "usageMethods",
           localKey: "usageMethodSlug",
           foreignKey: "slug",
+          type: "hasOne",
         },
       },
-      index: [
+      index: ["slug"],
+      meta: [
         "reportGroupSlug",
         "processSlug",
         "combinedHerbs.slug",
+        "process.name",
         "herbs.name",
         "updatedAt",
       ],
@@ -109,7 +121,14 @@ export default defineContentDB({
       schema: z.array(
         z.object({
           slug: z.string(),
-          herbSlugs: z.array(z.string()),
+          combinedHerbs: z.array(
+            z.object({
+              slug: z.string(),
+              herbStateSlug: z.string(),
+              herbPartSlug: z.string(),
+              description: z.string(),
+            })
+          ),
           processSlug: z.string(),
         })
       ),
@@ -119,8 +138,12 @@ export default defineContentDB({
           localKey: "processSlug",
           foreignKey: "slug",
         },
+        herbs: {
+          to: "herbs",
+          localKey: "combinedHerbs.slug",
+          foreignKey: "slug",
+        },
       },
-      index: ["herbSlugs", "processSlug", "processes.name"],
     },
 
     tags: {

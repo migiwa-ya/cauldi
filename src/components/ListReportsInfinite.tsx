@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ListItem from "./ListNewsItem";
 import InfiniteScroll from "./InfiniteScroll";
+import type { ReportsMeta } from "../types/staticql-types";
 
 interface Props {
   offset: number;
@@ -20,26 +21,19 @@ const ListReportsInfinite: React.FC<Props> = ({ offset }) => {
   const [hasMore, setHasMore] = useState(true);
 
   const fetchItems = async () => {
-    const reports = await (await fetch("/data/reports.index.json")).json();
-    const reportGroups = await (
-      await fetch("/data/reportGroups.index.json")
+    const reports: ReportsMeta = await (
+      await fetch("/data/reports.meta.json")
     ).json();
-    const newReports: ListItemData[] = reports.records.map(
-      (report: any): ListItemData => {
-        const reportGroup = reportGroups.records.filter(
-          (rg: any) => rg.slug === report.values.reportGroupSlug
-        )[0];
 
+    const newReports: ListItemData[] = Object.entries(reports).map(
+      ([reportSlug, report]): ListItemData => {
         return {
-          key: report.slug,
+          key: reportSlug,
           displayName:
-            report.values["herbs.name"].split(" ").join("・") +
-            "の" +
-            reportGroup.values["processes.name"] +
-            "の作り方",
-          link: `/reports/${report.values.reportGroupSlug}`,
-          content: "Report:" + report.values["herbs.name"],
-          updatedAt: report.values.updatedAt,
+            report["herbs.name"].join("・") + "の" + report["process.name"] + "の作り方",
+          link: `/reports/${report.reportGroupSlug}`,
+          content: "Report:" + report["herbs.name"],
+          updatedAt: report.updatedAt,
         };
       }
     );

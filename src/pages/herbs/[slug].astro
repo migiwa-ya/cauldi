@@ -1,6 +1,5 @@
 ---
 import type { APIContext } from "astro";
-import type { Herb } from "../../types/herbs";
 import db from "../../../staticql.config.ts";
 import { formatDate } from "../../utils/date";
 import { renderMarkdownWithCustomLayout } from "../../utils/herbs";
@@ -10,7 +9,7 @@ import "../../styles/herbs/show.css";
 import "../../components/HerbDecoration.module.css";
 
 export async function getStaticPaths() {
-  const herbs: Herb[] = await db
+  const herbs: HerbsRecord[] = await db
     .from("herbs")
     .join("reports")
     .join("tags")
@@ -19,62 +18,44 @@ export async function getStaticPaths() {
 
   return await Promise.all(
     herbs.map(async (herb) => {
-      herb.description = yamlContentSplitSection(herb.content);
-
-      if (herb.reports) {
-        for await (const report of herb.reports) {
-          if (!report.reportGroupSlug) {
-            herb.reports = [];
-            continue;
-          }
-
-          const reportGroups: ReportGroup[] = await db
-            .from("reportGroups")
-            .where("slug", "eq", report.reportGroupSlug)
-            .options({ indexMode: "only" })
-            .exec();
-
-          const processes = await db
-            .from("processes")
-            .where("slug", "eq", reportGroups[0].processSlug)
-            .options({ indexMode: "only" })
-            .exec();
-
-          report.process = processes[0];
-        }
-      }
+      const description = yamlContentSplitSection(herb.content);
 
       return {
         params: { slug: herb.slug },
-        props: { herb },
+        props: { herb, description },
       };
     })
   );
 }
 
 export function GET({ props }: APIContext) {
-  return new Response(JSON.stringify({ herb: props.herb }));
+  return new Response(
+    JSON.stringify({ herb: props.herb, description: props.description })
+  );
 }
 
-const { herb }: { herb: Herb } = Astro.props;
+const { herb }: { herb: HerbsRecord } = Astro.props;
 
-const relationHerbs: Herb[] = (
+const relationHerbs: HerbsRecord[] = (
   await db.from("herbs").where("tagSlugs", "in", herb.tagSlugs).exec()
 ).filter((rh) => rh.slug !== herb.slug);
 
 import Layout from "../../layouts/Layout.astro";
 import { yamlContentSplitSection } from "../../utils/herbs";
-import type { ReportGroup } from "../../types/reports";
 import Breadcrumb, { type BreadcrumbProps } from "../../components/Breadcrumb";
 import HerbDecoration from "../../components/HerbDecoration";
 import HerbDecorationLink from "../../components/HerbDecorationLink";
 import Seo from "../../components/Seo.astro";
+import type { HerbsRecord } from "../../types/staticql-types";
 
 const breadcrumb: BreadcrumbProps = {
   items: [
     { label: "Cauldi", link: `${Astro.site}` },
     { label: "ハーブ一覧", link: `${Astro.site}herbs` },
-    { label: `${herb.name}（${herb.nameScientific}）`, link: `${Astro.site}herbs/${herb.slug}` },
+    {
+      label: `${herb.name}（${herb.nameScientific}）`,
+      link: `${Astro.site}herbs/${herb.slug}`,
+    },
   ],
 };
 ---

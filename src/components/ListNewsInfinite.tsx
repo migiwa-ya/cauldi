@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ListItem from "./ListNewsItem";
 import InfiniteScroll from "./InfiniteScroll";
+import type { HerbsMeta, ReportsMeta } from "../types/staticql-types";
 
 interface Props {
   offset: number;
@@ -20,25 +21,29 @@ const ListNewsInfinite: React.FC<Props> = ({ offset }) => {
   const [hasMore, setHasMore] = useState(true);
 
   const fetchItems = async () => {
-    const herbs = await (await fetch("/data/herbs.index.json")).json();
-    const newHerbs = herbs.records.map(
-      (h: any): ListItemData => ({
-        key: h.slug,
-        displayName: h.values.name,
-        link: `/herbs/${h.slug}`,
-        content: h.values["tags.name"],
-        updatedAt: h.values.updatedAt,
+    const herbs: HerbsMeta = await (
+      await fetch("/data/herbs.meta.json")
+    ).json();
+    const newHerbs = Object.entries(herbs).map(
+      ([herbSlug, herb]): ListItemData => ({
+        key: herbSlug,
+        displayName: herb.name,
+        link: `/herbs/${herbSlug}`,
+        content: herb["tags.name"],
+        updatedAt: herb.updatedAt,
       })
     );
 
-    const reports = await (await fetch("/data/reports.index.json")).json();
-    const newReports = reports.records.map(
-      (h: any): ListItemData => ({
-        key: h.slug,
-        displayName: "Report:" + h.values["herbs.name"],
-        link: `/reports/${h.values.reportGroupSlug}`,
-        content: "Report:" + h.values["herbs.name"],
-        updatedAt: h.values.updatedAt,
+    const reports: ReportsMeta = await (
+      await fetch("/data/reports.meta.json")
+    ).json();
+    const newReports = Object.entries(reports).map(
+      ([reportSlug, report]): ListItemData => ({
+        key: reportSlug,
+        displayName: "Report:" + report["herbs.name"],
+        link: `/reports/${report.reportGroupSlug}`,
+        content: "Report:" + report["herbs.name"],
+        updatedAt: report.updatedAt,
       })
     );
 

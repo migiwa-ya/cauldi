@@ -1,11 +1,11 @@
 import React from "react";
-import type { Report } from "../types/reports";
 import { formatDate } from "../utils/date";
 import styles from "./ReportDetail.module.css";
 import classNames from "classnames";
+import type { ReportsRecord } from "../types/staticql-types";
 
 interface ReportDetailProps {
-  report: Report;
+  report: ReportsRecord;
 }
 
 const ReportDetail: React.FC<ReportDetailProps> = ({ report }) => {
@@ -13,8 +13,8 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ report }) => {
     <article className={styles.article}>
       <header className={styles.header}>
         <h2>
-          {report.herbs.map((herb) => herb.name).join("・")}の
-          {report.process?.name}の{report.usageMethods[0].name}
+          {report.herbs?.map((herb) => herb.name).join("・")}の
+          {report.process?.name}の{report.usageMethod?.name}
         </h2>
         <time dateTime={formatDate(report.updatedAt)}>
           {formatDate(report.updatedAt, "Y-m-d")}
@@ -27,14 +27,14 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ report }) => {
         <dl className={styles.dataItem}>
           <dt>Herbs</dt>
           <dd>
-            {report.herbs.map((herb) => (
+            {report.herbs?.map((herb) => (
               <a href={`/herbs/${herb.slug}`}>{herb.name}</a>
             ))}
           </dd>
         </dl>
         <dl className={styles.dataItem}>
           <dt>用途</dt>
-          <dd>{report.usageMethods[0].name}</dd>
+          <dd>{report.usageMethod?.name}</dd>
         </dl>
         <dl className={styles.dataItem}>
           <dt>構成要素</dt>

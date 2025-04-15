@@ -4,26 +4,24 @@ import db from "../../../staticql.config.ts";
 import Breadcrumb, { type BreadcrumbProps } from "../../components/Breadcrumb";
 import ListReportsItem from "../../components/ListReportsItem";
 import ListReportsInfinite from "../../components/ListReportsInfinite";
-import type { Report, ReportGroup } from "../../types/reports";
 import "../../styles/index.css";
+import type { ReportsRecord } from "../../types/staticql-types";
 
-const initialReports = await Promise.all(
-  (await db.from("reports").join("herbs").exec()).map(
-    async (report: Report) => {
-      const reportGroup: ReportGroup = (
-        await db.from("reportGroups").join("processes").exec()
-      )[0];
+const reprots: ReportsRecord[] = await db
+  .from("reports")
+  .join("herbs")
+  .join("process")
+  .exec();
 
-      return {
-        key: report.reportGroupSlug + report.slug,
-        displayName: `${report.herbs.map((herb) => herb.name).join("・")}の${reportGroup.processes[0].name}の作り方`,
-        link: `/reports/${report.reportGroupSlug}`,
-        content: report.summary || "No content available",
-        updatedAt: report.updatedAt,
-      };
-    }
-  )
-);
+const initialReports = reprots.map((report) => {
+  return {
+    key: report.reportGroupSlug + report.slug,
+    displayName: `${(report.herbs ?? []).map((herb) => herb.name).join("・")}の${report?.process?.name}の作り方`,
+    link: `/reports/${report.reportGroupSlug}`,
+    content: report.summary || "No content available",
+    updatedAt: report.updatedAt,
+  };
+});
 
 const offset = 6;
 

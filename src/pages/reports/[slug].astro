@@ -2,54 +2,26 @@
 import type { APIContext } from "astro";
 import db from "../../../staticql.config.ts";
 import Layout from "../../layouts/Layout.astro";
-
-import type { Report, Process } from "../../types/reports";
 import Promotion from "../../components/Promotion";
 import Breadcrumb, { type BreadcrumbProps } from "../../components/Breadcrumb";
 import { groupBy } from "../../utils/array";
 import ReportDetail from "../../components/ReportDetail";
 import Seo from "../../components/Seo.astro";
 import { formatDate } from "../../utils/date";
-import type { Tag } from "../../types/herbs";
 import "../../styles/reports/show.css";
-
 import LogoMark from "../../assets/logomark.svg";
+import type { ReportsRecord } from "../../types/staticql-types";
 
 export async function getStaticPaths() {
-  const reports: Report[] = await db
+  const reports: ReportsRecord[] = await db
     .from("reports")
     .join("herbs")
     .join("reportGroups")
-    .join("usageMethods")
+    .join("usageMethod")
     .options({ indexMode: "only" })
     .exec();
 
-  const groupedReports = groupBy(
-    await Promise.all(
-      reports.map(async (report) => {
-        const process: Process[] = await db
-          .from("processes")
-          .where("slug", "eq", report.reportGroups[0].processSlug)
-          .options({ indexMode: "only" })
-          .exec();
-
-        report.process = process[0];
-
-        await Promise.all(
-          report.herbs.map(
-            async (h) =>
-              (h.tags = await db
-                .from("tags")
-                .where("slug", "in", h.tagSlugs)
-                .exec())
-          )
-        );
-
-        return report;
-      })
-    ),
-    "reportGroupSlug"
-  );
+  const groupedReports = groupBy(reports, "reportGroupSlug");
 
   return Object.entries(groupedReports).map(([reportGroupId, reports]) => ({
     params: { slug: reportGroupId },
@@ -61,15 +33,15 @@ export function GET({ props }: APIContext) {
   return new Response(JSON.stringify({ reports: props.reports }));
 }
 
-const { reports }: { reports: Report[] } = Astro.props;
+const { reports }: { reports: ReportsRecord[] } = Astro.props;
 const { slug }: { slug: string } = Astro.params;
 
-const title = `${reports[0].herbs.map((herb) => herb.name).join("・")}の${reports[0].process?.name}のレポート`;
+const title = `${reports[0].herbs?.map((herb) => herb.name).join("・")}の${reports[0].process?.name}のレポート`;
 
 const tags = [
   ...new Set(
     reports
-      .map((r) => r.herbs.map((h) => h?.tags?.map((t) => t)))
+      .map((r) => r.herbs?.map((h) => h?.tags?.map((t) => t)))
       .flat()
       .flat()
   ),
@@ -130,7 +102,7 @@ const breadcrumb: BreadcrumbProps = {
       <Breadcrumb items={breadcrumb["items"]} />
 
       <h1 class="bold">
-        {reports[0].herbs.map((herb) => herb.name).join("・")}の{
+        {reports[0].herbs?.map((herb) => herb.name).join("・")}の{
           reports[0].process?.name
         }のレポート
       </h1>

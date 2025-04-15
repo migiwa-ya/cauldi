@@ -1,10 +1,10 @@
 import React from "react";
-import type { Herb } from "../types/herbs";
 import styles from "./HerbDecoration.module.css";
 import classNames from "classnames";
+import type { HerbsRecord } from "../types/staticql-types";
 
 interface Props {
-  herb: Herb;
+  herb: HerbsRecord;
 }
 
 const HerbDecorationLink: React.FC<Props> = ({ herb }) => {

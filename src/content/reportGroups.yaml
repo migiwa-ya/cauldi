@@ -1,7 +1,19 @@
 - slug: RG00001
-  herbSlugs: [matricaria-chamomilla]
   processSlug: infusion
+  combinedHerbs:
+    - slug: arctium-lappa
+      herbStateSlug: dry
+      herbPartSlug: flower
+      description: ドライの花を使用
+    - slug: rumex-crispus
+      herbStateSlug: dry
+      herbPartSlug: root
+      description: ドライの根
 
 - slug: RG00002
-  herbSlugs: [mentha-piperita]
   processSlug: infusion
+  combinedHerbs:
+    - slug: silybum-marianum
+      herbStateSlug: fresh
+      herbPartSlug: leaf
+      description: フレッシュな葉を使用

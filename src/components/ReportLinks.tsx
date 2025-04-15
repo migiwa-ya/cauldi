@@ -1,10 +1,10 @@
 import React from "react";
 import styles from "./ReportLinks.module.css";
 import { formatDate } from "../utils/date";
-import type { Report } from "../types/reports";
+import type { ReportsRecord } from "../types/staticql-types";
 
 interface Props {
-  reports: Report[];
+  reports: ReportsRecord[];
 }
 
 const HerbDecoration: React.FC<Props> = ({ reports }) => {

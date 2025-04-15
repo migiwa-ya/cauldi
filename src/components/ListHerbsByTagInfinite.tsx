@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ListItem from "./ListNewsItem";
 import InfiniteScroll from "./InfiniteScroll";
+import type { HerbsRecord } from "../types/staticql-types";
 
 interface Props {
   offset: number;
@@ -21,15 +22,17 @@ const ListHerbsByTagInfinite: React.FC<Props> = ({ offset, slug }) => {
   const [hasMore, setHasMore] = useState(true);
 
   const fetchItems = async () => {
-    const herbs = await (await fetch("/data/herbs.index.json")).json();
-    const newHerbs: ListItemData[] = herbs.records
-      .filter((h: any) => (h.values["tags.slug"] ?? "").includes(slug))
-      .map((h: any) => ({
-        key: h.slug,
-        displayName: h.values.name,
-        link: `/herbs/${h.slug}`,
-        content: h.values["tags.name"],
-        updatedAt: h.values.updatedAt,
+    const herbs: HerbsRecord[] = await (
+      await fetch("/data/herbs.meta.json")
+    ).json();
+    const newHerbs: ListItemData[] = Object.entries(herbs)
+      .filter(([_, herb]) => herb.tags?.map((t) => t.slug).includes(slug))
+      .map(([herbSlug, herb]) => ({
+        key: herbSlug,
+        displayName: herb.name,
+        link: `/herbs/${herbSlug}`,
+        content: herb.tags?.map((t) => t.name).join("・") ?? "",
+        updatedAt: herb.updatedAt,
       }));
 
     const newItems = newHerbs
