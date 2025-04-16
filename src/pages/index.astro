@@ -2,23 +2,36 @@
 import Layout from "../layouts/Layout.astro";
 import db from "../../staticql.config.ts";
 import ListNewsInfinite from "../components/ListNewsInfinite";
-import ListNewsItem from "../components/ListNewsItem.tsx";
+import ListNewsItem from "../components/ListItem.tsx";
 import "../styles/index.css";
 import Seo from "../components/Seo.astro";
+import type { ReportsRecord, HerbsRecord } from "../types/staticql-types";
 
-const initialHerbs = (await db.from("herbs").exec()).map((herb) => ({
-  key: herb.slug,
-  displayName: herb.name,
-  link: `/herbs/${herb.slug}`,
-  content: herb.overview,
-  updatedAt: herb.updatedAt,
-}));
+const initialHerbs = (await db.from("herbs").exec()).map(
+  (herb: HerbsRecord) => ({
+    key: herb.slug,
+    displayName: herb.name,
+    link: `/herbs/${herb.slug}`,
+    images: [
+      {
+        path: `/images/herbs/${herb.slug}/thumbnail.webp`,
+        label: herb.name,
+      },
+    ],
+    content: herb.overview,
+    updatedAt: herb.updatedAt,
+  })
+);
 
 const initialReports = (
   await db.from("reports").join("herbs").options({ indexMode: "only" }).exec()
-).map((report) => ({
+).map((report: ReportsRecord) => ({
   key: report.reportGroupSlug + report.slug,
   displayName: `Report ${report.slug}`,
+  images: report.herbs!.map((herb) => ({
+    path: `/images/herbs/${herb.slug}/thumbnail.webp`,
+    label: herb.name,
+  })),
   link: `/reports/${report.reportGroupSlug}`,
   content: report.summary || "No content available",
   updatedAt: report.updatedAt,

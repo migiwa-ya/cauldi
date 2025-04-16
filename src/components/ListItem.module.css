@@ -8,6 +8,7 @@
   outline: 1px solid var(--color-vintage-ink);
   outline-offset: 2px;
   color: var(--color-vintage-ink);
+  overflow: hidden;
 
   h2 {
     padding: 0.7em;

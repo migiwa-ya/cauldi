@@ -1,16 +1,21 @@
 import React from "react";
 import { formatDate } from "../utils/date";
 import styles from "./ListItem.module.css";
+import { toBotanicalName } from "../utils/herbs";
 
 export interface ListItemData {
   key: string;
   displayName: string;
   link: string;
+  images: {
+    path: string;
+    label: string;
+  }[];
   content: string;
-  updatedAt: Date;
+  updatedAt: Date | string;
 }
 
-const ListNewsItem: React.FC<{ item: ListItemData }> = ({ item }) => {
+const ListItem: React.FC<{ item: ListItemData }> = ({ item }) => {
   const link = item.link;
   return (
     <a href={link} className={styles.card}>
@@ -21,11 +26,24 @@ const ListNewsItem: React.FC<{ item: ListItemData }> = ({ item }) => {
         </time>
       </div>
       <h2>{item.displayName}</h2>
-      <img src="/ui/001.png" alt={item.displayName} width="400" height="300" />
-      <strong>基本情報</strong>
+      <div>
+        {item.images.map(({ path, label }) => (
+          <figure>
+            <img
+              src={path}
+              alt={label}
+              width="400"
+              height="300"
+              loading="lazy"
+            />
+            <figcaption>{toBotanicalName(label)}</figcaption>
+          </figure>
+        ))}
+        <strong>基本情報</strong>
+      </div>
       <p className="clamp-3">{item.content}</p>
     </a>
   );
 };
 
-export default ListNewsItem;
+export default ListItem;

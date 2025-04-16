@@ -1,14 +1,7 @@
 import React from "react";
 import { formatDate } from "../utils/date";
 import styles from "./ListItem.module.css";
-
-export interface ListItemData {
-  key: string;
-  displayName: string;
-  link: string;
-  content: string;
-  updatedAt: Date;
-}
+import type { ListItemData } from "./ListItem";
 
 const ListHerbsByTagItem: React.FC<{ item: ListItemData }> = ({ item }) => {
   const link = item.link;

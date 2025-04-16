@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ListItem from "./ListNewsItem";
+import ListItem, { type ListItemData } from "./ListItem";
 import InfiniteScroll from "./InfiniteScroll";
 import type { HerbsRecord } from "../types/staticql-types";
 
@@ -7,14 +7,6 @@ interface Props {
   offset: number;
   slug: string;
 }
-
-type ListItemData = {
-  key: string;
-  displayName: string;
-  link: string;
-  content: string;
-  updatedAt: Date;
-};
 
 const ListHerbsByTagInfinite: React.FC<Props> = ({ offset, slug }) => {
   const [items, setItems] = useState<ListItemData[]>([]);
@@ -30,6 +22,12 @@ const ListHerbsByTagInfinite: React.FC<Props> = ({ offset, slug }) => {
       .map(([herbSlug, herb]) => ({
         key: herbSlug,
         displayName: herb.name,
+        images: [
+          {
+            path: `/images/herbs/${herb.slug}/thumbnail.webp`,
+            label: herb.name,
+          },
+        ],
         link: `/herbs/${herbSlug}`,
         content: herb.tags?.map((t) => t.name).join("・") ?? "",
         updatedAt: herb.updatedAt,

@@ -2,10 +2,10 @@
 import Layout from "../../layouts/Layout.astro";
 import db from "../../../staticql.config.ts";
 import Breadcrumb, { type BreadcrumbProps } from "../../components/Breadcrumb";
-import ListReportsItem from "../../components/ListReportsItem";
 import ListReportsInfinite from "../../components/ListReportsInfinite";
 import "../../styles/index.css";
 import type { ReportsRecord } from "../../types/staticql-types";
+import ListItem from "../../components/ListItem";
 
 const reprots: ReportsRecord[] = await db
   .from("reports")
@@ -17,6 +17,10 @@ const initialReports = reprots.map((report) => {
   return {
     key: report.reportGroupSlug + report.slug,
     displayName: `${(report.herbs ?? []).map((herb) => herb.name).join("・")}の${report?.process?.name}の作り方`,
+    images: report.herbs!.map((herb) => ({
+      path: `/images/herbs/${herb.slug}/thumbnail.webp`,
+      label: herb.slug,
+    })),
     link: `/reports/${report.reportGroupSlug}`,
     content: report.summary || "No content available",
     updatedAt: report.updatedAt,
@@ -47,7 +51,7 @@ const breadCrumbItems: BreadcrumbProps["items"] = [
   </div>
 
   <div class="index content container">
-    {newsItems.map((item) => <ListReportsItem item={item} />)}
+    {newsItems.map((item) => <ListItem item={item} />)}
 
     <ListReportsInfinite offset={offset} client:only />
   </div>

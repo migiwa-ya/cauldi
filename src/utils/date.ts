@@ -1,4 +1,4 @@
-export function formatDate(date: Date, format = "Y-m-d H:i:s") {
+export function formatDate(date: Date | string, format = "Y-m-d H:i:s") {
   const d = date instanceof Date ? date : new Date(date);
   const pad = (n: number) => String(n).padStart(2, "0");
 

@@ -1,19 +1,11 @@
 import React, { useState } from "react";
-import ListItem from "./ListNewsItem";
+import ListItem, { type ListItemData } from "./ListItem";
 import InfiniteScroll from "./InfiniteScroll";
 import type { HerbsMeta, ReportsMeta } from "../types/staticql-types";
 
 interface Props {
   offset: number;
 }
-
-type ListItemData = {
-  key: string;
-  displayName: string;
-  link: string;
-  content: string;
-  updatedAt: Date;
-};
 
 const ListNewsInfinite: React.FC<Props> = ({ offset }) => {
   const [items, setItems] = useState<ListItemData[]>([]);
@@ -29,7 +21,13 @@ const ListNewsInfinite: React.FC<Props> = ({ offset }) => {
         key: herbSlug,
         displayName: herb.name,
         link: `/herbs/${herbSlug}`,
-        content: herb["tags.name"],
+        images: [
+          {
+            path: `/images/herbs/${herb.slug}/thumbnail.webp`,
+            label: herb.name,
+          },
+        ],
+        content: herb.overview,
         updatedAt: herb.updatedAt,
       })
     );
@@ -42,10 +40,18 @@ const ListNewsInfinite: React.FC<Props> = ({ offset }) => {
         key: reportSlug,
         displayName: "Report:" + report["herbs.name"],
         link: `/reports/${report.reportGroupSlug}`,
+        images: (report["reportGroup.combinedHerbs.slug"] ?? []).map(
+          (slug: string) => ({
+            path: `/images/herbs/${slug}/thumbnail.webp`,
+            label: slug,
+          })
+        ),
         content: "Report:" + report["herbs.name"],
         updatedAt: report.updatedAt,
       })
     );
+
+    console.log(newReports);
 
     const newItems = [...newHerbs, ...newReports]
       .sort(

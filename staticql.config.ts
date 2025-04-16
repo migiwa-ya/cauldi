@@ -40,6 +40,7 @@ export default defineContentDB({
       meta: [
         "slug",
         "name",
+        "overview",
         "herbState.name",
         "tags",
         "reports.slug",
@@ -74,10 +75,11 @@ export default defineContentDB({
         })
       ),
       relations: {
-        reportGroups: {
+        reportGroup: {
           to: "reportGroups",
           localKey: "reportGroupSlug",
           foreignKey: "slug",
+          type: "hasOne",
         },
         herbs: {
           to: "herbs",
@@ -108,7 +110,7 @@ export default defineContentDB({
       meta: [
         "reportGroupSlug",
         "processSlug",
-        "combinedHerbs.slug",
+        "reportGroup.combinedHerbs.slug",
         "process.name",
         "herbs.name",
         "updatedAt",

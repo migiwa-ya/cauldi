@@ -7,6 +7,17 @@ interface HerbDescriptionSection {
   text: string;
 }
 
+export function toBotanicalName(kebab: string) {
+  const [genus, species] = kebab.split("-");
+  if (!genus || !species) return kebab;
+
+  const capitalizedGenus =
+    genus.charAt(0).toUpperCase() + genus.slice(1).toLowerCase();
+  const lowerSpecies = species.toLowerCase();
+
+  return `${capitalizedGenus} ${lowerSpecies}`;
+}
+
 export function yamlContentSplitSection(content: string) {
   return content
     .split(/\n(?=## )/)

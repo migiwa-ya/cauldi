@@ -16,7 +16,7 @@ export async function getStaticPaths() {
   const reports: ReportsRecord[] = await db
     .from("reports")
     .join("herbs")
-    .join("reportGroups")
+    .join("reportGroup")
     .join("usageMethod")
     .options({ indexMode: "only" })
     .exec();

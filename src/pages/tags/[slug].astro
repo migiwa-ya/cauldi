@@ -2,11 +2,11 @@
 import Layout from "../../layouts/Layout.astro";
 import db from "../../../staticql.config.ts";
 import type { APIContext } from "astro";
-import ListHerbsByTagItem from "../../components/ListHerbsByTagItem";
 import ListHerbsByTagInfinite from "../../components/ListHerbsByTagInfinite";
 import Breadcrumb, { type BreadcrumbProps } from "../../components/Breadcrumb";
 import "../../styles/index.css";
 import type { TagsRecord } from "../../types/staticql-types";
+import ListItem from "../../components/ListItem";
 
 export async function getStaticPaths() {
   const tags: TagsRecord[] = await db.from("tags").exec();
@@ -30,6 +30,12 @@ const initialHerbs = (
 ).map((herb) => ({
   key: herb.slug,
   displayName: herb.name,
+  images: [
+    {
+      path: `/images/herbs/${herb.slug}/thumbnail.webp`,
+      label: herb.name,
+    },
+  ],
   link: `/herbs/${herb.slug}`,
   content: herb.overview,
   updatedAt: herb.updatedAt,
@@ -59,7 +65,7 @@ const breadCrumbItems: BreadcrumbProps["items"] = [
   </div>
 
   <div class="index content container">
-    {newsItems.map((item) => <ListHerbsByTagItem item={item} />)}
+    {newsItems.map((item) => <ListItem item={item} />)}
 
     <ListHerbsByTagInfinite offset={offset} slug={tag.slug} client:only />
   </div>
