@@ -27,13 +27,13 @@ const initialReports = (
   await db.from("reports").join("herbs").options({ indexMode: "only" }).exec()
 ).map((report: ReportsRecord) => ({
   key: report.reportGroupSlug + report.slug,
-  displayName: `Report ${report.slug}`,
+  displayName: `${report.herbs?.map((herb) => herb.name).join("・")}の${report.process?.name}のレポート`,
   images: report.herbs!.map((herb) => ({
     path: `/images/herbs/${herb.slug}/thumbnail.webp`,
     label: herb.name,
   })),
   link: `/reports/${report.reportGroupSlug}`,
-  content: report.summary || "No content available",
+  content: report.summary,
   updatedAt: report.updatedAt,
 }));
 

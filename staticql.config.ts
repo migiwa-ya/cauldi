@@ -113,6 +113,7 @@ export default defineContentDB({
         "reportGroup.combinedHerbs.slug",
         "process.name",
         "herbs.name",
+        "summary",
         "updatedAt",
       ],
     },
@@ -123,6 +124,7 @@ export default defineContentDB({
       schema: z.array(
         z.object({
           slug: z.string(),
+          description: z.string(),
           combinedHerbs: z.array(
             z.object({
               slug: z.string(),
@@ -135,15 +137,17 @@ export default defineContentDB({
         })
       ),
       relations: {
-        processes: {
+        process: {
           to: "processes",
           localKey: "processSlug",
           foreignKey: "slug",
+          type: "hasOne",
         },
         herbs: {
           to: "herbs",
           localKey: "combinedHerbs.slug",
           foreignKey: "slug",
+          type: "hasMany",
         },
       },
     },

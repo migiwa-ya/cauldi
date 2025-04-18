@@ -38,7 +38,7 @@ const ListNewsInfinite: React.FC<Props> = ({ offset }) => {
     const newReports = Object.entries(reports).map(
       ([reportSlug, report]): ListItemData => ({
         key: reportSlug,
-        displayName: "Report:" + report["herbs.name"],
+        displayName: `${report["herbs.name"]?.join("・")}の${report["process.name"]}のレポート`,
         link: `/reports/${report.reportGroupSlug}`,
         images: (report["reportGroup.combinedHerbs.slug"] ?? []).map(
           (slug: string) => ({
@@ -46,12 +46,10 @@ const ListNewsInfinite: React.FC<Props> = ({ offset }) => {
             label: slug,
           })
         ),
-        content: "Report:" + report["herbs.name"],
+        content: report.summary,
         updatedAt: report.updatedAt,
       })
     );
-
-    console.log(newReports);
 
     const newItems = [...newHerbs, ...newReports]
       .sort(

@@ -33,6 +33,7 @@ slug: string;
 };
 export type ReportGroupsRecord = {
 slug: string;
+    description: string;
     combinedHerbs: {
         slug: string;
         herbStateSlug: string;
@@ -40,8 +41,8 @@ slug: string;
         description: string;
     }[];
     processSlug: string;
-  processes?: ProcessesRecord;
-  herbs?: HerbsRecord;
+  process?: ProcessesRecord;
+  herbs?: HerbsRecord[];
 };
 export type TagsRecord = {
     slug: string;
@@ -75,6 +76,7 @@ export type ReportsMeta = Record<string, {
   "reportGroup.combinedHerbs.slug"?: string[];
   "process.name"?: string;
   "herbs.name"?: string[];
+  "summary": string;
   "updatedAt": string;
 }>;
 
@@ -85,6 +87,6 @@ export type ReportsRelation_reportGroup = Record<string, string>;
 export type ReportsRelation_herbs = Record<string, string[]>;
 export type ReportsRelation_process = Record<string, string>;
 export type ReportsRelation_usageMethod = Record<string, string>;
-export type ReportGroupsRelation_processes = Record<string, string>;
-export type ReportGroupsRelation_herbs = Record<string, string>;
+export type ReportGroupsRelation_process = Record<string, string>;
+export type ReportGroupsRelation_herbs = Record<string, string[]>;
 

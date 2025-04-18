@@ -26,7 +26,7 @@ const ListItem: React.FC<{ item: ListItemData }> = ({ item }) => {
         </time>
       </div>
       <h2>{item.displayName}</h2>
-      <div>
+      <div className={styles.content}>
         {item.images.map(({ path, label }) => (
           <figure>
             <img
@@ -39,8 +39,9 @@ const ListItem: React.FC<{ item: ListItemData }> = ({ item }) => {
             <figcaption>{toBotanicalName(label)}</figcaption>
           </figure>
         ))}
-        <strong>基本情報</strong>
       </div>
+
+      <strong>基本情報</strong>
       <p className="clamp-3">{item.content}</p>
     </a>
   );

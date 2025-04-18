@@ -17,6 +17,7 @@ export async function getStaticPaths() {
     .from("reports")
     .join("herbs")
     .join("reportGroup")
+    .join("process")
     .join("usageMethod")
     .options({ indexMode: "only" })
     .exec();
@@ -64,7 +65,7 @@ const breadcrumb: BreadcrumbProps = {
 <Layout>
   <Seo
     slot="head"
-    title=`${title}レポート | Cauldi`
+    title=`${title} | Cauldi`
     description={description}
     url=`${Astro.site}reports/${slug}`
     image=`${Astro.site}/ogp/reports/abc123.jpg`
@@ -73,7 +74,7 @@ const breadcrumb: BreadcrumbProps = {
       {
         "@context": "https://schema.org",
         "@type": "Article",
-        headline: `${title}レポート | Cauldi`,
+        headline: `${title} | Cauldi`,
         description: description,
         author: { "@type": "Organization", name: "Cauldi" },
         datePublished: formatDate(reports[0].createdAt),
@@ -101,11 +102,7 @@ const breadcrumb: BreadcrumbProps = {
     <div class="globalHeadingBody container">
       <Breadcrumb items={breadcrumb["items"]} />
 
-      <h1 class="bold">
-        {reports[0].herbs?.map((herb) => herb.name).join("・")}の{
-          reports[0].process?.name
-        }のレポート
-      </h1>
+      <h1 class="bold">{title}</h1>
     </div>
   </div>
 
