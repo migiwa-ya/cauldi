@@ -1,4 +1,5 @@
 ---
+slug: cymbopogon-citratus
 name: レモングラス
 nameScientific: Cymbopogon citratus
 nameEn: Lemongrass
@@ -9,11 +10,18 @@ overview: レモングラスはインドや東南アジア原産のイネ科の�
 efficacy: レモングラスにはシトラールを主成分とする精油が含まれ、抗菌・抗真菌作用や消化促進、リラックス効果など多岐にわたる効能が期待されています。また抗酸化作用や抗炎症作用も研究で示唆されており、伝統医学では発熱や痛みの緩和にも用いられてきました。
 createdAt: 2025-04-11T17:23:53+09:00
 updatedAt: 2025-04-11T17:23:53+09:00
+thumbnailInfo: https://chatgpt.com/s/m_6802158ce6ac8191b8a712daf57e6076
 ---
 
 ## Efficacy
 
 ### レモングラスの成分と摂取によって期待できる効能
+
+<!-- prettier-ignore-start -->
+| ![レモングラス](/images/herbs/cymbopogon-citratus/001.webp) |
+|:-:|
+| Image by [Bishnu Sarangi](https://pixabay.com/users/sarangib-37542/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=272641) from [Pixabay](https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=272641) |
+<!-- prettier-ignore-end -->
 
 レモングラスの最大の特徴は、その芳香を生み出す精油成分です。
 
@@ -73,17 +81,31 @@ updatedAt: 2025-04-11T17:23:53+09:00
 
 ### レモングラスの形状・特性
 
-([
-Antiviral, Antibacterial, Antifungal, and Anticancer Activity of Plant Materials Derived from Cymbopogon citratus (DC.) Stapf Species - PMC
-](https://pmc.ncbi.nlm.nih.gov/articles/PMC11206715/))
-
- **図: レモングラスの植物。**  (A) 収穫されたレモングラスの全草（細長い葉と株元の茎が束ねられたもの）、(B) 食用に調製された茎（下部が白く太い部分）、(C) 圃場で繁茂するレモングラスの株。
+<!-- prettier-ignore-start -->
+| ![レモングラス](/images/herbs/cymbopogon-citratus/002.webp) |
+|:-:|
+| [Cymbopogon citratus (Lemongrass, Lemon Grass, Oil Grass) \| North Carolina Extension Gardener Plant Toolbox](https://plants.ces.ncsu.edu/plants/cymbopogon-citratus/)by Forest and Kim Starr is licensed under [CC-BY 2.0](https://creativecommons.org/licenses/by/2.0/legalcode) |
+<!-- prettier-ignore-end -->
 
 レモングラスは外見的には一見するとススキや稲に似た姿をした **背の高い草** です。
 
-イネ科の多年草であり、株立ち状にまとまって生育します。その葉は細長いリボン状で、長さは約 50 ～ 100cm、幅は 5 ～ 15mm 程度に達し、先端が次第に細く尖ります[^2] [^5]。葉の表面は滑らかですが縁はややザラつき、触れると紙で指を切ったような感覚を与えることもあります。また葉には平行脈（葉脈が平行に走る特徴）があり、折れにくく丈夫です。葉は基部で茎を包む筒状の葉鞘となり、叢生することで地表近くに **球根状の茎塊** （バルブ状の下部茎）を形成します。この茎の下部は淡黄色から薄緑色で肥大しており、レモングラス特有の香りが最も強い部分です。食用にはこの **茎の下部** が利用され、繊維質ですが包丁で刻んだり潰したりすると芳香が際立ちます。
+イネ科の多年草であり、株立ち状にまとまって生育します。その葉は細長いリボン状で、長さは約 50 ～ 100cm、幅は 5 ～ 15mm 程度に達し、先端が次第に細く尖ります[^2] [^5]。葉の表面は滑らかですが縁はややザラつき、触れると紙で指を切ったような感覚を与えることもあります。また葉には平行脈（葉脈が平行に走る特徴）があり、折れにくく丈夫です。
+
+<!-- prettier-ignore-start -->
+| ![レモングラスの根本](/images/herbs/cymbopogon-citratus/003.webp) |
+|:-:|
+| [Cymbopogon citratus (Lemongrass, Lemon Grass, Oil Grass) \| North Carolina Extension Gardener Plant Toolbox](https://plants.ces.ncsu.edu/plants/cymbopogon-citratus/)by Forest and Kim Starr is licensed under [CC-BY 2.0](https://creativecommons.org/licenses/by/2.0/legalcode) |
+<!-- prettier-ignore-end -->
+
+葉は基部で茎を包む筒状の葉鞘となり、叢生することで地表近くに **球根状の茎塊** （バルブ状の下部茎）を形成します。この茎の下部は淡黄色から薄緑色で肥大しており、レモングラス特有の香りが最も強い部分です。食用にはこの **茎の下部** が利用され、繊維質ですが包丁で刻んだり潰したりすると芳香が際立ちます。
 
 成株の高さはおよそ 1 ～ 2 メートルに達し、密に茂った **株状** の姿はボリュームがあります[^2]。根は短く細かなひげ根状で地中浅く広がり、旺盛な繁殖力を示します。熱帯では条件が良ければ年に数回収穫でき、葉を刈り取っても地下茎から再生して繰り返し生育します。
+
+<!-- prettier-ignore-start -->
+| ![レモングラスの花](/images/herbs/cymbopogon-citratus/004.webp) |
+|:-:|
+| [香茅 Cymbopogon citratus -香港大埔海濱公園](https://commons.wikimedia.org/wiki/File:%E9%A6%99%E8%8C%85_Cymbopogon_citratus_-%E9%A6%99%E6%B8%AF%E5%A4%A7%E5%9F%94%E6%B5%B7%E6%BF%B1%E5%85%AC%E5%9C%92_Taipo_Waterfront_Park,_Hong_Kong-_(9261991584).jpg) by 阿橋 HQ, CC BY-SA 2.0 <https://creativecommons.org/licenses/by-sa/2.0>, via Wikimedia Commons |
+<!-- prettier-ignore-end -->
 
 レモングラスは花をつけにくい植物ですが、原産地のような高温多湿の環境下では **花序（穂状花序）** を形成します[^5]。花序は先端に複数の小穂（しょうすい：小さな穂）を束ねたもので、全体としては房状に垂れ下がるような形です。しかし観賞目的で花を見る機会は少なく、専ら葉と茎の収穫が目的となります。
 

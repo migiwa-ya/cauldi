@@ -15,6 +15,12 @@ updatedAt: 2025-04-11T13:39:51+09:00
 
 ### ゴツゴラの成分と摂取によって期待できる効能
 
+<!-- prettier-ignore-start -->
+| ![ゴツゴラ](/images/herbs/centella-asiatica/001.webp) |
+|:-:|
+| [Centella asiatica (Asiatic pennywort, Gotu kola, Indian Pennywort, Kodavan, Marsh Pennywort, Spadeleaf) \| North Carolina Extension Gardener Plant Toolbox](https://plants.ces.ncsu.edu/plants/centella-asiatica/)by Wizan Zaini is licensed under [CC-BY 2.0](http://creativecommons.org/licenses/by/2.0/legalcode) |
+<!-- prettier-ignore-end -->
+
 ゴツコラは伝統的に「脳の強壮剤」として知られ、 **記憶力や注意力** を高める効果や、 **不安の軽減** につながる鎮静作用が期待されています[^1]。実際、ゴツコラ抽出物は神経細胞を保護し認知機能低下を防ぐ **神経保護作用** （ニューロプロテクティブ）を示すことが報告されています[^1]。
 
 また、ゴツコラに含まれる成分には **抗うつ** ・ **抗不安（アンキオリティック）作用** があり、ストレス緩和や気分の安定に寄与する可能性が示唆されています[^1]。
@@ -53,13 +59,23 @@ updatedAt: 2025-04-11T13:39:51+09:00
 
 ### ゴツコラの形状・特性
 
-([File:Centella asiatica in Karnataka.jpg - Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Centella_asiatica_in_Karnataka.jpg))
+<!-- prettier-ignore-start -->
+| ![ゴツゴラの匍匐茎](/images/herbs/centella-asiatica/002.webp) |
+|:-:|
+| [Centella asiatica (Asiatic pennywort, Gotu kola, Indian Pennywort, Kodavan, Marsh Pennywort, Spadeleaf) \| North Carolina Extension Gardener Plant Toolbox](https://plants.ces.ncsu.edu/plants/centella-asiatica/)by Forest Star is licensed under [CC-BY 2.0](http://creativecommons.org/licenses/by/2.0/legalcode) |
+<!-- prettier-ignore-end -->
 
 ゴツコラはセリ科に属する **多年生の匍匐性草本** （ほふくせいそうほん）です。
 
 地面を這うように細長い茎を伸ばし、各節からひげ根を下ろして増殖します。葉は **丸みを帯びた腎臓形（または扇形）** で、径 2 ～ 4cm 程度の緑色の葉身を持ちます[^4]。
 
 葉の縁には小さな鋸歯（ギザギザ）が並び、表面はなめらかで光沢があります。初夏から夏にかけて、葉の付け根付近からごく短い花茎を伸ばし、先端に 2 ～ 5 個ほどの小さな花を球状につけます[^4]。
+
+<!-- prettier-ignore-start -->
+| ![ゴツゴラの花](/images/herbs/centella-asiatica/003.webp) |
+|:-:|
+| [Centella asiatica - Flickr - Kevin Thiele](https://commons.wikimedia.org/wiki/File:Centella_asiatica_-_Flickr_-_Kevin_Thiele.jpg) by Kevin Thiele(オーストラリア、パース), CC BY 2.0 <https://creativecommons.org/licenses/by/2.0>, via Wikimedia Commons |
+<!-- prettier-ignore-end -->
 
 花は一見目立ちませんが、花弁は白色～淡紫色で、萼片の間に 2 枚の緑色の苞が舟形に付いています。受粉後にできる果実は扁平な円形で径 3mm ほどの小果です。
 

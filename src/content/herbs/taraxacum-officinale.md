@@ -1,4 +1,5 @@
 ---
+slug: taraxacum-officinale
 name: ダンデライオン
 nameScientific: Taraxacum officinale
 nameEn: Dandelion
@@ -15,6 +16,12 @@ updatedAt: 2025-04-11T11:50:33+09:00
 ## Efficacy
 
 ### ダンデライオンの成分と摂取によって期待できる効能
+
+<!-- prettier-ignore-start -->
+| ![ダンデライオン](/images/herbs/taraxacum-officinale/001.webp) |
+|:-:|
+| [HU: pitypang, gyermekláncfű, LAT:Taraxacum officinale, ENG: Dandelion JP: タンポポ](https://commons.wikimedia.org/wiki/File:HU-_pitypang,_gyermekl%C3%A1ncf%C5%B1,_LAT-Taraxacum_officinale,_ENG-_Dandelion_JP-_%E3%82%BF%E3%83%B3%E3%83%9D%E3%83%9D.jpg) by Bigmanbaloo, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons |
+<!-- prettier-ignore-end -->
 
 ダンデライオンは多彩な有効成分を含み、その組み合わせによって様々な効能が期待されています。主な成分と作用の例を挙げると次のとおりです。
 
@@ -56,13 +63,27 @@ updatedAt: 2025-04-11T11:50:33+09:00
 
 ### ダンデライオンの形状・特性
 
-([File:Taraxacum officinale - Köhler–s Medizinal-Pflanzen-135.jpg - Wikipedia](https://en.m.wikipedia.org/wiki/File:Taraxacum_officinale_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-135.jpg))
-
- **図：ダンデライオン（セイヨウタンポポ）の植物全体。**  根茎からロゼット状に広がるギザギザの葉、黄色い頭状花序（タンポポの花）、綿毛状の種子などが描かれている。
+<!-- prettier-ignore-start -->
+| ![ダンデライオン](/images/herbs/taraxacum-officinale/002.webp) |
+|:-:|
+| [Taraxacum officinale](https://commons.wikimedia.org/wiki/File:Taraxacum_officinale--.jpg) by Elekes Andor, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons |
+<!-- prettier-ignore-end -->
 
 ダンデライオンは高さ 20 ～ 30cm ほどになる多年生の草本です。地面近くから放射状（ロゼット状）に生える葉は細長く切れ込みが深い形をしており、その鋸歯状の縁がライオンの歯を連想させることから英名 _Dandelion_（フランス語 _dent de lion_, ライオンの歯の意味）の由来となりました[^5]。
 
+<!-- prettier-ignore-start -->
+| ![ダンデライオンの花](/images/herbs/taraxacum-officinale/003.webp) |
+|:-:|
+| [Taraxacum officinale, Dandelion](https://commons.wikimedia.org/wiki/File:Taraxacum_officinale,_Dandelion_-_geograph.org.uk_-_4251141.jpg) by Taraxacum officinale, Dandelion by Jonathan Billinger, CC BY-SA 2.0 <https://creativecommons.org/licenses/by-sa/2.0>, via Wikimedia Commons |
+<!-- prettier-ignore-end -->
+
 葉は根元から直接生え（茎葉を持たず）、花茎（はなぐき）と呼ばれる中空の茎を伸ばして先端に黄色い花を一つ咲かせます。この花は一見一輪に見えますが、実際には舌状花（舌の形をした小花）の集合体でできた **頭状花序** です。セイヨウタンポポの場合、花の土台にある総苞片（そうほうへん：萼のように見える部分）が外側へ反り返るのが特徴で、これは在来種タンポポと見分ける重要なポイントになります[^1]。
+
+<!-- prettier-ignore-start -->
+| ![ダンデライオンの綿毛](/images/herbs/taraxacum-officinale/004.webp) |
+|:-:|
+| [Taraxacum officinale clock](https://commons.wikimedia.org/wiki/File:Taraxacum_officinale_clock.jpg) by Drumguy8800 at the English-language Wikipedia, CC BY-SA 3.0 <http://creativecommons.org/licenses/by-sa/3.0/>, via Wikimedia Commons |
+<!-- prettier-ignore-end -->
 
 花が咲き終わると球状の白い綿毛（種子の集まり）をつけ、風に乗って種子を飛ばします。綿毛のついた種子は非常に遠くまで運ばれ、着地した先で発芽して新たな株となります。地中には太くまっすぐな  **直根（taproot）**  が伸びており、根を切ると白い乳液（樹液）が染み出します。タンポポの仲間はこの乳液を含むことで知られ、セイヨウタンポポでも茎や根を折ると独特の苦味をもつ白い液体が出てきます。
 

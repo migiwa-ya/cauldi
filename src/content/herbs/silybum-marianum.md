@@ -16,9 +16,11 @@ updatedAt: 2025-04-09T22:50:00+09:00
 
 ### ミルクシスルの成分と摂取によって期待できる効能
 
-|                                                                                                               ![ミルクシスルの花](/images/herbs/silybum-marianum/001.webp)                                                                                                               |
-| :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+<!-- prettier-ignore-start -->
+| ![ミルクシスルの花](/images/herbs/silybum-marianum/001.webp) |
+|:-:|
 | Image by [Annette](https://pixabay.com/users/anncapictures-1564471/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=2383849) from [Pixabay](https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=2383849) |
+<!-- prettier-ignore-end -->
 
 ミルクシスルの種子には主要成分として **シリマリン** （flavonolignan 類というポリフェノール成分の混合物）が含まれています。このシリマリンは強力な **抗酸化作用** を持ち、肝臓で発生する活性酸素を中和して肝細胞の損傷を防ぐ働きが期待されています[^3]。そのため、ミルクシスルは肝臓の細胞を保護し、肝機能をサポートするハーブとして広く知られています。
 
@@ -78,15 +80,19 @@ updatedAt: 2025-04-09T22:50:00+09:00
 
 ### ミルクシスルの形状・特性
 
-|                                                                                                                 ![ミルクシスルの花と茎](/images/herbs/silybum-marianum/002.webp)                                                                                                                  |
-| :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+<!-- prettier-ignore-start -->
+| ![ミルクシスルの花と茎](/images/herbs/silybum-marianum/002.webp) |
+|:-:|
 | Image by [Rajesh Balouria](https://pixabay.com/users/balouriarajesh-6205857/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=8145297) from [Pixabay](https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=8145297) |
+<!-- prettier-ignore-end -->
 
 ミルクシスルは高さ約 1 メートルに達する **大型の草本** で、茎は直立し株元から多数の葉をロゼット状に茂らせます。 **葉** は厚く光沢のある緑色で、不規則な乳白色の斑（まだら模様）が葉脈に沿って入るのが特徴です[^5]。
 
-|                                                                                                                 ![ミルクシスルの蕾と葉](/images/herbs/silybum-marianum/003.webp)                                                                                                                  |
-| :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+<!-- prettier-ignore-start -->
+| ![ミルクシスルの蕾と葉](/images/herbs/silybum-marianum/003.webp) |
+|:-:|
 | Image by [Manfred Richter](https://pixabay.com/users/manfredrichter-4055600/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=6296683) from [Pixabay](https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=6296683) |
+<!-- prettier-ignore-end -->
 
 葉の縁には鋭い棘が並び、触れると刺さるため注意が必要です。夏になると茎の先端に径 5〜7 cm ほどの **頭状花（花序）** を一つだけ咲かせます[^5]。花序は総苞片（外側の囲いの葉）が重なり合った球状の構造で、総苞片の先端にも硬い棘があります。頭花を形作る **花** は筒状花のみからなり、色は鮮やかな赤紫色から淡紅紫色です[^6]。
 

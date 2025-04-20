@@ -1,4 +1,5 @@
 ---
+slug: rosa-canina
 name: ローズヒップ
 nameScientific: Rosa canina
 nameEn: Rosehip
@@ -13,6 +14,12 @@ updatedAt: 2025-04-11T16:15:45+09:00
 
 ## Efficacy  
 ### ローズヒップの成分と摂取によって期待できる効能
+
+<!-- prettier-ignore-start -->
+| ![ローズヒップの花](/images/herbs/rosa-canina/001.webp) |
+|:-:|
+| [Dog roses (Rosa canina) on a shrub in Gåseberg, Lysekil Municipality, Sweden.](https://commons.wikimedia.org/wiki/File:Rosa_canina_in_G%C3%A5seberg_2.jpg) by W.carter, CC0, via Wikimedia Commons |
+<!-- prettier-ignore-end -->
 
 ローズヒップは栄養豊富であり、その健康効果は主に含有成分によるものです。まず注目すべきはビタミンCの含有量で、果実100g中に数百mg以上含むこともあり、これはオレンジの20～30倍に相当します[^1]。
 
@@ -60,12 +67,22 @@ updatedAt: 2025-04-11T16:15:45+09:00
 
 ## Appearance  
 ### ローズヒップの形状・特性
- 
- ([File:Rosehip (50660063326).jpg - Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Rosehip_(50660063326).jpg)) *ローズヒップ（ドッグローズの実）の近接写真。楕円形で赤橙色の果実（偽果）で、先端には黒く縮れた萼片の残骸が付いている。*
 
-ローズヒップの外見は、一見すると赤い小さな実のように見えますが、正確にはバラの **偽果** （きか：花托が肥大化した果実）です。大きさは種類にもよりますが直径1～2cm程度の球形から楕円形で、色は鮮やかなオレンジ～赤色に熟します[^1]。
+<!-- prettier-ignore-start -->
+| ![ローズヒップの偽果](/images/herbs/rosa-canina/002.webp) |
+|:-:|
+| [Rosa Canina](https://commons.wikimedia.org/wiki/File:Rosa_Canina.JPG) by Nick Dvalishvili, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons |
+<!-- prettier-ignore-end -->
 
-果実の先端には花の咲いた後の萼片（がくへん）が乾燥して黒っぽく残っており、これがローズヒップの特徴的な外観を形作っています（上写真参照）。果皮の内側には硬い **種子** が多数詰まっており、その種子を包む細かな繊毛（毛状の突起）が存在します。この繊毛は皮膚に触れると強いかゆみを引き起こす性質があり、扱う際には注意が必要です[^8] [^9]（昔はこの毛を集めて「かゆい粉（いたずら粉）」として遊んだという民間伝承もあります）。
+ローズヒップの外見は、一見すると赤い小さな実のように見えますが、正確にはバラの **偽果** （ぎか：花托が肥大化した果実）です。大きさは種類にもよりますが直径1～2cm程度の球形から楕円形で、色は鮮やかなオレンジ～赤色に熟します[^1]。果実の先端には花の咲いた後の萼片（がくへん）が乾燥して黒っぽく残っており、これがローズヒップの特徴的な外観を形作っています（上写真参照）。
+
+<!-- prettier-ignore-start -->
+| ![ローズヒップの種子の繊毛](/images/herbs/rosa-canina/003.webp) |
+|:-:|
+| [Rosa canina inflorescence (59)](https://commons.wikimedia.org/wiki/File:Rosa_canina_inflorescence_(59).jpg) by Jean-Jacques HOUDRÉ, CC BY-SA 2.0 FR <https://creativecommons.org/licenses/by-sa/2.0/fr/deed.en>, via Wikimedia Commons |
+<!-- prettier-ignore-end -->
+
+果皮の内側には硬い **種子** が多数詰まっており、その種子を包む細かな繊毛（毛状の突起）が存在します。この繊毛は皮膚に触れると強いかゆみを引き起こす性質があり、扱う際には注意が必要です[^8] [^9]（昔はこの毛を集めて「かゆい粉（いたずら粉）」として遊んだという民間伝承もあります）。
 
 ローズヒップの果肉（正確には花托由来の部分）は肉厚ではありませんが、多糖類の **ペクチン** や有機酸を含むため柔らかく煮崩れしやすいです。熟した実は僅かに甘みと酸味があり、生食もできますが繊毛が口に刺さると不快なため通常は加工して利用されます。乾燥させた果皮は橙赤色の硬い殻のようになり、市販のハーブティー用ローズヒップはこれを細かく砕いた形で流通しています。
 

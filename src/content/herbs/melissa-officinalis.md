@@ -1,4 +1,5 @@
 ---
+slug: melissa-officinalis
 name: レモンバーム
 nameScientific: Melissa officinalis
 nameEn: Lemon balm
@@ -20,6 +21,12 @@ updatedAt: 2025-04-11T16:33:38+09:00
 ## Efficacy
 
 ### レモンバームの成分と摂取によって期待できる効能
+
+<!-- prettier-ignore-start -->
+| ![レモンバーム](/images/herbs/melissa-officinalis/001.webp) |
+|:-:|
+| [Melissa officinalis Lemon balm](https://commons.wikimedia.org/wiki/File:Centella_asiatica_-_Flickr_-_Kevin_Thiele.jpg) by aomorikuma, CC BY-SA 3.0 <http://creativecommons.org/licenses/by-sa/3.0/>, via Wikimedia Commons |
+<!-- prettier-ignore-end -->
 
 レモンバームは古くから穏やかな鎮静効果が知られており、不安やストレスの軽減に寄与するとされています。近年の研究でも抗不安作用や抗うつ作用を示す結果が報告されています[^1]。
 
@@ -63,11 +70,23 @@ updatedAt: 2025-04-11T16:33:38+09:00
 
 ### レモンバームの形状・特性
 
+<!-- prettier-ignore-start -->
+| ![レモンバーム](/images/herbs/melissa-officinalis/002.webp) |
+|:-:|
+| [Melissa officinalis3](https://commons.wikimedia.org/wiki/File:Melissa_officinalis3.JPG) by Nabokov at the English Wikipedia, CC BY-SA 3.0 <http://creativecommons.org/licenses/by-sa/3.0/>, via Wikimedia Commons |
+<!-- prettier-ignore-end -->
+
 レモンバームは高さ 60〜100cm ほどに成長する多年草で、株はよく分枝して茂み状（ブッシュ状）になります[^6]。
 
 茎は四角形で柔らかい毛に覆われ、対生する葉を付けます。
 
 葉は長さ 2〜8cm 程度の楕円〜ハート形で、表面にしわが多く葉脈がはっきりと浮き出ています[^6]。葉縁には浅い鋸歯があり、葉や茎を擦るとレモンに似た爽やかな香りが立ち上ります。葉の色は環境により濃緑色から明るい黄緑色まで変化し、質感は柔らかで触るとやや毛状のざらつきがあります。
+
+<!-- prettier-ignore-start -->
+| ![レモンバームの花](/images/herbs/melissa-officinalis/003.webp) |
+|:-:|
+| [Lemon Balm (Melissa officinalis) blooming in the Beechview neighborhood of Pittsburgh](https://commons.wikimedia.org/wiki/File:Melissa_officinalis,_Beechview,_2024-07-04-1.jpg) by Cbaile19, CC0, via Wikimedia Commons |
+<!-- prettier-ignore-end -->
 
 初夏から夏にかけて、葉の付け根（葉腋部）からごく小さな唇形花を房状に咲かせます。花の色は白や淡い黄色で、ときに薄桃色を帯びます[^5]。花は 1cm にも満たない小さなものですが芳香のある蜜を含み、ミツバチやチョウなどの昆虫を強く引き寄せます[^5]。
 

@@ -121,11 +121,15 @@
   }
 
   img {
-    object-fit: contain;
-    height: 300px;
+    object-fit: cover;
+    object-position: top;
+    overflow: hidden;
     width: 100%;
-    margin-block: 3px;
-    padding: 1em;
+    height: auto;
+    aspect-ratio: 1;
+    border: 1px solid;
+    border-radius: 100%;
+    margin: 1em;
   }
 }
 
@@ -144,6 +148,7 @@
 
   > div:nth-child(2) {
     padding: 2em;
+    z-index: 1;
 
     span {
       font-weight: bold;
@@ -161,10 +166,9 @@
     right: 0;
     bottom: 0;
     object-fit: contain;
-    opacity: 0.3;
+    object-position: top;
+    opacity: 0.2;
     filter: sepia(1);
     width: 100%;
-    margin: auto;
-    padding: 3em;
   }
 }

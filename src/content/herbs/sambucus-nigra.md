@@ -1,4 +1,5 @@
 ---
+slug: sambucus-nigra
 name: エルダーフラワー
 nameScientific: Sambucus nigra
 nameEn: Elderflower
@@ -22,6 +23,12 @@ updatedAt: 2025-04-11T10:00:00+09:00
 ## Efficacy
 
 ### エルダーフラワーの成分と摂取によって期待できる効能
+
+<!-- prettier-ignore-start -->
+| ![エルダーフラワーの木](/images/herbs/sambucus-nigra/001.webp) |
+|:-:
+| [Sambucus nigra](https://commons.wikimedia.org/wiki/File:Sambucus_nigra_004.jpg) by Willow, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons |
+<!-- prettier-ignore-end -->
 
 エルダーフラワーはフラボノイド（例：ルチンやクエルセチン）やフェノール酸類を豊富に含むため、強い抗酸化作用と抗炎症作用を発揮します[^1]。こうした有効成分により、エルダーフラワーは古くから発汗・利尿を促す薬草として用いられ、熱や炎症を伴う風邪の症状を和らげるとされています[^2]。
 
@@ -51,7 +58,19 @@ updatedAt: 2025-04-11T10:00:00+09:00
 
 セイヨウニワトコ（エルダー）は高さ数メートルから最大で約 10 m 程に育つ落葉低木〜小高木です。樹皮は灰褐色で深い縦割れが入り、枝や幹の中心には柔らかな白い髄質が通っています。葉は対生し、奇数羽状複葉で 3 ～ 7 枚の楕円形の小葉からなります。各小葉は長さ 4 ～ 12 cm 程度で縁には鋭い鋸歯があり、葉を揉むと独特の青臭い匂いを発します[^6]。
 
+<!-- prettier-ignore-start -->
+| ![エルダーフラワーの花](/images/herbs/sambucus-nigra/002.webp) |
+|:-:
+| [Sambucus-nigra foliage](https://commons.wikimedia.org/wiki/File:Sambucus-nigra_foliage.jpg) by Otto Sheva2, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons |
+<!-- prettier-ignore-end -->
+
 初夏になると、径 5 mm ほどの小さな淡黄色～乳白色の花を多数咲かせます。花は 5 弁で芳香があり、枝先に平坦な散房状の大きな花序（直径 20 cm 前後）を形成します[^5]。
+
+<!-- prettier-ignore-start -->
+| ![エルダーフラワーの実](/images/herbs/sambucus-nigra/003.webp) |
+|:-:
+| [Common Elder - Sambucus nigra](https://commons.wikimedia.org/wiki/File:Common_Elder_-_Sambucus_nigra_-_geograph.org.uk_-_1513147.jpg) Ian Cunliffe / Common Elder - Sambucus nigra / CC BY-SA 2.0 <https://creativecommons.org/licenses/by-sa/2.0>, via Wikimedia Commons |
+<!-- prettier-ignore-end -->
 
 開花後の果実は紫黒色の液果（ベリー状の実）で、径 3 ～ 5 mm ほどの丸い粒が房状に実ります[^5]。熟した果実は果汁が多く食用可能ですが、未熟な実や種子にはわずかな毒性（シアン配糖体）も含むため、生食は避け加熱調理して利用されます（ジャムやシロップ、ワイン醸造など）[^5]。
 

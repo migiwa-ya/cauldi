@@ -1,4 +1,5 @@
 ---
+slug: urtica-dioica
 name: ネトル
 nameScientific: Urtica dioica
 nameEn: Nettle
@@ -14,6 +15,12 @@ updatedAt: 2025-04-11T15:38:26+09:00
 ## Efficacy
 
 ### ネトルの成分と摂取によって期待できる効能
+
+<!-- prettier-ignore-start -->
+| ![ネトル](/images/herbs/urtica-dioica/001.webp) |
+|:-:|
+| [Nokkosia](https://commons.wikimedia.org/wiki/File:Nokkosia.jpg) by kallerna, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons |
+<!-- prettier-ignore-end -->
 
 ネトルは栄養豊富なハーブとして知られ、その葉や根にはビタミン A（プロビタミン A）、ビタミン C、ビタミン K や複数のビタミン B 群が含まれます[^1]。
 
@@ -71,10 +78,23 @@ updatedAt: 2025-04-11T15:38:26+09:00
 
 ### ネトルの形状・特性
 
-([image]())  
+<!-- prettier-ignore-start -->
+| ![ネトル](/images/herbs/urtica-dioica/002.webp) |
+|:-:|
+| [stinging nettle (Urtica dioica)](https://commons.wikimedia.org/wiki/File:Urtica_dioica_138999118.jpg) by Michel Langeveld, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons |
+<!-- prettier-ignore-end -->
+
 ネトルは高さ 1〜2 メートル程度に成長する直立した草本で、茎は細く緑色で硬い毛状の刺（刺毛）に覆われます[^6]。葉は対生（向かい合って生える）で長さ 3〜15cm ほどの卵形から楕円形をしており、縁にはギザギザした鋸歯があります[^2]。葉の基部はハート形（心形）で先端は尖り、表面は濃緑色で裏面はやや淡色です。春から夏にかけて茎の葉腋（ようえき：葉の付け根部分）から垂れ下がる房状の小さな花序をつけ、淡い緑色の花を多数咲かせます[^4]。
 
-ネトルは雌雄異株（しゆういしゅ：雄株と雌株が別々）であり、雄花と雌花は別の株に咲きます。受粉後にできる痩果（そうか：薄い殻に包まれた種子）は非常に小さく、植物周辺にこぼれ落ちて増殖します。全体に生えている刺毛は先端が脆く触れると容易に折れて皮膚に刺さり、中の液が染み出します。この刺毛液にはヒスタミンやアセチルコリン、セロトニン、蟻酸（ギ酸）など刺激性の化学物質が含まれ、刺されると一時的に火傷のようなヒリヒリした痛みと発赤・痒みを引き起こします[^6]（これが「スティンギング（刺す）ネトル」の由来です）。
+ネトルは雌雄異株（しゆういしゅ：雄株と雌株が別々）であり、雄花と雌花は別の株に咲きます。受粉後にできる痩果（そうか：薄い殻に包まれた種子）は非常に小さく、植物周辺にこぼれ落ちて増殖します。
+
+<!-- prettier-ignore-start -->
+| ![ネトルの棘](/images/herbs/urtica-dioica/003.webp) |
+|:-:|
+| [Urtica dioica 2019-08-11 3668](https://commons.wikimedia.org/wiki/File:Urtica_dioica_2019-08-11_3668.jpg) by Salicyna, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons |
+<!-- prettier-ignore-end -->
+
+全体に生えている刺毛は先端が脆く触れると容易に折れて皮膚に刺さり、中の液が染み出します。この刺毛液にはヒスタミンやアセチルコリン、セロトニン、蟻酸（ギ酸）など刺激性の化学物質が含まれ、刺されると一時的に火傷のようなヒリヒリした痛みと発赤・痒みを引き起こします[^6]（これが「スティンギング（刺す）ネトル」の由来です）。
 
 ただし乾燥させたネトルには刺毛の刺激性は残らないため、乾燥ハーブを触っても刺される心配はありません[^10]。刺毛以外の外観上の特徴として、茎頂部に向かうほど葉が小型になり形もやや細長くなる傾向があります。また秋が深まると葉は黄褐色に変色し、地上部は冬季に枯死して翌春に根茎から新芽を伸ばします[^6]。
 

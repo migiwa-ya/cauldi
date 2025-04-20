@@ -17,7 +17,12 @@ const HerbDecoration: React.FC<Props> = ({ herb }) => {
           <h2>{herb.name}の概要</h2>
           <p>{herb.overview}</p>
         </div>
-        <img src="/ui/001.png" alt="aaa" width="400" height="300" />
+        <img
+          src={`/images/herbs/${herb.slug}/thumbnail.webp`}
+          alt={herb.name}
+          width="400"
+          height="300"
+        />
         <div>
           <h2>{herb.name}の期待される効果・効能</h2>
           <p

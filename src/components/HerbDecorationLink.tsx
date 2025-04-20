@@ -20,7 +20,12 @@ const HerbDecorationLink: React.FC<Props> = ({ herb }) => {
           <span>{herb.nameScientific}</span>
           <p className="clamp-3">{herb.efficacy}</p>
         </div>
-        <img src="/ui/001.png" alt="aaa" width="400" height="300" />
+        <img
+          src={`/images/herbs/${herb.slug}/thumbnail.webp`}
+          alt={herb.nameScientific}
+          width="400"
+          height="300"
+        />
       </div>
 
       <div />

@@ -22,5 +22,7 @@
     right: 0.5em;
     color: white;
     font-size: 2em;
+    background: none;
+    border: none;
   }
 }

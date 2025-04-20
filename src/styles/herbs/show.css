@@ -127,6 +127,10 @@
       content: "]";
     }
   }
+
+  ol {
+    padding-bottom: 2em;
+  }
 }
 
 .tags {

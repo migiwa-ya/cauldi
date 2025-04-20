@@ -19,7 +19,7 @@ updatedAt: 2025-04-11T00:14:45+09:00
 <!-- prettier-ignore-start -->
 | ![ゴボウ](/images/herbs/arctium-lappa/001.webp) |
 |:-:|
-| Image by [Ralph](https://pixabay.com/users/ralphs_fotos-1767157/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=3560745) from [Pixabay](https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=3560745") |
+| Image by [Ralph](https://pixabay.com/users/ralphs_fotos-1767157/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=3560745) from [Pixabay](https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=3560745) |
 <!-- prettier-ignore-end -->
 
 ゴボウの根には炭水化物の一種である **イヌリン** （水溶性食物繊維）が多く含まれます。
