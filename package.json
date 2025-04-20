@@ -13,7 +13,7 @@
   "dependencies": {
     "@astrojs/react": "^4.2.4",
     "@astrojs/sitemap": "^3.3.0",
-    "@migiwa-ya/staticql": "^0.7.2",
+    "@migiwa-ya/staticql": "^0.7.3",
     "@types/react": "^19.0.12",
     "@types/react-dom": "^19.0.4",
     "astro": "^5.7.0",
@@ -28,7 +28,7 @@
     "node": "23"
   },
   "volta": {
-    "node": "23.8.0",
+    "node": "23.11.0",
     "npm": "10.9.2"
   }
 }
