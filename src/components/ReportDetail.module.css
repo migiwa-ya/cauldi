@@ -162,3 +162,16 @@ progress {
     var(--color-vintage-ink) 48px
   );
 }
+
+.images {
+  display: inline-flex;
+  gap: 1em;
+  margin-block: 1em;
+
+  img {
+    width: 70px;
+    height: auto;
+    filter: sepia(1);
+    border-radius: 10px;
+  }
+}

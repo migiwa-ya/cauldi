@@ -38,20 +38,16 @@ ol {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: tomato;
+  background-color: var(--color-vintage-ink);
 
   .logo {
-    display: block;
-    font-size: 3em;
-    font-weight: normal;
-    font-family: "Playwrite DK Loopet", serif;
-    color: white;
-    text-align: center;
+    display: inline-block;
+    padding: 1em;
   }
 
   .logomark {
-    width: 64px;
-    fill: white;
+    width: 50px;
+    fill: var(--color-vintage-ink-reverse);
   }
 
   nav {
@@ -62,11 +58,15 @@ ol {
     gap: 0.5em;
     margin-right: 1em;
     margin-bottom: 0.5em;
+    top: 0;
+    margin-block: auto;
+    align-items: center;
 
     a {
       font-size: 1em;
       font-weight: 100;
-      color: white;
+      font-family: "Stoke", serif;
+      color: var(--color-vintage-ink-reverse);
 
       &:not(:last-child)::after {
         content: "/";
@@ -81,9 +81,13 @@ ol {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: tomato;
-  color: white;
+  background-color: var(--color-vintage-ink);
+  color: var(--color-vintage-ink-reverse);
   text-align: center;
+
+  .logomark {
+    fill: var(--color-vintage-ink-reverse);
+  }
 }
 
 .globalHeading {

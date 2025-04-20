@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ListItem, { type ListItemData } from "./ListItem";
 import InfiniteScroll from "./InfiniteScroll";
 import type { HerbsMeta, ReportsMeta } from "../types/staticql-types";
+import { toBotanicalName } from "../utils/herbs";
 
 interface Props {
   offset: number;
@@ -24,7 +25,7 @@ const ListNewsInfinite: React.FC<Props> = ({ offset }) => {
         images: [
           {
             path: `/images/herbs/${herb.slug}/thumbnail.webp`,
-            label: herb.name,
+            label: toBotanicalName(herb.slug),
           },
         ],
         content: herb.overview,
@@ -43,7 +44,7 @@ const ListNewsInfinite: React.FC<Props> = ({ offset }) => {
         images: (report["reportGroup.combinedHerbs.slug"] ?? []).map(
           (slug: string) => ({
             path: `/images/herbs/${slug}/thumbnail.webp`,
-            label: slug,
+            label: toBotanicalName(slug),
           })
         ),
         content: report.summary,

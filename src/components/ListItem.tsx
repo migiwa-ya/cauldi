@@ -28,7 +28,7 @@ const ListItem: React.FC<{ item: ListItemData }> = ({ item }) => {
       <h2>{item.displayName}</h2>
       <div className={styles.content}>
         {item.images.map(({ path, label }) => (
-          <figure>
+          <figure key={path}>
             <img
               src={path}
               alt={label}
@@ -36,7 +36,7 @@ const ListItem: React.FC<{ item: ListItemData }> = ({ item }) => {
               height="300"
               loading="lazy"
             />
-            <figcaption>{toBotanicalName(label)}</figcaption>
+            <figcaption>{label}</figcaption>
           </figure>
         ))}
       </div>

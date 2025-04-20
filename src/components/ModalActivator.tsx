@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import ReactDOM from "react-dom";
 import ImageModal from "./ImageModal";
 
 export default function ModalActivator() {

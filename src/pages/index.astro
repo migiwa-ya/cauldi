@@ -15,7 +15,7 @@ const initialHerbs = (await db.from("herbs").exec()).map(
     images: [
       {
         path: `/images/herbs/${herb.slug}/thumbnail.webp`,
-        label: herb.name,
+        label: herb.nameScientific,
       },
     ],
     content: herb.overview,
@@ -30,7 +30,7 @@ const initialReports = (
   displayName: `${report.herbs?.map((herb) => herb.name).join("・")}の${report.process?.name}のレポート`,
   images: report.herbs!.map((herb) => ({
     path: `/images/herbs/${herb.slug}/thumbnail.webp`,
-    label: herb.name,
+    label: herb.nameScientific,
   })),
   link: `/reports/${report.reportGroupSlug}`,
   content: report.summary,

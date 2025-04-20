@@ -8,6 +8,18 @@ interface ReportDetailProps {
   report: ReportsRecord;
 }
 
+const flavorMap = {
+  bitterness: "苦味",
+  sweetness: "甘味",
+  sourness: "酸味",
+  spiciness: "辛味",
+  astringency: "渋味",
+  umami: "旨味",
+  aromaType: "香りの種類",
+  aromaIntensity: "香りの強さ",
+  aftertaste: "後味",
+};
+
 const ReportDetail: React.FC<ReportDetailProps> = ({ report }) => {
   return (
     <article className={styles.article}>
@@ -54,21 +66,39 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ report }) => {
               <li>{r}</li>
             ))}
           </ul>
+
+          <div className={styles.images}>
+            {report.images.map((i) => (
+              <img
+                src={i.imageUrl}
+                alt={i.caption}
+                data-modal="true"
+                data-img={i.imageUrl}
+              />
+            ))}
+          </div>
         </section>
         <section className={styles.footerSection}>
           <strong className={styles.noteTitle}>感想</strong>
           <p className={styles.note}>{report.content}</p>
           <ul className={styles.flavorRating}>
-            <li>
-              <span>甘味</span>
-              <progress
-                className={styles.progress}
-                id="progress"
-                value="3"
-                max="10"
-              ></progress>
-              <span>3/10</span>
-            </li>
+            {(
+              Object.entries(report.flavor) as [
+                keyof typeof flavorMap,
+                number
+              ][]
+            ).map(([key, value]) => (
+              <li>
+                <span>{flavorMap[key]}</span>
+                <progress
+                  className={styles.progress}
+                  id="progress"
+                  value={value}
+                  max="10"
+                ></progress>
+                <span>{value}/10</span>
+              </li>
+            ))}
           </ul>
         </section>
       </div>

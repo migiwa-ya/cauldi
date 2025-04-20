@@ -1,10 +1,21 @@
-.privacy, .term {
+.intro {
+  p,
+  li {
+    line-height: 2;
+    &:not(:last-child) {
+      margin-bottom: 1em;
+    }
+  }
+}
+
+.privacy,
+.term {
   height: 300px;
   overflow: auto;
-  background-color: aliceblue;
+  background-color: var(--color-vintage-ink-reverse);
   padding: 2em;
+  margin-block: 2em;
   border: 1px solid;
-
   * {
     font-size: 0.9em;
   }

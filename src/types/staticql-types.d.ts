@@ -23,7 +23,20 @@ slug: string;
     summary: string;
     ingredients: string[];
     recipe: string[];
+    flavor: {
+        bitterness: number;
+        astringency: number;
+        sweetness: number;
+        sourness: number;
+        spiciness: number;
+        umami: number;
+    };
     content: string;
+    images: {
+        imageUrl: string;
+        caption: string;
+        sortOrder: number;
+    }[];
     updatedAt: Date;
     createdAt: Date;
   reportGroup?: ReportGroupsRecord;
@@ -38,7 +51,6 @@ slug: string;
         slug: string;
         herbStateSlug: string;
         herbPartSlug: string;
-        description: string;
     }[];
     processSlug: string;
   process?: ProcessesRecord;

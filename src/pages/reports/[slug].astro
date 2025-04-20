@@ -9,8 +9,8 @@ import ReportDetail from "../../components/ReportDetail";
 import Seo from "../../components/Seo.astro";
 import { formatDate } from "../../utils/date";
 import "../../styles/reports/show.css";
-import LogoMark from "../../assets/logomark.svg";
 import type { ReportsRecord } from "../../types/staticql-types";
+import ModalActivator from "../../components/ModalActivator";
 
 export async function getStaticPaths() {
   const reports: ReportsRecord[] = await db
@@ -37,7 +37,13 @@ export function GET({ props }: APIContext) {
 const { reports }: { reports: ReportsRecord[] } = Astro.props;
 const { slug }: { slug: string } = Astro.params;
 
-const title = `${reports[0].herbs?.map((herb) => herb.name).join("・")}の${reports[0].process?.name}のレポート`;
+const herbsString = reports[0].herbs?.map((herb) => herb.name).join("・");
+const title = `${herbsString}の${reports[0].process?.name}のレポート`;
+
+const desc = reports[0].reportGroup?.description.replace(
+  "%herbs%",
+  herbsString!
+);
 
 const tags = [
   ...new Set(
@@ -108,13 +114,11 @@ const breadcrumb: BreadcrumbProps = {
 
   <div class="content container">
     <div class="intro">
-      <LogoMark />
-      <p>
-        お酒は好きだけど、健康診断の数値が気になってきたので、%herbs%でチンキを仕込んでみました。美味しく続けるのがいちばん、ということで、いろんな飲み方を試した結果をまとめています。
-      </p>
+      <p>{desc}</p>
     </div>
 
     {reports.map((report) => <ReportDetail report={report} />)}
-    <Promotion />
   </div>
+
+  <ModalActivator client:only />
 </Layout>

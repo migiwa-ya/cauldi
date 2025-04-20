@@ -36,6 +36,25 @@ export function GET({ props }: APIContext) {
 
 const { herb }: { herb: HerbsRecord } = Astro.props;
 
+herb.reports = herb.reports
+  ? await Promise.all(
+      herb.reports.map(async (r) => {
+        const rg: ReportGroupsRecord[] = await db
+          .from("reportGroups")
+          .join("process")
+          .where("slug", "eq", r.reportGroupSlug)
+          .exec();
+
+        if (rg.length > 0) {
+          r.reportGroup = rg[0];
+          r.process = rg[0].process;
+        }
+
+        return r;
+      })
+    )
+  : [];
+
 const relationHerbs: HerbsRecord[] = (
   await db.from("herbs").where("tagSlugs", "in", herb.tagSlugs).exec()
 ).filter((rh) => rh.slug !== herb.slug);
@@ -46,7 +65,12 @@ import Breadcrumb, { type BreadcrumbProps } from "../../components/Breadcrumb";
 import HerbDecoration from "../../components/HerbDecoration";
 import HerbDecorationLink from "../../components/HerbDecorationLink";
 import Seo from "../../components/Seo.astro";
-import type { HerbsRecord } from "../../types/staticql-types";
+import type {
+  HerbsRecord,
+  ProcessesRecord,
+  ReportGroupsRecord,
+} from "../../types/staticql-types";
+import { hydrateRoot } from "react-dom/client";
 
 const breadcrumb: BreadcrumbProps = {
   items: [
@@ -129,13 +153,6 @@ const breadcrumb: BreadcrumbProps = {
             }
           </div>
         </section>
-
-        <!-- <section>
-          <h3 class="columnHead">Compunds</h3>
-          <div class="columnBody">
-            <HerbCompounds compounds={herb.compounds} />
-          </div>
-        </section> -->
       </div>
     </article>
 

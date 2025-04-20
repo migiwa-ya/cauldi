@@ -69,7 +69,22 @@ export default defineContentDB({
           summary: z.string(),
           ingredients: z.array(z.string()),
           recipe: z.array(z.string()),
+          flavor: z.object({
+            bitterness: z.number(),
+            astringency: z.number(),
+            sweetness: z.number(),
+            sourness: z.number(),
+            spiciness: z.number(),
+            umami: z.number(),
+          }),
           content: z.string(),
+          images: z.array(
+            z.object({
+              imageUrl: z.string(),
+              caption: z.string(),
+              sortOrder: z.number(),
+            })
+          ),
           updatedAt: z.date(),
           createdAt: z.date(),
         })
@@ -130,7 +145,6 @@ export default defineContentDB({
               slug: z.string(),
               herbStateSlug: z.string(),
               herbPartSlug: z.string(),
-              description: z.string(),
             })
           ),
           processSlug: z.string(),

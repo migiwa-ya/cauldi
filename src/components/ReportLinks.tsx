@@ -27,7 +27,7 @@ const HerbDecoration: React.FC<Props> = ({ reports }) => {
               <p>{report.summary}</p>
             </div>
           </div>
-          <img src="/ui/001.png" alt="" />
+          <img src={`/images/herbs/${report.reportGroup?.combinedHerbs![0].slug}/thumbnail.webp`} alt="" />
         </a>
       ))}
     </aside>

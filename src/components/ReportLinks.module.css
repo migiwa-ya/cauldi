@@ -78,8 +78,12 @@
   }
 
   > img {
-    object-fit: contain;
+    object-fit: cover;
+    object-position: top;
     width: 64px;
     height: 64px;
+    border-radius: 100%;
+    border: 1px solid;
+    margin: 0.5em;
   }
 }
