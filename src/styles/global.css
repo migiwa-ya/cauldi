@@ -38,16 +38,19 @@ ol {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--color-vintage-ink);
+  background-color: darkslategrey;
 
   .logo {
     display: inline-block;
     padding: 1em;
+    line-height: 1;
   }
 
   .logomark {
-    width: 50px;
-    fill: var(--color-vintage-ink-reverse);
+    width: 60px;
+    fill: gold;
+    border: 4px double gold;
+    padding: 0.3em;
   }
 
   nav {
@@ -66,7 +69,7 @@ ol {
       font-size: 1em;
       font-weight: 100;
       font-family: "Stoke", serif;
-      color: var(--color-vintage-ink-reverse);
+      color: gold;
 
       &:not(:last-child)::after {
         content: "/";
@@ -81,12 +84,12 @@ ol {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--color-vintage-ink);
-  color: var(--color-vintage-ink-reverse);
+  background-color: darkslategrey;
+  color: gold;
   text-align: center;
 
   .logomark {
-    fill: var(--color-vintage-ink-reverse);
+    fill: gold;
   }
 }
 
