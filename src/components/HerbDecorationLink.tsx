@@ -10,7 +10,7 @@ interface Props {
 const HerbDecorationLink: React.FC<Props> = ({ herb }) => {
   return (
     <a
-      href={`/herbs/${herb.slug}`}
+      href={`/herbs/${herb.slug}/`}
       className={classNames(styles.herbDecoration, styles.herbDecorationLink)}
     >
       <div />

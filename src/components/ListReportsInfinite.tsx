@@ -32,7 +32,7 @@ const ListReportsInfinite: React.FC<Props> = ({ offset }) => {
               label: slug,
             })
           ),
-          link: `/reports/${report.reportGroupSlug}`,
+          link: `/reports/${report.reportGroupSlug}/`,
           content: "Report:" + report["herbs.name"],
           updatedAt: report.updatedAt,
         };

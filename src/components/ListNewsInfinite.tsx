@@ -21,7 +21,7 @@ const ListNewsInfinite: React.FC<Props> = ({ offset }) => {
       ([herbSlug, herb]): ListItemData => ({
         key: herbSlug,
         displayName: herb.name,
-        link: `/herbs/${herbSlug}`,
+        link: `/herbs/${herbSlug}/`,
         images: [
           {
             path: `/images/herbs/${herb.slug}/thumbnail.webp`,
@@ -40,7 +40,7 @@ const ListNewsInfinite: React.FC<Props> = ({ offset }) => {
       ([reportSlug, report]): ListItemData => ({
         key: reportSlug,
         displayName: `${report["herbs.name"]?.join("・")}の${report["process.name"]}のレポート`,
-        link: `/reports/${report.reportGroupSlug}`,
+        link: `/reports/${report.reportGroupSlug}/`,
         images: (report["reportGroup.combinedHerbs.slug"] ?? []).map(
           (slug: string) => ({
             path: `/images/herbs/${slug}/thumbnail.webp`,

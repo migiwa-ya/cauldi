@@ -12,7 +12,7 @@ const HerbDecoration: React.FC<Props> = ({ reports }) => {
     <aside className={styles.reportLinks}>
       {reports.map((report) => (
         <a
-          href={`/reports/${report.reportGroupSlug}`}
+          href={`/reports/${report.reportGroupSlug}/`}
           className={styles.reportLinkCard}
         >
           <div>

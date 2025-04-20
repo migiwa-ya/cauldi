@@ -28,7 +28,7 @@ const ListHerbsByTagInfinite: React.FC<Props> = ({ offset, slug }) => {
             label: herb.name,
           },
         ],
-        link: `/herbs/${herbSlug}`,
+        link: `/herbs/${herbSlug}/`,
         content: herb.tags?.map((t) => t.name).join("・") ?? "",
         updatedAt: herb.updatedAt,
       }));

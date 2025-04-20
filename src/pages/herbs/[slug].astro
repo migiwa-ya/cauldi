@@ -75,10 +75,10 @@ import { hydrateRoot } from "react-dom/client";
 const breadcrumb: BreadcrumbProps = {
   items: [
     { label: "Cauldi", link: `${Astro.site}` },
-    { label: "ハーブ一覧", link: `${Astro.site}herbs` },
+    { label: "ハーブ一覧", link: `${Astro.site}herbs/` },
     {
       label: `${herb.name}（${herb.nameScientific}）`,
-      link: `${Astro.site}herbs/${herb.slug}`,
+      link: `${Astro.site}herbs/${herb.slug}/`,
     },
   ],
 };
@@ -145,7 +145,7 @@ const breadcrumb: BreadcrumbProps = {
             {
               herb.tags &&
                 herb.tags.map((tag) => (
-                  <a href={`/tags/${tag.slug}`} class="tag">
+                  <a href={`/tags/${tag.slug}/`} class="tag">
                     <span>{tag.slug}</span>
                     <span>{tag.name}</span>
                   </a>

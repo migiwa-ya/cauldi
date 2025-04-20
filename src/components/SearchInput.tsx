@@ -37,7 +37,7 @@ const SearchInput = () => {
       <input type="text" value={inputValue} onChange={handleInputChange} placeholder="Search herbs or tags..." />
       <ul>
         {suggestions.map((suggestion) => (
-          <li key={suggestion.slug || `tag-${suggestion.id}`} onClick={() => window.location.href = suggestion.slug ? `/herbs/${suggestion.slug}` : `/tags/${suggestion.id}`}>
+          <li key={suggestion.slug || `tag-${suggestion.id}`} onClick={() => window.location.href = suggestion.slug ? `/herbs/${suggestion.slug}/` : `/tags/${suggestion.id}/`}>
             {suggestion.name}
           </li>
         ))}

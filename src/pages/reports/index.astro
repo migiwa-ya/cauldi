@@ -21,7 +21,7 @@ const initialReports = reprots.map((report) => {
       path: `/images/herbs/${herb.slug}/thumbnail.webp`,
       label: herb.slug,
     })),
-    link: `/reports/${report.reportGroupSlug}`,
+    link: `/reports/${report.reportGroupSlug}/`,
     content: report.summary || "No content available",
     updatedAt: report.updatedAt,
   };

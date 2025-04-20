@@ -11,7 +11,7 @@ const initialHerbs = (await db.from("herbs").exec()).map(
   (herb: HerbsRecord) => ({
     key: herb.slug,
     displayName: herb.name,
-    link: `/herbs/${herb.slug}`,
+    link: `/herbs/${herb.slug}/`,
     images: [
       {
         path: `/images/herbs/${herb.slug}/thumbnail.webp`,
@@ -32,7 +32,7 @@ const initialReports = (
     path: `/images/herbs/${herb.slug}/thumbnail.webp`,
     label: herb.nameScientific,
   })),
-  link: `/reports/${report.reportGroupSlug}`,
+  link: `/reports/${report.reportGroupSlug}/`,
   content: report.summary,
   updatedAt: report.updatedAt,
 }));

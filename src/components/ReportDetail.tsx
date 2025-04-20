@@ -40,7 +40,7 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ report }) => {
           <dt>Herbs</dt>
           <dd>
             {report.herbs?.map((herb) => (
-              <a href={`/herbs/${herb.slug}`}>{herb.name}</a>
+              <a href={`/herbs/${herb.slug}/`}>{herb.name}</a>
             ))}
           </dd>
         </dl>

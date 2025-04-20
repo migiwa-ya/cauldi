@@ -20,7 +20,7 @@ const groupByScientific = groupByKeyInitial(herbs, "nameScientific");
 const breadcrumb: BreadcrumbProps = {
   items: [
     { label: "Cauldi", link: `${Astro.site}` },
-    { label: "ハーブ一覧", link: `${Astro.site}herbs` },
+    { label: "ハーブ一覧", link: `${Astro.site}herbs/` },
   ],
 };
 ---
@@ -64,7 +64,7 @@ const breadcrumb: BreadcrumbProps = {
             <section class="indexItem">
               <strong>{name}</strong>
               {groupByName[name].map((herb) => (
-                <a href={`/herbs/${herb.slug}`}>{herb.name}</a>
+                <a href={`/herbs/${herb.slug}/`}>{herb.name}</a>
               ))}
             </section>
           ))
@@ -80,7 +80,7 @@ const breadcrumb: BreadcrumbProps = {
             <section class="indexItem">
               <strong>{scientific}</strong>
               {groupByScientific[scientific].map((herb) => (
-                <a href={`/herbs/${herb.slug}`}>{herb.nameScientific}</a>
+                <a href={`/herbs/${herb.slug}/`}>{herb.nameScientific}</a>
               ))}
             </section>
           ))
