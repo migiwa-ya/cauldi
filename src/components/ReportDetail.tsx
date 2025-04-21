@@ -74,6 +74,8 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ report }) => {
                 alt={i.caption}
                 data-modal="true"
                 data-img={i.imageUrl}
+                width="70px"
+                height="70px"
               />
             ))}
           </div>

@@ -174,7 +174,14 @@
   li {
     margin-bottom: 0.5rem;
     font-size: small;
+    line-height: 2.5;
   }
+}
+
+[data-footnote-backref] {
+  margin-inline: 0.2em;
+  min-width: 30px;
+  display: inline-block;
 }
 
 .otherHerbs {

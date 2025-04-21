@@ -9,30 +9,40 @@ interface Props {
 
 const HerbDecoration: React.FC<Props> = ({ herb }) => {
   return (
-    <div className={styles.herbDecoration}>
-      <div />
-
-      <div className={styles.herbDecorationContent}>
-        <div>
-          <h2>{herb.name}の概要</h2>
-          <p>{herb.overview}</p>
-        </div>
-        <img
-          src={`/images/herbs/${herb.slug}/thumbnail.webp`}
-          alt={herb.name}
-          width="400"
-          height="300"
+    <>
+      <head>
+        <link
+          rel="preload"
+          as="image"
+          href={`/images/herbs/${herb.slug}/thumbnail.webp`}
         />
-        <div>
-          <h2>{herb.name}の期待される効果・効能</h2>
-          <p
-            dangerouslySetInnerHTML={{ __html: marked.parse(herb.efficacy) }}
-          />
-        </div>
-      </div>
+      </head>
 
-      <div />
-    </div>
+      <div className={styles.herbDecoration}>
+        <div />
+
+        <div className={styles.herbDecorationContent}>
+          <div>
+            <h2>{herb.name}の概要</h2>
+            <p>{herb.overview}</p>
+          </div>
+          <img
+            src={`/images/herbs/${herb.slug}/thumbnail.webp`}
+            alt={herb.name}
+            width="512"
+            height="768"
+          />
+          <div>
+            <h2>{herb.name}の期待される効果・効能</h2>
+            <p
+              dangerouslySetInnerHTML={{ __html: marked.parse(herb.efficacy) }}
+            />
+          </div>
+        </div>
+
+        <div />
+      </div>
+    </>
   );
 };
 

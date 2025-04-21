@@ -33,14 +33,14 @@ export function yamlContentSplitSection(content: string) {
     .filter((s): s is HerbDescriptionSection => !!s);
 }
 
-marked.use(markedFootnote({ description: "" }));
+marked.use(markedFootnote({ description: "", refMarkers: true }));
 
 export function renderMarkdownWithCustomLayout(markdown: string) {
   // 1. カスタム heading タグ変換
   const renderer = new marked.Renderer();
 
   renderer.image = function ({ href, title, text }: Tokens.Image) {
-    return `<figure><img src="${href}" alt="${text}" data-modal="true" data-img="${href}"><figcaption>${text}</figcaption></figure>`;
+    return `<figure><img src="${href}" alt="${text}" data-modal="true" data-img="${href}" loading="lazy" width="300" height="200"></figure>`;
   };
 
   renderer.link = function ({ href, title, text }: Tokens.Link) {

@@ -23,8 +23,9 @@ const HerbDecorationLink: React.FC<Props> = ({ herb }) => {
         <img
           src={`/images/herbs/${herb.slug}/thumbnail.webp`}
           alt={herb.nameScientific}
-          width="400"
-          height="300"
+          width="512"
+          height="768"
+          loading="lazy"
         />
       </div>
 
