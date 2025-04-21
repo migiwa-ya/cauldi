@@ -73,6 +73,6 @@ const newsItems = [...initialHerbs, ...initialReports]
   <div class="index content container">
     {newsItems.map((item) => <ListNewsItem item={item} />)}
 
-    <ListNewsInfinite offset={offset} client:only />
+    <ListNewsInfinite offset={offset} client:visible />
   </div>
 </Layout>

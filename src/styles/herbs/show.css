@@ -119,15 +119,6 @@
     width: 100%;
   }
 
-  sup {
-    &::before {
-      content: "[";
-    }
-    &::after {
-      content: "]";
-    }
-  }
-
   ol {
     padding-bottom: 2em;
   }

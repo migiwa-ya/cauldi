@@ -53,6 +53,6 @@ const breadCrumbItems: BreadcrumbProps["items"] = [
   <div class="index content container">
     {newsItems.map((item) => <ListItem item={item} />)}
 
-    <ListReportsInfinite offset={offset} client:only />
+    <ListReportsInfinite offset={offset} client:visible />
   </div>
 </Layout>
