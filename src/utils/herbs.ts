@@ -40,7 +40,7 @@ export function renderMarkdownWithCustomLayout(markdown: string) {
   const renderer = new marked.Renderer();
 
   renderer.image = function ({ href, title, text }: Tokens.Image) {
-    return `<figure><img src="${href}" alt="${text}" data-modal="true" data-img="${href}" loading="lazy" width="300" height="200"></figure>`;
+    return `<figure><img src="${href}" alt="${text}" data-modal="true" data-img="${href}" loading="lazy" width="300" height="270"></figure>`;
   };
 
   renderer.link = function ({ href, title, text }: Tokens.Link) {

@@ -29,8 +29,8 @@ const HerbDecoration: React.FC<Props> = ({ herb }) => {
           <img
             src={`/images/herbs/${herb.slug}/thumbnail.webp`}
             alt={herb.name}
-            width="350"
-            height="525"
+            width="300"
+            height="300"
           />
           <div>
             <h2>{herb.name}の期待される効果・効能</h2>
