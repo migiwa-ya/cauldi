@@ -32,8 +32,8 @@ const ListItem: React.FC<{ item: ListItemData }> = ({ item }) => {
             <img
               src={path}
               alt={label}
-              width="512"
-              height="768"
+              width="350"
+              height="525"
               loading="lazy"
             />
             <figcaption>{label}</figcaption>
