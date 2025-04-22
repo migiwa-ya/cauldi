@@ -5,3 +5,11 @@
     - slug: rumex-crispus
       herbStateSlug: dry
       herbPartSlug: root
+
+- slug: RG00002
+  description: 日本ではきんぴらなどでおなじみのゴボウのハーブティ。懐かしい風味や香ばしさが魅力です。
+  processSlug: infusion
+  combinedHerbs:
+    - slug: arctium-lappa
+      herbStateSlug: dry
+      herbPartSlug: root
