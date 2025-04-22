@@ -87,8 +87,8 @@ const breadcrumb: BreadcrumbProps = {
 <Layout>
   <Seo
     slot="head"
-    title=`${herb.name}（${herb.nameScientific}）の効能と使い方 | Cauldi`
-    description=`${herb.name}の効能や使い方、学術的な背景をわかりやすく解説。${herb.tags?.map(t => t.name).join("・")}で注目されています。Cauldiはハーブを五感で楽しみ、学べる専門サイトです。`
+    title=`${herb.name}（${herb.nameScientific}）の期待される効能と使い方 | Cauldi`
+    description=`${herb.name}の期待される効能や使い方、学術的な背景をわかりやすく解説。${herb.tags?.map(t => t.name).join("・")}で注目されています。Cauldiはハーブを五感で楽しみ、学べる専門サイトです。`
     url=`${Astro.site}herbs/${herb.slug}`
     image=`${Astro.site}image/herbs/arctium-lappa.jpg`
     type="article"
@@ -97,7 +97,7 @@ const breadcrumb: BreadcrumbProps = {
       "@type": "Product",
       name: `${herb.name}（${herb.nameScientific}）`,
       image: `${Astro.site}image/herbs/arctium-lappa.jpg`,
-      description: `${herb.name}の効能や使い方、学術的な背景をわかりやすく解説。${herb.tags?.map((t) => t.name).join("・")}で注目されています。Cauldiはハーブを五感で楽しみ、学べる専門サイトです。`,
+      description: `${herb.name}の期待される効能や使い方、学術的な背景をわかりやすく解説。${herb.tags?.map((t) => t.name).join("・")}で注目されています。Cauldiはハーブを五感で楽しみ、学べる専門サイトです。`,
       brand: {
         "@type": "Brand",
         name: "Cauldi",
