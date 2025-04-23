@@ -1,0 +1,136 @@
+- slug: anthraquinone
+  name: アントラキノン
+  description: アントラキノン系化合物。便秘薬や下剤に利用される成分で、センナやダイオウに含まれる。
+
+- slug: arctigenin
+  name: アルクチゲニン
+  description: リグナン系化合物で、抗ウイルス・抗炎症作用が報告されている。ゴボウなどに含まれる。
+
+- slug: arctiin
+  name: アルクチイン
+  description: アルクチゲニンの配糖体で、抗酸化作用を持つ。ゴボウの種子に多い。
+
+- slug: asiatic-acid
+  name: アシアチン酸
+  description: ツボクサに含まれるトリテルペン。創傷治癒や皮膚再生の促進に関与するとされる。
+
+- slug: asiaticoside
+  name: アシアチコシド
+  description: ツボクサ由来のサポニン。コラーゲン産生促進や抗炎症作用が知られている。
+
+- slug: beta-sitosterol
+  name: β-シトステロール
+  description: 植物ステロール。コレステロール吸収を抑制し、前立腺肥大にも関連があるとされる。
+
+- slug: calcium
+  name: カルシウム
+  description: 骨や歯の構成成分。筋肉収縮や神経伝達にも不可欠なミネラル。
+
+- slug: carotenoid
+  name: カロテノイド
+  description: 植物の黄色や赤の色素。βカロテンなどがあり、抗酸化作用が強い。
+
+- slug: chlorogenic-acid
+  name: クロロゲン酸
+  description: コーヒーなどに多く含まれるポリフェノール。抗酸化・血糖値低下作用。
+
+- slug: chlorophyll
+  name: クロロフィル
+  description: 植物の葉緑素。抗酸化・消臭・デトックス効果もあるとされる。
+
+- slug: chrysophanol
+  name: クリソファノール
+  description: アントラキノン系の一種。緩下作用や抗菌作用があるとされる。
+
+- slug: citral
+  name: シトラール
+  description: レモングラスの主要香気成分。レモン様の香りでリラックス効果があるとされる。
+
+- slug: emodin
+  name: エモジン
+  description: アントラキノン誘導体。下剤作用や抗炎症作用が報告されている。
+
+- slug: flavonoid
+  name: フラボノイド
+  description: 植物の二次代謝物。抗酸化・抗炎症・血管強化など幅広い健康作用があるとされる。
+
+- slug: geraniol
+  name: ゲラニオール
+  description: ゼラニウムやローズに含まれる芳香成分。抗菌・虫除け効果があるとされる。
+
+- slug: inulin
+  name: イヌリン
+  description: チコリやゴボウに多く含まれる水溶性食物繊維。整腸作用があるとされる。
+
+- slug: iron
+  name: 鉄
+  description: 赤血球中のヘモグロビンを構成し、酸素運搬に関与するミネラル。
+
+- slug: kaempferol
+  name: ケンペロール
+  description: 多くの野菜や果物に含まれるフラボノイド。抗酸化・抗アレルギー作用。
+
+- slug: limonene
+  name: リモネン
+  description: 柑橘類の皮に多い精油成分。リラックスや消化促進作用があるとされる。
+
+- slug: luteolin
+  name: ルテオリン
+  description: ピーマンやセロリなどに含まれる。抗炎症・神経保護効果が期待される。
+
+- slug: madecassic-acid
+  name: マデカシン酸
+  description: マデカソシドの代謝物。皮膚修復やコラーゲン促進に寄与するとされる。
+
+- slug: madecassoside
+  name: マデカッソシド
+  description: ツボクサの有効成分。抗炎症・創傷治癒などの皮膚トラブルに利用。
+
+- slug: myrcene
+  name: ミルセン
+  description: ホップやマンゴーに含まれるテルペン。鎮静作用や抗炎症作用。
+
+- slug: oleanolic-acid
+  name: オレアノール酸
+  description: オリーブや薬草に含まれるトリテルペン。抗炎症・肝保護作用など。
+
+- slug: potassium
+  name: カリウム
+  description: 細胞の浸透圧を維持し、ナトリウムとのバランスで血圧を調整するミネラル。
+
+- slug: quercetin
+  name: ケルセチン
+  description: タマネギなどに多いフラボノイド。抗酸化・抗アレルギー作用が強い。
+
+- slug: rosmarinic-acid
+  name: ロスマリン酸
+  description: ローズマリーやシソに含まれる。抗炎症・抗菌作用があるとされる。
+
+- slug: rutin
+  name: ルチン
+  description: ソバや柑橘類に多い。血管を強くし、ビタミンCの吸収を助ける。
+
+- slug: silymarin
+  name: シリマリン
+  description: マリアアザミ由来の成分。肝機能保護や抗酸化作用が報告されている。
+
+- slug: tannin
+  name: タンニン
+  description: お茶などに含まれる渋み成分。抗菌・抗酸化・収れん作用があるとされる。
+
+- slug: taraxacin
+  name: タラクサシン
+  description: タンポポに含まれる苦味成分。肝臓や胆のうの働きを助けるとされる。
+
+- slug: taraxasterol
+  name: タラクサステロール
+  description: タンポポ由来のトリテルペン。抗炎症や免疫調整作用が期待される。
+
+- slug: ursolic-acid
+  name: ウルソール酸
+  description: リンゴの皮などに多く含まれる。筋肉増強や抗炎症作用が注目される。
+
+- slug: vitamin-c
+  name: ビタミンC
+  description: 水溶性ビタミン。抗酸化・免疫強化・コラーゲン生成など多機能。
+

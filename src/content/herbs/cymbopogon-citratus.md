@@ -8,9 +8,9 @@ compoundSlugs: [citral, geraniol, limonene, myrcene]
 tagSlugs: [relaxation, antibacterial, digestive, antioxidant]
 overview: レモングラスはインドや東南アジア原産のイネ科の多年草で、レモンに似た爽やかな香りを持つハーブです。高さ1～2メートルに成長する細長い葉と茎を持ち、料理の香味付けやハーブティー、精油として広く利用されています。伝統的に民間薬としても使用され、消化促進や発汗作用などが知られています。
 efficacy: レモングラスにはシトラールを主成分とする精油が含まれ、抗菌・抗真菌作用や消化促進、リラックス効果など多岐にわたる効能が期待されています。また抗酸化作用や抗炎症作用も研究で示唆されており、伝統医学では発熱や痛みの緩和にも用いられてきました。
+wiki: https://ja.wikipedia.org/wiki/%E3%83%AC%E3%83%A2%E3%83%B3%E3%82%B0%E3%83%A9%E3%82%B9
 createdAt: 2025-04-11T17:23:53+09:00
-updatedAt: 2025-04-11T17:23:53+09:00
-thumbnailInfo: https://chatgpt.com/s/m_6802158ce6ac8191b8a712daf57e6076
+updatedAt: 2025-04-23T14:29:00+09:00
 ---
 
 ## Efficacy

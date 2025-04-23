@@ -8,8 +8,9 @@ compoundSlugs: [inulin, arctigenin, arctiin, chlorogenic-acid]
 tagSlugs: [antioxidant, antiinflammatory, diuretic, detox, digestive, skin]
 overview: ゴボウ（学名 Arctium lappa）はキク科の根菜で、日本やアジアを中心に食用および薬用に利用されてきた植物です。その根には水溶性食物繊維イヌリンやポリフェノール類を豊富に含み、古来より利尿・発汗による解毒や皮膚疾患の治療など健康効果が期待されてきました。
 efficacy: ゴボウの根には、食物繊維イヌリンやポリフェノール（クロロゲン酸など）、リグナン（アルクチゲニンなど）といった有効成分が含まれ、抗酸化作用や抗炎症作用、利尿・解毒作用、皮膚の改善など健康・美容への効果が期待されています。ただしヒトでの有効性は十分な科学的証拠が確立していません。
+wiki: https://ja.wikipedia.org/wiki/%E3%82%B4%E3%83%9C%E3%82%A6
 createdAt: 2025-04-11T00:14:45+09:00
-updatedAt: 2025-04-11T00:14:45+09:00
+updatedAt: 2025-04-23T14:29:00+09:00
 ---
 
 ## Efficacy

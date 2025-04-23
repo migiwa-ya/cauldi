@@ -1,17 +1,14 @@
 import React from "react";
-
-interface Compound {
-  name: string;
-  effect: string;
-}
+import type { CompoundsRecord } from "../types/staticql-types";
+import styles from "./HerbCompounds.module.css";
 
 interface HerbCompoundsProps {
-  compounds: Compound[];
+  compounds: CompoundsRecord[];
 }
 
 const HerbCompounds: React.FC<HerbCompoundsProps> = ({ compounds }) => {
   return (
-    <table className="table">
+    <table className={`${styles.compounds} table`}>
       <thead>
         <tr>
           <th>成分名</th>
@@ -22,7 +19,7 @@ const HerbCompounds: React.FC<HerbCompoundsProps> = ({ compounds }) => {
         {compounds.map((compound, index) => (
           <tr key={index}>
             <td>{compound.name}</td>
-            <td>{compound.effect}</td>
+            <td>{compound.description}</td>
           </tr>
         ))}
       </tbody>

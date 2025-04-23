@@ -8,8 +8,9 @@ compoundSlugs: [taraxacin, inulin, potassium, taraxasterol, luteolin]
 tagSlugs: [detox, liver, digestive, diuretic]
 overview: ダンデライオン（セイヨウタンポポ）はキク科の多年草で、ヨーロッパ原産ですが現在は世界中に広く分布しています。薬草としての長い歴史があり、葉・根・花の各部位がそれぞれの効能を持ち、健康維持に活用されてきました。
 efficacy: ダンデライオンは利尿作用や肝機能のサポート、消化促進などの効果が知られており、体内の毒素を排出する「デトックスハーブ」として人気があります。近年では抗酸化作用や抗炎症作用なども研究されています。
+wiki: https://ja.wikipedia.org/wiki/%E3%82%BB%E3%82%A4%E3%83%A8%E3%82%A6%E3%82%BF%E3%83%B3%E3%83%9D%E3%83%9D
 createdAt: 2025-04-11T11:50:33+09:00
-updatedAt: 2025-04-11T11:50:33+09:00
+updatedAt: 2025-04-23T14:29:00+09:00
 ---
 
 ## Efficacy

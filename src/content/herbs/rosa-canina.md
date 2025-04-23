@@ -4,12 +4,13 @@ name: ローズヒップ
 nameScientific: Rosa canina
 nameEn: Rosehip
 nameAliases: [ドッグローズの実, バラの実, ロサカニナ]
-compoundSlugs: [ビタミンC、カロテノイド、フラボノイド]
+compoundSlugs: [vitamin-c, carotenoid, flavonoid]
 tagSlugs: [immunity, skin, antioxidant]
 overview: ローズヒップはバラ科バラ属（野バラ）の果実で、ビタミンCをはじめ豊富な栄養素を含むハーブです。特にビタミンC含有量が非常に高く、レモンやオレンジを遥かに上回ることから「ビタミンCの爆弾」とも呼ばれます。古くからハーブティーやシロップ、ジャムの材料として親しまれ、免疫支援や美容効果が期待できるとして利用されてきました。
 efficacy: ローズヒップは抗酸化作用が強く、免疫機能のサポートや肌の健康維持に寄与します。豊富なビタミンCやポリフェノールにより活性酸素を抑え、風邪予防や美肌効果が期待されます。また抗炎症作用も報告されており、関節痛の緩和や体脂肪の低減など幅広い健康効果が研究されています。
+wiki: https://ja.wikipedia.org/wiki/%E3%83%AD%E3%83%BC%E3%82%BA%E3%83%92%E3%83%83%E3%83%97
 createdAt: 2025-04-11T16:15:45+09:00 
-updatedAt: 2025-04-11T16:15:45+09:00 
+updatedAt: 2025-04-23T14:29:00+09:00
 ---
 
 ## Efficacy  

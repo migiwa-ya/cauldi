@@ -3,13 +3,17 @@
 export type HerbsRecord = {
 slug: string;
     name: string;
+    nameAliases: string[];
     nameScientific: string;
+    compoundSlugs: string[];
+    tagSlugs: string[];
     overview: string;
     efficacy: string;
-    tagSlugs: string[];
+    wiki: string;
     content: string;
     updatedAt: Date;
     createdAt: Date;
+  compounds?: CompoundsRecord[];
   tags?: TagsRecord[];
   reports?: ReportsRecord[];
 };
@@ -68,6 +72,11 @@ export type UsageMethodsRecord = {
     slug: string;
     name: string;
 };
+export type CompoundsRecord = {
+    slug: string;
+    name: string;
+    description: string;
+};
 
 export type HerbsIndex_name = Record<string, string[]>;
 export type ReportsIndex_slug = Record<string, string[]>;
@@ -93,6 +102,7 @@ export type ReportsMeta = Record<string, {
 }>;
 
 
+export type HerbsRelation_compounds = Record<string, string[]>;
 export type HerbsRelation_tags = Record<string, string[]>;
 export type HerbsRelation_reports = Record<string, string[]>;
 export type ReportsRelation_reportGroup = Record<string, string>;

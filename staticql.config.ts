@@ -10,16 +10,25 @@ export default defineContentDB({
         z.object({
           slug: z.string(),
           name: z.string(),
+          nameAliases: z.array(z.string()),
           nameScientific: z.string(),
+          compoundSlugs: z.array(z.string()),
+          tagSlugs: z.array(z.string()),
           overview: z.string(),
           efficacy: z.string(),
-          tagSlugs: z.array(z.string()),
+          wiki: z.string(),
           content: z.string(),
           updatedAt: z.date(),
           createdAt: z.date(),
         })
       ),
       relations: {
+        compounds: {
+          to: "compounds",
+          localKey: "compoundSlugs",
+          foreignKey: "slug",
+          type: "hasMany",
+        },
         tags: {
           to: "tags",
           localKey: "tagSlugs",
@@ -195,6 +204,18 @@ export default defineContentDB({
         z.object({
           slug: z.string(),
           name: z.string(),
+        })
+      ),
+    },
+
+    compounds: {
+      path: "src/content/compounds.yaml",
+      type: "yaml",
+      schema: z.array(
+        z.object({
+          slug: z.string(),
+          name: z.string(),
+          description: z.string(),
         })
       ),
     },

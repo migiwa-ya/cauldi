@@ -4,12 +4,13 @@ name: ネトル
 nameScientific: Urtica dioica
 nameEn: Nettle
 nameAliases: [セイヨウイラクサ, スティンギングネトル, イラクサ]
-compoundSlugs: [flavonoid, chlorophyll, iron, vitaminC, calcium]
+compoundSlugs: [flavonoid, chlorophyll, iron, vitamin-c, calcium]
 tagSlugs: [antiinflammatory, allergy, anemia, diuretic, BPH]
 overview: ネトルはイラクサ科の多年草で、全草に細かな刺毛を持ち触れると皮膚を刺激することから「スティンギング（刺す）ネトル」とも呼ばれます。ヨーロッパやアジア、北米など世界に広く分布し、古くから食用や薬用に利用されてきました。栄養価が高く、乾燥させた葉はハーブティー（ネトルティー）として親しまれ、現代ではサプリメントにも加工されています。
 efficacy: ネトルには抗炎症作用や抗アレルギー作用が期待され、花粉症などの症状緩和や関節の痛み軽減に役立つとされています。また鉄分などミネラルが豊富なことから貧血予防に、利尿作用によるデトックスやむくみ改善に用いられるほか。
+wiki: https://ja.wikipedia.org/wiki/%E3%82%BB%E3%82%A4%E3%83%A8%E3%82%A6%E3%82%A4%E3%83%A9%E3%82%AF%E3%82%B5
 createdAt: 2025-04-11T15:38:26+09:00
-updatedAt: 2025-04-11T15:38:26+09:00
+updatedAt: 2025-04-23T14:29:00+09:00
 ---
 
 ## Efficacy
@@ -114,9 +115,9 @@ updatedAt: 2025-04-11T15:38:26+09:00
 
 食用としても長い歴史があり、中世イギリスではネトルの若葉を茹でたプディングやビールの材料として利用した記録が残っています[^11]。イギリスでは 6000 年前の新石器時代に遡る「世界最古のプディング」の材料がネトルだったとの説もあり、飢餓の際には貴重な緑野菜としてスープなどにして飢えを凌いだようです[^11]。
 
-日本ではアイヌ民族が繊維用に近縁種のエゾイラクサを利用しており、「レタルペ」と呼ばれる衣類を作っていたことが知られています [^12]。
+日本ではアイヌ民族が繊維用に近縁種のエゾイラクサを利用しており、「レタルペ」と呼ばれる衣類を作っていたことが知られています [^8]。
 
-繊維利用といえばヨーロッパでも古くから亜麻や麻の代用としてネトル繊維が用いられ、15 ～ 17 世紀にはシーツや帆布に用いられるほど一般的でした[^13]。特に第一次世界大戦中、綿不足に陥ったドイツでは軍服や靴下の素材としてネトル繊維が大量に利用され、約 40kg ものイラクサから軍服 1 着を仕立てたとの記録もあります[^13]。
+繊維利用といえばヨーロッパでも古くから亜麻や麻の代用としてネトル繊維が用いられ、15 ～ 17 世紀にはシーツや帆布に用いられるほど一般的でした[^12]。特に第一次世界大戦中、綿不足に陥ったドイツでは軍服や靴下の素材としてネトル繊維が大量に利用され、約 40kg ものイラクサから軍服 1 着を仕立てたとの記録もあります[^12]。
 
 このようにネトルは古来より薬草・野菜・繊維と多面的に人々の暮らしを支えてきました。
 
@@ -138,9 +139,9 @@ updatedAt: 2025-04-11T15:38:26+09:00
 
 このようにネトルは「害になる植物」でありながら「害を防ぐ植物」として二面性を持つ象徴とされ、困難に敢えて立ち向かうことを「イラクサを掴む（grasp the nettle）」という英語の成句にもなっています[^9]。
 
-民話の中でもネトルはしばしば登場し、デンマークの作家アンデルセンの童話「野の白鳥」では、魔法で白鳥にされた兄達を救うため主人公の王女がネトルから布を織って肌着を編む試練が描かれています[^12]。この物語はグリム童話「六羽の白鳥」にも類似し、ネトルの繊維が呪いを解く鍵として用いられるなど、ネトルは魔法植物のモチーフとしても用いられてきました。
+民話の中でもネトルはしばしば登場し、デンマークの作家アンデルセンの童話「野の白鳥」では、魔法で白鳥にされた兄達を救うため主人公の王女がネトルから布を織って肌着を編む試練が描かれています[^8]。この物語はグリム童話「六羽の白鳥」にも類似し、ネトルの繊維が呪いを解く鍵として用いられるなど、ネトルは魔法植物のモチーフとしても用いられてきました。
 
-その他、ネトルを使った占い（ネトルを集める夢で恋占いをする等）[^14]や、ネトルにまつわることわざも各地に残されています。日本の俗信ではあまり見られませんが、世界的にはネトルはただの雑草以上のスピリチュアルな存在として、人々の想像力の中に息づいているのです。
+その他、ネトルを使った占い（ネトルを集める夢で恋占いをする等）[^13]や、ネトルにまつわることわざも各地に残されています。日本の俗信ではあまり見られませんが、世界的にはネトルはただの雑草以上のスピリチュアルな存在として、人々の想像力の中に息づいているのです。
 
 ## References
 
@@ -159,6 +160,5 @@ updatedAt: 2025-04-11T15:38:26+09:00
 - [^9]: [Eibeibunka 50: 31-48 (2020)](https://www.jstage.jst.go.jp/article/eibeibunka/50/0/50_31/_pdf)
 - [^10]: [ネトルの植物学と栽培 – 日本メディカルハーブ協会](https://www.medicalherb.or.jp/archives/178554)
 - [^11]: [The Folklore of Nettles: Edible Stings, Returning Curses, and Warding off Evil](https://www.icysedgwick.com/nettles-folklore/)
-- [^12]: [イラクサ - Wikipedia](https://ja.wikipedia.org/wiki/%E3%82%A4%E3%83%A9%E3%82%AF%E3%82%B5)
-- [^13]: [Himalayan Nettle — Around The World in 80 Fabrics](https://www.atw80fabrics.com/himalayan-nettle)
-- [^14]: [Plant lore, legends, and lyrics. Embracing the myths, traditions, superstitions, and folk-lore of the plant kingdom : Folkard, Richard : Free Download, Borrow, and Streaming : Internet Archive](https://archive.org/details/plantlorelegends00folk/page/460/mode/2up?q=nettles)
+- [^12]: [Himalayan Nettle — Around The World in 80 Fabrics](https://www.atw80fabrics.com/himalayan-nettle)
+- [^13]: [Plant lore, legends, and lyrics. Embracing the myths, traditions, superstitions, and folk-lore of the plant kingdom : Folkard, Richard : Free Download, Borrow, and Streaming : Internet Archive](https://archive.org/details/plantlorelegends00folk/page/460/mode/2up?q=nettles)

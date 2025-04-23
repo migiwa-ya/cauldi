@@ -3,13 +3,14 @@ slug: silybum-marianum
 name: ミルクシスル
 nameScientific: Silybum marianum
 nameEn: Milk thistle
-nameAliases: [オオアザミ（大薊）, ミルクシスル]
+nameAliases: [オオアザミ（大薊）, マリアアザミ]
 compoundSlugs: [silymarin]
 tagSlugs: [liver, antioxidant, detox]
 overview: ミルクシスル（学名 Silybum marianum）は、キク科オオアザミ属の二年草で、紫色の花と葉脈に白いまだら模様をもつ大形のアザミです。地中海沿岸を原産とし、現在では世界各地に帰化しています。古くから肝臓を守る薬草として利用され、近年は健康補助食品（サプリメント）として広く用いられています。
 efficacy: 種子に含まれるシリマリン（ポリフェノール化合物の複合体）は強い抗酸化作用を持ち、肝細胞をフリーラジカルから保護するとされています。抗炎症作用も報告されており、肝機能改善や解毒を期待して用いられます。また脂肪肝や肝炎などに対する有効性について近年研究が進められています。
+wiki: https://ja.wikipedia.org/wiki/%E3%83%9E%E3%83%AA%E3%82%A2%E3%82%A2%E3%82%B6%E3%83%9F
 createdAt: 2025-04-09T22:50:00+09:00
-updatedAt: 2025-04-09T22:50:00+09:00
+updatedAt: 2025-04-23T14:29:00+09:00
 ---
 
 ## Efficacy

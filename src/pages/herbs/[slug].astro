@@ -2,36 +2,48 @@
 import type { APIContext } from "astro";
 import db from "../../../staticql.config.ts";
 import { formatDate } from "../../utils/date";
-import { renderMarkdownWithCustomLayout } from "../../utils/herbs";
+import {
+  renderMarkdownWithCustomLayout,
+  extractFootnoteReferencesFromMarkdown,
+  isScholarlyArticleUrl,
+  isTrustedWebPageUrl,
+} from "../../utils/herbs";
 import ModalActivator from "../../components/ModalActivator";
 import ReportLinks from "../../components/ReportLinks";
 import "../../styles/herbs/show.css";
 import "../../components/HerbDecoration.module.css";
+import Layout from "../../layouts/Layout.astro";
+import Breadcrumb, { type BreadcrumbProps } from "../../components/Breadcrumb";
+import HerbDecoration from "../../components/HerbDecoration";
+import HerbDecorationLink from "../../components/HerbDecorationLink";
+import Seo from "../../components/Seo.astro";
+import type {
+  HerbsRecord,
+  ReportGroupsRecord,
+} from "../../types/staticql-types";
+import HerbCompounds from "../../components/HerbCompounds";
 
 export async function getStaticPaths() {
   const herbs: HerbsRecord[] = await db
     .from("herbs")
     .join("reports")
     .join("tags")
+    .join("compounds")
     .options({ indexMode: "only" })
     .exec();
 
   return await Promise.all(
     herbs.map(async (herb) => {
-      const description = yamlContentSplitSection(herb.content);
-
       return {
         params: { slug: herb.slug },
-        props: { herb, description },
+        props: { herb },
       };
     })
   );
 }
 
 export function GET({ props }: APIContext) {
-  return new Response(
-    JSON.stringify({ herb: props.herb, description: props.description })
-  );
+  return new Response(JSON.stringify({ herb: props.herb }));
 }
 
 const { herb }: { herb: HerbsRecord } = Astro.props;
@@ -59,25 +71,24 @@ const relationHerbs: HerbsRecord[] = (
   await db.from("herbs").where("tagSlugs", "in", herb.tagSlugs).exec()
 ).filter((rh) => rh.slug !== herb.slug);
 
-import Layout from "../../layouts/Layout.astro";
-import { yamlContentSplitSection } from "../../utils/herbs";
-import Breadcrumb, { type BreadcrumbProps } from "../../components/Breadcrumb";
-import HerbDecoration from "../../components/HerbDecoration";
-import HerbDecorationLink from "../../components/HerbDecorationLink";
-import Seo from "../../components/Seo.astro";
-import type {
-  HerbsRecord,
-  ProcessesRecord,
-  ReportGroupsRecord,
-} from "../../types/staticql-types";
-import { hydrateRoot } from "react-dom/client";
+const herbFullname = `${herb.name}（${herb.nameScientific}）`;
+const title = `${herbFullname}の期待される効能と使い方 | Cauldi`;
+const desc = `${herbFullname}の期待される効能や使い方、学術的な背景をわかりやすく解説。${herb.tags?.map((t) => t.name).join("・")}で注目されています。Cauldiはハーブを五感で楽しみ、学ぶための専門サイトです。`;
+const h1 = `${herbFullname}の期待される効能・使い方・成分`;
+
+const footnotes = extractFootnoteReferencesFromMarkdown(herb.content);
+
+const citation = {
+  scholarlyArticle: footnotes.filter((item) => isScholarlyArticleUrl(item.url)),
+  webPage: footnotes.filter((item) => isTrustedWebPageUrl(item.url)),
+};
 
 const breadcrumb: BreadcrumbProps = {
   items: [
     { label: "Cauldi", link: `${Astro.site}` },
     { label: "ハーブ一覧", link: `${Astro.site}herbs/` },
     {
-      label: `${herb.name}（${herb.nameScientific}）`,
+      label: h1,
       link: `${Astro.site}herbs/${herb.slug}/`,
     },
   ],
@@ -87,22 +98,54 @@ const breadcrumb: BreadcrumbProps = {
 <Layout>
   <Seo
     slot="head"
-    title=`${herb.name}（${herb.nameScientific}）の期待される効能と使い方 | Cauldi`
-    description=`${herb.name}の期待される効能や使い方、学術的な背景をわかりやすく解説。${herb.tags?.map(t => t.name).join("・")}で注目されています。Cauldiはハーブを五感で楽しみ、学べる専門サイトです。`
+    title={title}
+    description={desc}
     url=`${Astro.site}herbs/${herb.slug}`
     image=`${Astro.site}image/herbs/arctium-lappa.jpg`
     type="article"
     ldJson={{
       "@context": "https://schema.org",
-      "@type": "Product",
-      name: `${herb.name}（${herb.nameScientific}）`,
-      image: `${Astro.site}image/herbs/arctium-lappa.jpg`,
-      description: `${herb.name}の期待される効能や使い方、学術的な背景をわかりやすく解説。${herb.tags?.map((t) => t.name).join("・")}で注目されています。Cauldiはハーブを五感で楽しみ、学べる専門サイトです。`,
+      "@type": "WebPage",
+      url: `${Astro.site}herbs/${herb.slug}`,
+      name: title,
+      headline: h1,
+      description: desc,
+      image: `${Astro.site}image/herbs/${herb.slug}.jpg`,
+      datePublished: herb.createdAt,
+      dateModified: herb.updatedAt,
+      author: {
+        "@type": "Organization",
+        name: "Cauldi 編集部",
+      },
       brand: {
         "@type": "Brand",
         name: "Cauldi",
       },
-      url: `${Astro.site}herbs/${herb.slug}`,
+      mainEntity: {
+        "@type": "Thing",
+        name: herbFullname,
+        alternateName: herb.nameAliases,
+        sameAs: [herb.wiki],
+      },
+      additionalProperty: [
+        {
+          "@type": "PropertyValue",
+          name: "含有成分",
+          value: herb.compounds?.map((c) => c.name).join(", "),
+        },
+      ],
+      citation: [
+        ...citation.scholarlyArticle.map((item) => ({
+          "@type": "ScholarlyArticle",
+          name: item.label,
+          url: item.url,
+        })),
+        ...citation.webPage.map((item) => ({
+          "@type": "WebPage",
+          name: item.label,
+          url: item.url,
+        })),
+      ],
     }}
     breadcrumb={breadcrumb}
   />
@@ -111,7 +154,7 @@ const breadcrumb: BreadcrumbProps = {
     <div class="globalHeadingBody container">
       <Breadcrumb items={breadcrumb["items"]} />
 
-      <h1 class="bold">{herb.name} ({herb.nameScientific})とは</h1>
+      <h1 class="bold">{h1}</h1>
     </div>
   </div>
 
@@ -135,6 +178,16 @@ const breadcrumb: BreadcrumbProps = {
 
       <div class="columnContainer">
         <section set:html={renderMarkdownWithCustomLayout(herb.content)} />
+
+        <section>
+          <div class="columnHead">
+            <strong>Compounds</strong>
+            <h2>{herb.name} ({herb.nameScientific})の主要含有成分</h2>
+          </div>
+          <div class="columnBody">
+            {herb.compounds && <HerbCompounds compounds={herb.compounds} />}
+          </div>
+        </section>
 
         <section>
           <div class="columnHead">
