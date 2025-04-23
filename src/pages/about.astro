@@ -5,6 +5,7 @@ import { Content as Privacy } from "../content/pages/privacy.md";
 import { Content as Term } from "../content/pages/term.md";
 import "../styles/about.css";
 import Breadcrumb, { type BreadcrumbProps } from "../components/Breadcrumb";
+import MailLink from "../components/MailLink";
 
 const breadcrumb: BreadcrumbProps = {
   items: [
@@ -65,7 +66,7 @@ const breadcrumb: BreadcrumbProps = {
 
       <p>
         <strong>お問い合わせはこちら：</strong>
-        <a href="mailto:info@cauldi.com">info@cauldi.com</a>
+        <MailLink domain="cauldi.com" user="info" client:only />
       </p>
     </section>
 
