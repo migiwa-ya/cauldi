@@ -24,7 +24,11 @@ const initialHerbs = (await db.from("herbs").exec()).map(
 );
 
 const initialReports = (
-  await db.from("reports").join("herbs").options({ indexMode: "only" }).exec()
+  await db
+    .from("reports")
+    .join("herbs")
+    .options({ indexMode: "only", indexDir: "public/data" })
+    .exec()
 ).map((report: ReportsRecord) => ({
   key: report.reportGroupSlug + report.slug,
   displayName: `${report.herbs?.map((herb) => herb.name).join("・")}の${report.process?.name}のレポート`,

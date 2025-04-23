@@ -11,6 +11,7 @@ const reprots: ReportsRecord[] = await db
   .from("reports")
   .join("herbs")
   .join("process")
+  .options({ indexMode: "only", indexDir: "public/data" })
   .exec();
 
 const initialReports = reprots.map((report) => {

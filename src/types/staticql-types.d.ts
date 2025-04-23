@@ -79,7 +79,9 @@ export type CompoundsRecord = {
 };
 
 export type HerbsIndex_name = Record<string, string[]>;
+export type HerbsIndex_tagSlugs = Record<string, string[]>;
 export type ReportsIndex_slug = Record<string, string[]>;
+export type ReportsIndex_reportGroupSlug = Record<string, string[]>;
 
 export type HerbsMeta = Record<string, {
   "slug": string;

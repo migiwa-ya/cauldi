@@ -26,7 +26,11 @@ export function GET({ props }: APIContext) {
 const { tag }: { tag: TagsRecord } = Astro.props;
 
 const initialHerbs = (
-  await db.from("herbs").where("tagSlugs", "contains", tag.slug).exec()
+  await db
+    .from("herbs")
+    .where("tagSlugs", "contains", tag.slug)
+    .options({ indexMode: "only", indexDir: "public/data" })
+    .exec()
 ).map((herb) => ({
   key: herb.slug,
   displayName: herb.name,

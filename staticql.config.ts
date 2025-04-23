@@ -45,7 +45,8 @@ export default defineContentDB({
           type: "hasManyThrough",
         },
       },
-      index: ["name"],
+      index: ["name", "tagSlugs"],
+      splitIndexByKey: true,
       meta: [
         "slug",
         "name",
@@ -130,7 +131,7 @@ export default defineContentDB({
           type: "hasOne",
         },
       },
-      index: ["slug"],
+      index: ["slug", "reportGroupSlug"],
       meta: [
         "reportGroupSlug",
         "processSlug",

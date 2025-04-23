@@ -17,7 +17,11 @@ export default defineConfig({
           const url = new URL(item.url);
           const segments = url.pathname.split("/").filter(Boolean);
           const slug = segments[segments.length - 1];
-          const herb = await db.from("herbs").where("slug", "eq", slug).exec();
+          const herb = await db
+            .from("herbs")
+            .where("slug", "eq", slug)
+            .options({ indexMode: "only", indexDir: "public/data" })
+            .exec();
           item.lastmod = herb[0].updatedAt;
         }
 
@@ -38,6 +42,7 @@ export default defineConfig({
           const reports = await db
             .from("reports")
             .where("reportGroupSlug", "eq", slug)
+            .options({ indexMode: "only", indexDir: "public/data" })
             .exec();
           const sortedReport = reports.sort(
             (a, b) =>
@@ -61,7 +66,11 @@ export default defineConfig({
           const segments = url.pathname.split("/").filter(Boolean);
           const slug = segments[segments.length - 1];
           const herb = (
-            await db.from("herbs").where("tagSlugs", "contains", slug).exec()
+            await db
+              .from("herbs")
+              .where("tagSlugs", "contains", slug)
+              .options({ indexMode: "only", indexDir: "public/data" })
+              .exec()
           ).sort(
             (a, b) =>
               new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()

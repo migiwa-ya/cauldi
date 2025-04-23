@@ -7,7 +7,10 @@ import "../../styles/herbs/index.css";
 import Seo from "../../components/Seo.astro";
 import type { HerbsRecord } from "../../types/staticql-types";
 
-const herbs: HerbsRecord[] = await db.from("herbs").exec();
+const herbs: HerbsRecord[] = await db
+  .from("herbs")
+  .options({ indexMode: "only", indexDir: "public/data" })
+  .exec();
 
 const names = [...new Set(herbs.map((h) => h.name.substring(0, 1)).sort())];
 const groupByName = groupByKeyInitial(herbs, "name");

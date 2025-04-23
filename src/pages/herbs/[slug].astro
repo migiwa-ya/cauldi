@@ -29,7 +29,7 @@ export async function getStaticPaths() {
     .join("reports")
     .join("tags")
     .join("compounds")
-    .options({ indexMode: "only" })
+    .options({ indexMode: "only", indexDir: "public/data" })
     .exec();
 
   return await Promise.all(
@@ -55,6 +55,7 @@ herb.reports = herb.reports
           .from("reportGroups")
           .join("process")
           .where("slug", "eq", r.reportGroupSlug)
+          .options({ indexMode: "only", indexDir: "public/data" })
           .exec();
 
         if (rg.length > 0) {
@@ -68,8 +69,12 @@ herb.reports = herb.reports
   : [];
 
 const relationHerbs: HerbsRecord[] = (
-  await db.from("herbs").where("tagSlugs", "in", herb.tagSlugs).exec()
-).filter((rh) => rh.slug !== herb.slug);
+  await db
+    .from("herbs")
+    .where("tagSlugs", "in", herb.tagSlugs)
+    .options({ indexMode: "only", indexDir: "public/data" })
+    .exec()
+);
 
 const herbFullname = `${herb.name}（${herb.nameScientific}）`;
 const title = `${herbFullname}の期待される効能と使い方 | Cauldi`;
