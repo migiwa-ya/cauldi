@@ -1,16 +1,13 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import db from "../../../staticql.config.ts";
+import db from "../../../staticql.config";
 import Breadcrumb, { type BreadcrumbProps } from "../../components/Breadcrumb";
 import { groupByKeyInitial } from "../../utils/array";
 import "../../styles/herbs/index.css";
 import Seo from "../../components/Seo.astro";
 import type { HerbsRecord } from "../../types/staticql-types";
 
-const herbs: HerbsRecord[] = await db
-  .from("herbs")
-  .options({ indexMode: "only", indexDir: "public/data" })
-  .exec();
+const herbs = await db.from<HerbsRecord>("herbs").exec();
 
 const names = [...new Set(herbs.map((h) => h.name.substring(0, 1)).sort())];
 const groupByName = groupByKeyInitial(herbs, "name");

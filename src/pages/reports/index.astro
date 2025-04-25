@@ -1,17 +1,16 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import db from "../../../staticql.config.ts";
+import db from "../../../staticql.config";
 import Breadcrumb, { type BreadcrumbProps } from "../../components/Breadcrumb";
 import ListReportsInfinite from "../../components/ListReportsInfinite";
 import "../../styles/index.css";
 import type { ReportsRecord } from "../../types/staticql-types";
 import ListItem from "../../components/ListItem";
 
-const reprots: ReportsRecord[] = await db
-  .from("reports")
+const reprots = await db
+  .from<ReportsRecord>("reports")
   .join("herbs")
   .join("process")
-  .options({ indexMode: "only", indexDir: "public/data" })
   .exec();
 
 const initialReports = reprots.map((report) => {

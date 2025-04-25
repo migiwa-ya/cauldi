@@ -7,9 +7,17 @@
       herbPartSlug: root
 
 - slug: RG00002
-  description: 日本ではきんぴらなどでおなじみのゴボウのハーブティ。懐かしい風味や香ばしさが魅力です。
+  description: 日本ではきんぴらなどでおなじみのゴボウのハーブティ。単独でも懐かしい風味や香ばしさが魅力です。
   processSlug: infusion
   combinedHerbs:
     - slug: arctium-lappa
       herbStateSlug: dry
       herbPartSlug: root
+
+- slug: RG00003
+  description: 肝臓機能改善に効果のあるとされるミルクシスルシードのハーブティ。あまり癖はないが単独だとほんのりオイルのぬめりが気になるので工夫して日常に取り入れたいところ。
+  processSlug: infusion
+  combinedHerbs:
+    - slug: silybum-marianum
+      herbStateSlug: dry
+      herbPartSlug: seed

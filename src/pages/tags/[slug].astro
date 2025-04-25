@@ -1,15 +1,15 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import db from "../../../staticql.config.ts";
+import db from "../../../staticql.config";
 import type { APIContext } from "astro";
 import ListHerbsByTagInfinite from "../../components/ListHerbsByTagInfinite";
 import Breadcrumb, { type BreadcrumbProps } from "../../components/Breadcrumb";
 import "../../styles/index.css";
-import type { TagsRecord } from "../../types/staticql-types";
+import type { HerbsRecord, TagsRecord } from "../../types/staticql-types";
 import ListItem from "../../components/ListItem";
 
 export async function getStaticPaths() {
-  const tags: TagsRecord[] = await db.from("tags").exec();
+  const tags = await db.from<TagsRecord>("tags").exec();
 
   return tags.map((tag) => {
     return {
@@ -27,7 +27,7 @@ const { tag }: { tag: TagsRecord } = Astro.props;
 
 const initialHerbs = (
   await db
-    .from("herbs")
+    .from<HerbsRecord>("herbs")
     .where("tagSlugs", "contains", tag.slug)
     .options({ indexMode: "only", indexDir: "public/data" })
     .exec()

@@ -1,14 +1,14 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import db from "../../staticql.config.ts";
+import db from "../../staticql.config";
 import ListNewsInfinite from "../components/ListNewsInfinite";
-import ListNewsItem from "../components/ListItem.tsx";
+import ListNewsItem from "../components/ListItem";
 import "../styles/index.css";
 import Seo from "../components/Seo.astro";
 import type { ReportsRecord, HerbsRecord } from "../types/staticql-types";
 
-const initialHerbs = (await db.from("herbs").exec()).map(
-  (herb: HerbsRecord) => ({
+const initialHerbs = (await db.from<HerbsRecord>("herbs").exec()).map(
+  (herb) => ({
     key: herb.slug,
     displayName: herb.name,
     link: `/herbs/${herb.slug}/`,
@@ -25,11 +25,11 @@ const initialHerbs = (await db.from("herbs").exec()).map(
 
 const initialReports = (
   await db
-    .from("reports")
+    .from<ReportsRecord>("reports")
     .join("herbs")
-    .options({ indexMode: "only", indexDir: "public/data" })
+    .join("process")
     .exec()
-).map((report: ReportsRecord) => ({
+).map((report) => ({
   key: report.reportGroupSlug + report.slug,
   displayName: `${report.herbs?.map((herb) => herb.name).join("・")}の${report.process?.name}のレポート`,
   images: report.herbs!.map((herb) => ({

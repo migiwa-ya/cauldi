@@ -165,13 +165,15 @@ progress {
 
 .images {
   display: inline-flex;
+  flex-wrap: wrap;
   gap: 1em;
   margin-block: 1em;
 
   img {
+    object-fit: cover;
+    object-position: center;
     width: 70px;
-    height: auto;
-    filter: sepia(1);
+    height: 70px;
     border-radius: 10px;
   }
 }

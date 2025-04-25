@@ -1,6 +1,6 @@
 ---
 import type { APIContext } from "astro";
-import db from "../../../staticql.config.ts";
+import db from "../../../staticql.config";
 import Layout from "../../layouts/Layout.astro";
 import Promotion from "../../components/Promotion";
 import Breadcrumb, { type BreadcrumbProps } from "../../components/Breadcrumb";
@@ -13,13 +13,12 @@ import type { ReportsRecord } from "../../types/staticql-types";
 import ModalActivator from "../../components/ModalActivator";
 
 export async function getStaticPaths() {
-  const reports: ReportsRecord[] = await db
-    .from("reports")
+  const reports = await db
+    .from<ReportsRecord>("reports")
     .join("herbs")
     .join("reportGroup")
     .join("process")
     .join("usageMethod")
-    .options({ indexMode: "only", indexDir: "public/data" })
     .exec();
 
   const groupedReports = groupBy(reports, "reportGroupSlug");
