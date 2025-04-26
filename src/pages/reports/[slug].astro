@@ -9,7 +9,12 @@ import ReportDetail from "../../components/ReportDetail";
 import Seo from "../../components/Seo.astro";
 import { formatDate } from "../../utils/date";
 import "../../styles/reports/show.css";
-import type { ReportsRecord } from "../../types/staticql-types";
+import type {
+  ReportsRecord,
+  HerbsRecord,
+  HerbStatesRecord,
+  HerbPartsRecord,
+} from "../../types/staticql-types";
 import ModalActivator from "../../components/ModalActivator";
 
 export async function getStaticPaths() {
@@ -36,9 +41,41 @@ export function GET({ props }: APIContext) {
 const { reports }: { reports: ReportsRecord[] } = Astro.props;
 const { slug }: { slug: string } = Astro.params;
 
-const herbsString = reports[0].herbs?.map((herb) => herb.name).join("・");
-const title = `${herbsString}の${reports[0].process?.name}のレポート`;
+const herbs = await Promise.all(
+  (reports[0].reportGroup?.combinedHerbs ?? []).map(async (combinedHerb) => {
+    const herb = await db
+      .from<HerbsRecord>("herbs")
+      .where("slug", "eq", combinedHerb.slug)
+      .options({ indexMode: "only", indexDir: "public/data" })
+      .exec();
 
+    const herbState = await db
+      .from<HerbStatesRecord>("herbStates")
+      .where("slug", "eq", combinedHerb.herbStateSlug)
+      .options({ indexMode: "only", indexDir: "public/data" })
+      .exec();
+
+    const herbPart = await db
+      .from<HerbPartsRecord>("herbParts")
+      .where("slug", "eq", combinedHerb.herbPartSlug)
+      .options({ indexMode: "only", indexDir: "public/data" })
+      .exec();
+
+    return {
+      slug: herb[0].slug,
+      name: herb[0].name,
+      herbState: herbState[0],
+      herbPart: herbPart[0],
+    };
+  })
+);
+
+const herbsString = herbs
+  ?.map(
+    (herb) => `${herb.name}（${herb.herbPart.name}・${herb.herbState.name}）`
+  )
+  .join("、");
+const title = `${herbsString}の${reports[0].process?.name}のレポート`;
 const desc = reports[0].reportGroup?.description.replace(
   "%herbs%",
   herbsString!

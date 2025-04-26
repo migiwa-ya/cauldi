@@ -21,6 +21,10 @@ export type HerbStatesRecord = {
     slug: string;
     name: string;
 };
+export type HerbPartsRecord = {
+    slug: string;
+    name: string;
+};
 export type ReportsRecord = {
 slug: string;
     reportGroupSlug: string;
@@ -81,6 +85,8 @@ export type CompoundsRecord = {
 export type HerbsIndex_slug = Record<string, string[]>;
 export type HerbsIndex_name = Record<string, string[]>;
 export type HerbsIndex_tagSlugs = Record<string, string[]>;
+export type HerbStatesIndex_slug = Record<string, string[]>;
+export type HerbPartsIndex_slug = Record<string, string[]>;
 export type ReportsIndex_slug = Record<string, string[]>;
 export type ReportsIndex_reportGroupSlug = Record<string, string[]>;
 export type ReportGroupsIndex_slug = Record<string, string[]>;

@@ -1,5 +1,5 @@
 - slug: RG00001
-  description: デトックスで有名なイエロードックのハーブティ。苦味やえぐみ、独特な匂いを抑えるのが課題です。
+  description: デトックスで有名な%herbs%のハーブティ。苦味やえぐみ、独特な匂いを抑えるのが課題です。
   processSlug: infusion
   combinedHerbs:
     - slug: rumex-crispus
@@ -7,7 +7,7 @@
       herbPartSlug: root
 
 - slug: RG00002
-  description: 日本ではきんぴらなどでおなじみのゴボウのハーブティ。単独でも懐かしい風味や香ばしさが魅力です。
+  description: 日本ではきんぴらなどでおなじみの%herbs%のハーブティ。単独でも懐かしい風味や香ばしさが魅力です。
   processSlug: infusion
   combinedHerbs:
     - slug: arctium-lappa
@@ -15,9 +15,17 @@
       herbPartSlug: root
 
 - slug: RG00003
-  description: 肝臓機能改善に効果のあるとされるミルクシスルシードのハーブティ。あまり癖はないが単独だとほんのりオイルのぬめりが気になるので工夫して日常に取り入れたいところ。
+  description: 肝臓機能改善に効果のあるとされる%herbs%のハーブティ。あまり癖はないが単独だとほんのりオイルのぬめりが気になるので工夫して日常に取り入れたいところ。
   processSlug: infusion
   combinedHerbs:
     - slug: silybum-marianum
       herbStateSlug: dry
       herbPartSlug: seed
+
+- slug: RG00004
+  description: 肝臓機能改善や利尿作用で知られる%herbs%のハーブティ。コーヒーの様に炒ってドリップする以外の飲み方も色々試してみます。
+  processSlug: infusion
+  combinedHerbs:
+    - slug: taraxacum-officinale
+      herbStateSlug: dry
+      herbPartSlug: root

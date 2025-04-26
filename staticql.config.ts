@@ -67,6 +67,19 @@ export default defineContentDB({
           name: z.string(),
         })
       ),
+      index: ["slug"],
+    },
+
+    herbParts: {
+      path: "src/content/herbParts.yaml",
+      type: "yaml",
+      schema: z.array(
+        z.object({
+          slug: z.string(),
+          name: z.string(),
+        })
+      ),
+      index: ["slug"],
     },
 
     reports: {
