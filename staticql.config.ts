@@ -2,6 +2,10 @@ import { defineContentDB } from "@migiwa-ya/staticql";
 import { z } from "zod";
 
 export default defineContentDB({
+  storage: {
+    type: "filesystem",
+    output: "public/data"
+  },
   sources: {
     herbs: {
       path: "src/content/herbs/*.md",

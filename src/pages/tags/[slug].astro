@@ -29,7 +29,6 @@ const initialHerbs = (
   await db
     .from<HerbsRecord>("herbs")
     .where("tagSlugs", "contains", tag.slug)
-    .options({ indexMode: "only", indexDir: "public/data" })
     .exec()
 ).map((herb) => ({
   key: herb.slug,

@@ -54,7 +54,6 @@ herb.reports = herb.reports
           .from<ReportGroupsRecord>("reportGroups")
           .join("process")
           .where("slug", "eq", r.reportGroupSlug)
-          .options({ indexMode: "only", indexDir: "public/data" })
           .exec();
 
         if (rg.length > 0) {
@@ -70,7 +69,6 @@ herb.reports = herb.reports
 const relationHerbs = await db
   .from<HerbsRecord>("herbs")
   .where("tagSlugs", "in", herb.tagSlugs)
-  .options({ indexMode: "only", indexDir: "public/data" })
   .exec();
 
 const herbFullname = `${herb.name}（${herb.nameScientific}）`;
