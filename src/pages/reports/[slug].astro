@@ -106,7 +106,7 @@ const breadcrumb: BreadcrumbProps = {
     slot="head"
     title=`${title} | Cauldi`
     description={description}
-    url=`${Astro.site}reports/${slug}`
+    url=`${Astro.site}reports/${slug}/`
     image=`${Astro.site}/ogp/reports/abc123.jpg`
     type="article"
     ldJson={[
@@ -121,7 +121,7 @@ const breadcrumb: BreadcrumbProps = {
         image: `${Astro.site}ogp/reports/abc123.jpg`,
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id": `${Astro.site}reports/${slug}`,
+          "@id": `${Astro.site}reports/${slug}/`,
         },
         publisher: {
           "@type": "Organization",

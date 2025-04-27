@@ -31,8 +31,6 @@ export async function getStaticPaths() {
     .join("compounds")
     .exec();
 
-    console.log(herbs[0].reports)
-
   return await Promise.all(
     herbs.map(async (herb) => {
       return {
@@ -102,13 +100,13 @@ const breadcrumb: BreadcrumbProps = {
     slot="head"
     title={title}
     description={desc}
-    url=`${Astro.site}herbs/${herb.slug}`
+    url=`${Astro.site}herbs/${herb.slug}/`
     image=`${Astro.site}image/herbs/arctium-lappa.jpg`
     type="article"
     ldJson={{
       "@context": "https://schema.org",
       "@type": "WebPage",
-      url: `${Astro.site}herbs/${herb.slug}`,
+      url: `${Astro.site}herbs/${herb.slug}/`,
       name: title,
       headline: h1,
       description: desc,
