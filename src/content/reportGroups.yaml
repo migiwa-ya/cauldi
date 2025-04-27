@@ -29,3 +29,11 @@
     - slug: taraxacum-officinale
       herbStateSlug: dry
       herbPartSlug: root
+
+- slug: RG00005
+  description: ビタミンCの豊富さで知られる%herbs%のハーブティ。ここではブレンドせずに丁度いい飲み方を探っていきます。
+  processSlug: infusion
+  combinedHerbs:
+    - slug: rosa-canina
+      herbStateSlug: dry
+      herbPartSlug: fruit

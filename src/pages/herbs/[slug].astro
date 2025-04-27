@@ -31,6 +31,8 @@ export async function getStaticPaths() {
     .join("compounds")
     .exec();
 
+    console.log(herbs[0].reports)
+
   return await Promise.all(
     herbs.map(async (herb) => {
       return {
