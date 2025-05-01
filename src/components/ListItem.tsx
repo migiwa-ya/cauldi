@@ -1,7 +1,6 @@
 import React from "react";
 import { formatDate } from "../utils/date";
 import styles from "./ListItem.module.css";
-import { toBotanicalName } from "../utils/herbs";
 
 export interface ListItemData {
   key: string;

@@ -93,6 +93,7 @@
   }
 
   img {
+    image-rendering: pixelated;
     object-fit: cover;
     object-position: top;
     overflow: hidden;

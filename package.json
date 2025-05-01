@@ -14,7 +14,7 @@
   "dependencies": {
     "@astrojs/react": "^4.2.4",
     "@astrojs/sitemap": "^3.3.0",
-    "@migiwa-ya/staticql": "^0.16.3",
+    "@migiwa-ya/staticql": "^0.16.4",
     "@types/react": "^19.0.12",
     "@types/react-dom": "^19.0.4",
     "astro": "^5.7.0",
