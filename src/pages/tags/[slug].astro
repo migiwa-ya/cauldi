@@ -1,6 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import db from "../../../staticql.config";
+import define from "../../../staticql.config";
 import type { APIContext } from "astro";
 import ListHerbsByTagInfinite from "../../components/ListHerbsByTagInfinite";
 import Breadcrumb, { type BreadcrumbProps } from "../../components/Breadcrumb";
@@ -9,7 +9,8 @@ import type { HerbsRecord, TagsRecord } from "../../types/staticql-types";
 import ListItem from "../../components/ListItem";
 
 export async function getStaticPaths() {
-  const tags = await db.from<TagsRecord>("tags").exec();
+  const staticql = define();
+  const tags = await staticql.from<TagsRecord>("tags").exec();
 
   return tags.map((tag) => {
     return {
@@ -23,10 +24,11 @@ export function GET({ props }: APIContext) {
   return new Response(JSON.stringify({ tag: props.tag }));
 }
 
+const staticql = define();
 const { tag }: { tag: TagsRecord } = Astro.props;
 
 const initialHerbs = (
-  await db
+  await staticql
     .from<HerbsRecord>("herbs")
     .where("tagSlugs", "contains", tag.slug)
     .exec()

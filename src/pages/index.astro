@@ -1,13 +1,15 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import db from "../../staticql.config";
+import define from "../../staticql.config";
 import ListNewsInfinite from "../components/ListNewsInfinite";
 import ListNewsItem from "../components/ListItem";
 import "../styles/index.css";
 import Seo from "../components/Seo.astro";
 import type { ReportsRecord, HerbsRecord } from "../types/staticql-types";
 
-const initialHerbs = (await db.from<HerbsRecord>("herbs").exec()).map(
+const staticql = define();
+
+const initialHerbs = (await staticql.from<HerbsRecord>("herbs").exec()).map(
   (herb) => ({
     key: herb.slug,
     displayName: herb.name,
@@ -24,7 +26,11 @@ const initialHerbs = (await db.from<HerbsRecord>("herbs").exec()).map(
 );
 
 const initialReports = (
-  await db.from<ReportsRecord>("reports").join("herbs").join("process").exec()
+  await staticql
+    .from<ReportsRecord>("reports")
+    .join("herbs")
+    .join("process")
+    .exec()
 ).map((report) => ({
   key: report.reportGroupSlug + report.slug,
   displayName: `${report.herbs?.map((herb) => herb.name).join("・")}の${report.process?.name}のレポート`,

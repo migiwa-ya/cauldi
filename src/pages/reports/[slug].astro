@@ -1,6 +1,6 @@
 ---
 import type { APIContext } from "astro";
-import db from "../../../staticql.config";
+import define from "../../../staticql.config";
 import Layout from "../../layouts/Layout.astro";
 import Promotion from "../../components/Promotion";
 import Breadcrumb, { type BreadcrumbProps } from "../../components/Breadcrumb";
@@ -18,7 +18,8 @@ import type {
 import ModalActivator from "../../components/ModalActivator";
 
 export async function getStaticPaths() {
-  const reports = await db
+  const staticql = define();
+  const reports = await staticql
     .from<ReportsRecord>("reports")
     .join("herbs")
     .join("reportGroup")
@@ -38,22 +39,23 @@ export function GET({ props }: APIContext) {
   return new Response(JSON.stringify({ reports: props.reports }));
 }
 
+const staticql = define();
 const { reports }: { reports: ReportsRecord[] } = Astro.props;
 const { slug }: { slug: string } = Astro.params;
 
 const herbs = await Promise.all(
   (reports[0].reportGroup?.combinedHerbs ?? []).map(async (combinedHerb) => {
-    const herb = await db
+    const herb = await staticql
       .from<HerbsRecord>("herbs")
       .where("slug", "eq", combinedHerb.slug)
       .exec();
 
-    const herbState = await db
+    const herbState = await staticql
       .from<HerbStatesRecord>("herbStates")
       .where("slug", "eq", combinedHerb.herbStateSlug)
       .exec();
 
-    const herbPart = await db
+    const herbPart = await staticql
       .from<HerbPartsRecord>("herbParts")
       .where("slug", "eq", combinedHerb.herbPartSlug)
       .exec();

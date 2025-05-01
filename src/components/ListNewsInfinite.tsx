@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import ListItem, { type ListItemData } from "./ListItem";
 import InfiniteScroll from "./InfiniteScroll";
-import type { HerbsMeta, ReportsMeta } from "../types/staticql-types";
 import { toBotanicalName } from "../utils/herbs";
+import { defineStaticQL } from "@migiwa-ya/staticql/browser";
+import type { HerbsRecord, ReportsRecord } from "../types/staticql-types";
 
 interface Props {
   offset: number;
@@ -14,14 +15,15 @@ const ListNewsInfinite: React.FC<Props> = ({ offset }) => {
   const [hasMore, setHasMore] = useState(true);
 
   const fetchItems = async () => {
-    const herbs: HerbsMeta = await (
-      await fetch("/data/herbs.meta.json")
-    ).json();
-    const newHerbs = Object.entries(herbs).map(
-      ([herbSlug, herb]): ListItemData => ({
-        key: herbSlug,
+    const schema = await fetch("/staticql.schema.json").then((r) => r.json());
+    const staticql = defineStaticQL(schema)();
+
+    const herbs = await staticql.from<HerbsRecord>("herbs").exec();
+    const newHerbs = herbs.map(
+      (herb): ListItemData => ({
+        key: herb.slug,
         displayName: herb.name,
-        link: `/herbs/${herbSlug}/`,
+        link: `/herbs/${herb.slug}/`,
         images: [
           {
             path: `/images/herbs/${herb.slug}/thumbnail.webp`,
@@ -33,20 +35,20 @@ const ListNewsInfinite: React.FC<Props> = ({ offset }) => {
       })
     );
 
-    const reports: ReportsMeta = await (
-      await fetch("/data/reports.meta.json")
-    ).json();
-    const newReports = Object.entries(reports).map(
-      ([reportSlug, report]): ListItemData => ({
-        key: reportSlug,
-        displayName: `${report["herbs.name"]?.join("・")}の${report["process.name"]}のレポート`,
+    const reports = await staticql.from<ReportsRecord>("reports").exec();
+    const newReports = reports.map(
+      (report): ListItemData => ({
+        key: report.slug,
+        displayName: `${report.herbs?.map((herb) => herb.name)?.join("・")}の${
+          report.process?.name
+        }のレポート`,
         link: `/reports/${report.reportGroupSlug}/`,
-        images: (report["reportGroup.combinedHerbs.slug"] ?? []).map(
-          (slug: string) => ({
-            path: `/images/herbs/${slug}/thumbnail.webp`,
-            label: toBotanicalName(slug),
-          })
-        ),
+        images: (
+          report.reportGroup?.combinedHerbs.map((ch) => ch.slug) ?? []
+        ).map((slug: string) => ({
+          path: `/images/herbs/${slug}/thumbnail.webp`,
+          label: toBotanicalName(slug),
+        })),
         content: report.summary,
         updatedAt: report.updatedAt,
       })

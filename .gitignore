@@ -23,5 +23,7 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 
-# index.json files
-public/data/
+# generated files
+public/index
+public/schema
+public/staticql.schema.json

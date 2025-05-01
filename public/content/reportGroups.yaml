@@ -37,3 +37,11 @@
     - slug: rosa-canina
       herbStateSlug: dry
       herbPartSlug: fruit
+
+- slug: RG00006
+  description: 抗酸化作用や記憶力改善など豊富な効果が期待されている%herbs%のハーブティ。単独でも飲みやすいので分量などを極めたいです。
+  processSlug: infusion
+  combinedHerbs:
+    - slug: centella-asiatica
+      herbStateSlug: dry
+      herbPartSlug: leaf

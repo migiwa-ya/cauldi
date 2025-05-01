@@ -2,7 +2,10 @@
 import { defineConfig } from "astro/config";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
-import db from "./staticql.config.ts";
+import define from "./staticql.config.ts";
+import type { HerbsRecord, ReportsRecord } from "./src/types/staticql-types";
+
+const staticql = define();
 
 // https://astro.build/config
 export default defineConfig({
@@ -17,13 +20,16 @@ export default defineConfig({
           const url = new URL(item.url);
           const segments = url.pathname.split("/").filter(Boolean);
           const slug = segments[segments.length - 1];
-          const herb = await db.from("herbs").where("slug", "eq", slug).exec();
+          const herb = await staticql
+            .from<HerbsRecord>("herbs")
+            .where("slug", "eq", slug)
+            .exec();
           item.lastmod = herb[0].updatedAt;
         }
 
         // ハーブ一覧
         if (/herbs\/$/.test(item.url)) {
-          const herb = (await db.from("herbs").exec()).sort(
+          const herb = (await staticql.from<HerbsRecord>("herbs").exec()).sort(
             (a, b) =>
               new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
           );
@@ -35,8 +41,8 @@ export default defineConfig({
           const url = new URL(item.url);
           const segments = url.pathname.split("/").filter(Boolean);
           const slug = segments[segments.length - 1];
-          const reports = await db
-            .from("reports")
+          const reports = await staticql
+            .from<ReportsRecord>("reports")
             .where("reportGroupSlug", "eq", slug)
             .exec();
           const sortedReport = reports.sort(
@@ -48,7 +54,9 @@ export default defineConfig({
 
         // レポート一覧
         if (/reports\/$/.test(item.url)) {
-          const reports = (await db.from("reports").exec()).sort(
+          const reports = (
+            await staticql.from<ReportsRecord>("reports").exec()
+          ).sort(
             (a, b) =>
               new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
           );
@@ -61,7 +69,10 @@ export default defineConfig({
           const segments = url.pathname.split("/").filter(Boolean);
           const slug = segments[segments.length - 1];
           const herb = (
-            await db.from("herbs").where("tagSlugs", "contains", slug).exec()
+            await staticql
+              .from<HerbsRecord>("herbs")
+              .where("tagSlugs", "contains", slug)
+              .exec()
           ).sort(
             (a, b) =>
               new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()

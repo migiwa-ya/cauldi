@@ -1,14 +1,14 @@
-import { defineContentDB } from "@migiwa-ya/staticql";
+import { defineStaticQL } from "@migiwa-ya/staticql";
 import { z } from "zod";
 
-export default defineContentDB({
+export default defineStaticQL({
   storage: {
     type: "filesystem",
-    output: "public/data"
+    output: "public",
   },
   sources: {
     herbs: {
-      path: "src/content/herbs/*.md",
+      path: "public/content/herbs/*.md",
       type: "markdown",
       schema: z.array(
         z.object({
@@ -49,21 +49,12 @@ export default defineContentDB({
           type: "hasManyThrough",
         },
       },
-      index: ["slug", "name", "tagSlugs"],
+      index: ["name", "tagSlugs"],
       splitIndexByKey: true,
-      meta: [
-        "slug",
-        "name",
-        "overview",
-        "herbState.name",
-        "tags",
-        "reports.slug",
-        "updatedAt",
-      ],
     },
 
     herbStates: {
-      path: "src/content/herbStates.yaml",
+      path: "public/content/herbStates.yaml",
       type: "yaml",
       schema: z.array(
         z.object({
@@ -71,11 +62,10 @@ export default defineContentDB({
           name: z.string(),
         })
       ),
-      index: ["slug"],
     },
 
     herbParts: {
-      path: "src/content/herbParts.yaml",
+      path: "public/content/herbParts.yaml",
       type: "yaml",
       schema: z.array(
         z.object({
@@ -83,11 +73,10 @@ export default defineContentDB({
           name: z.string(),
         })
       ),
-      index: ["slug"],
     },
 
     reports: {
-      path: "src/content/reports/**/*.md",
+      path: "public/content/reports/**/*.md",
       type: "markdown",
       schema: z.array(
         z.object({
@@ -148,20 +137,11 @@ export default defineContentDB({
           type: "hasOne",
         },
       },
-      index: ["slug", "reportGroupSlug"],
-      meta: [
-        "reportGroupSlug",
-        "processSlug",
-        "reportGroup.combinedHerbs.slug",
-        "process.name",
-        "herbs.name",
-        "summary",
-        "updatedAt",
-      ],
+      index: ["reportGroupSlug"],
     },
 
     reportGroups: {
-      path: "src/content/reportGroups.yaml",
+      path: "public/content/reportGroups.yaml",
       type: "yaml",
       schema: z.array(
         z.object({
@@ -191,11 +171,10 @@ export default defineContentDB({
           type: "hasMany",
         },
       },
-      index: ["slug"],
     },
 
     tags: {
-      path: "src/content/tags.yaml",
+      path: "public/content/tags.yaml",
       type: "yaml",
       schema: z.array(
         z.object({
@@ -206,7 +185,7 @@ export default defineContentDB({
     },
 
     processes: {
-      path: "src/content/processes.yaml",
+      path: "public/content/processes.yaml",
       type: "yaml",
       schema: z.array(
         z.object({
@@ -217,7 +196,7 @@ export default defineContentDB({
     },
 
     usageMethods: {
-      path: "src/content/usageMethods.yaml",
+      path: "public/content/usageMethods.yaml",
       type: "yaml",
       schema: z.array(
         z.object({
@@ -228,7 +207,7 @@ export default defineContentDB({
     },
 
     compounds: {
-      path: "src/content/compounds.yaml",
+      path: "public/content/compounds.yaml",
       type: "yaml",
       schema: z.array(
         z.object({

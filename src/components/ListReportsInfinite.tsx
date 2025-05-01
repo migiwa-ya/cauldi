@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import ListItem, { type ListItemData } from "./ListItem";
 import InfiniteScroll from "./InfiniteScroll";
-import type { ReportsMeta } from "../types/staticql-types";
+import { defineStaticQL } from "@migiwa-ya/staticql/browser";
+import type { ReportsRecord } from "../types/staticql-types";
 
 interface Props {
   offset: number;
@@ -13,31 +14,33 @@ const ListReportsInfinite: React.FC<Props> = ({ offset }) => {
   const [hasMore, setHasMore] = useState(true);
 
   const fetchItems = async () => {
-    const reports: ReportsMeta = await (
-      await fetch("/data/reports.meta.json")
-    ).json();
+    const schema = await fetch("/staticql.schema.json").then((r) => r.json());
+    const staticql = defineStaticQL(schema)();
+    const reports = await staticql
+      .from<ReportsRecord>("reports")
+      .join("herbs")
+      .join("process")
+      .exec();
 
-    const newReports: ListItemData[] = Object.entries(reports).map(
-      ([reportSlug, report]): ListItemData => {
-        return {
-          key: reportSlug,
-          displayName:
-            report["herbs.name"]?.join("・") +
-            "の" +
-            report["process.name"] +
-            "の作り方",
-          images: (report["reportGroup.combinedHerbs.slug"] ?? []).map(
-            (slug: string) => ({
-              path: `/images/herbs/${slug}/thumbnail.webp`,
-              label: slug,
-            })
-          ),
-          link: `/reports/${report.reportGroupSlug}/`,
-          content: "Report:" + report["herbs.name"],
-          updatedAt: report.updatedAt,
-        };
-      }
-    );
+    const newReports: ListItemData[] = reports.map((report): ListItemData => {
+      return {
+        key: report.slug,
+        displayName:
+          report.herbs?.map((herb) => herb.name)?.join("・") +
+          "の" +
+          report.process?.name +
+          "の作り方",
+        images: (
+          report.reportGroup?.combinedHerbs.map((ch) => ch.slug) ?? []
+        ).map((slug: string) => ({
+          path: `/images/herbs/${slug}/thumbnail.webp`,
+          label: slug,
+        })),
+        link: `/reports/${report.reportGroupSlug}/`,
+        content: "Report:" + report.herbs?.map((herb) => herb.name),
+        updatedAt: report.updatedAt,
+      };
+    });
 
     const newItems = newReports
       .sort(

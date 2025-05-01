@@ -1,13 +1,15 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import db from "../../../staticql.config";
+import define from "../../../staticql.config";
 import Breadcrumb, { type BreadcrumbProps } from "../../components/Breadcrumb";
 import ListReportsInfinite from "../../components/ListReportsInfinite";
 import "../../styles/index.css";
 import type { ReportsRecord } from "../../types/staticql-types";
 import ListItem from "../../components/ListItem";
 
-const reprots = await db
+const staticql = define();
+
+const reprots = await staticql
   .from<ReportsRecord>("reports")
   .join("herbs")
   .join("process")

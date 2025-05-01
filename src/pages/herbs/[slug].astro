@@ -1,6 +1,6 @@
 ---
 import type { APIContext } from "astro";
-import db from "../../../staticql.config";
+import define from "../../../staticql.config";
 import { formatDate } from "../../utils/date";
 import {
   renderMarkdownWithCustomLayout,
@@ -24,7 +24,8 @@ import type {
 import HerbCompounds from "../../components/HerbCompounds";
 
 export async function getStaticPaths() {
-  const herbs = await db
+  const staticql = define();
+  const herbs = await staticql
     .from<HerbsRecord>("herbs")
     .join("reports")
     .join("tags")
@@ -45,12 +46,13 @@ export function GET({ props }: APIContext) {
   return new Response(JSON.stringify({ herb: props.herb }));
 }
 
+const staticql = define();
 const { herb }: { herb: HerbsRecord } = Astro.props;
 
 herb.reports = herb.reports
   ? await Promise.all(
       herb.reports.map(async (r) => {
-        const rg = await db
+        const rg = await staticql
           .from<ReportGroupsRecord>("reportGroups")
           .join("process")
           .where("slug", "eq", r.reportGroupSlug)
@@ -66,7 +68,7 @@ herb.reports = herb.reports
     )
   : [];
 
-const relationHerbs = await db
+const relationHerbs = await staticql
   .from<HerbsRecord>("herbs")
   .where("tagSlugs", "in", herb.tagSlugs)
   .exec();

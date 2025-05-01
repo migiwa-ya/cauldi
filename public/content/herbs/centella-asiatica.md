@@ -1,4 +1,5 @@
 ---
+slug: centella-asiatica
 name: ゴツゴラ
 nameScientific: Centella asiatica
 nameEn: Gotu kola

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ListItem, { type ListItemData } from "./ListItem";
 import InfiniteScroll from "./InfiniteScroll";
 import type { HerbsRecord } from "../types/staticql-types";
+import { defineStaticQL } from "@migiwa-ya/staticql/browser";
 
 interface Props {
   offset: number;
@@ -14,9 +15,9 @@ const ListHerbsByTagInfinite: React.FC<Props> = ({ offset, slug }) => {
   const [hasMore, setHasMore] = useState(true);
 
   const fetchItems = async () => {
-    const herbs: HerbsRecord[] = await (
-      await fetch("/data/herbs.meta.json")
-    ).json();
+    const schema = await fetch("/staticql.schema.json").then((r) => r.json());
+    const staticql = defineStaticQL(schema)();
+    const herbs = await staticql.from<HerbsRecord>("herbs").exec();
     const newHerbs: ListItemData[] = Object.entries(herbs)
       .filter(([_, herb]) => herb.tags?.map((t) => t.slug).includes(slug))
       .map(([herbSlug, herb]) => ({

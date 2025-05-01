@@ -5,15 +5,16 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "gen-index": "npx staticql-gen-index ./staticql.config.ts ./public/data",
+    "gen-index": "npx staticql-gen-index ./staticql.config.ts",
     "gen-type": "npx staticql-gen-type ./staticql.config.ts ./src/types",
+    "gen-schema": "npx staticql-gen-schema ./staticql.config.ts ./public",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
     "@astrojs/react": "^4.2.4",
     "@astrojs/sitemap": "^3.3.0",
-    "@migiwa-ya/staticql": "^0.13.0",
+    "@migiwa-ya/staticql": "^0.16.3",
     "@types/react": "^19.0.12",
     "@types/react-dom": "^19.0.4",
     "astro": "^5.7.0",
