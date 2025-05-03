@@ -35,7 +35,12 @@ const ListNewsInfinite: React.FC<Props> = ({ offset }) => {
       })
     );
 
-    const reports = await staticql.from<ReportsRecord>("reports").exec();
+    const reports = await staticql
+      .from<ReportsRecord>("reports")
+      .join("herbs")
+      .join("reportGroup")
+      .join("process")
+      .exec();
     const newReports = reports.map(
       (report): ListItemData => ({
         key: report.slug,

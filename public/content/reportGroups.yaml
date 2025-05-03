@@ -45,3 +45,11 @@
     - slug: centella-asiatica
       herbStateSlug: dry
       herbPartSlug: leaf
+
+- slug: RG00007
+  description: 消化促進、リラックス効果で知られる%herbs%のハーブティ。レモンの香りが好きなら単独でもおすすめ。
+  processSlug: infusion
+  combinedHerbs:
+    - slug: cymbopogon-citratus
+      herbStateSlug: dry
+      herbPartSlug: leaf
