@@ -4,12 +4,7 @@ name: レモンバーム
 nameScientific: Melissa officinalis
 nameEn: Lemon balm
 nameAliases:
-  [
-    香水薄荷（コウスイハッカ）,
-    メリッサ,
-    セイヨウヤマハッカ（西洋山薄荷）,
-    メリッサソウ,
-  ]
+  [香水薄荷（コウスイハッカ）, メリッサ, セイヨウヤマハッカ（西洋山薄荷）]
 compoundSlugs: [rosmarinic-acid, citral, oleanolic-acid, ursolic-acid]
 tagSlugs: [relaxation, calming, sleep-aid, digestive, antiviral, antioxidant]
 overview: レモンバームはシソ科に属する多年草のハーブで、レモンのような爽やかな香りを持つ。南ヨーロッパ原産で世界各地に広く栽培され、古来より料理や伝統医療に利用されてきた。現在ではリラックス効果や健康効果で注目されている。

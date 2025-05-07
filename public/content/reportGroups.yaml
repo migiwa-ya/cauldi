@@ -53,3 +53,11 @@
     - slug: cymbopogon-citratus
       herbStateSlug: dry
       herbPartSlug: leaf
+
+- slug: RG00008
+  description: 消化促進、リラックス効果で知られる%herbs%のハーブティ。レモングラスよりもレモン感は控え目。
+  processSlug: infusion
+  combinedHerbs:
+    - slug: melissa-officinalis
+      herbStateSlug: dry
+      herbPartSlug: leaf
