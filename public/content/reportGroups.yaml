@@ -61,3 +61,11 @@
     - slug: melissa-officinalis
       herbStateSlug: dry
       herbPartSlug: leaf
+
+- slug: RG00009
+  description: 発汗、利尿作用で知られる%herbs%のハーブティ。やや独特な香りがあるので分量には注意。
+  processSlug: infusion
+  combinedHerbs:
+    - slug: sambucus-nigra
+      herbStateSlug: dry
+      herbPartSlug: flower
