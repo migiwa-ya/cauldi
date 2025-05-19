@@ -17,6 +17,7 @@ const reprots = await staticql
   .from<ReportsRecord>("reports")
   .join("herbs")
   .join("process")
+  .join("reportGroup")
   .pageSize(6)
   .orderBy("updatedAt", "desc")
   .exec();
