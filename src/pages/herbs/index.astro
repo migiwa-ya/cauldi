@@ -1,23 +1,27 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import define from "../../../staticql.config";
 import Breadcrumb, { type BreadcrumbProps } from "../../components/Breadcrumb";
 import { groupByKeyInitial } from "../../utils/array";
 import "../../styles/herbs/index.css";
 import Seo from "../../components/Seo.astro";
 import type { HerbsRecord } from "../../types/staticql-types";
+import config from "../../../public/staticql.config.json";
+import { defineStaticQL, type StaticQLConfig } from "staticql";
+import { FsRepository } from "staticql/repo/fs";
 
-const staticql = define();
+const staticql = defineStaticQL(config as StaticQLConfig)({
+  repository: new FsRepository("public"),
+});
 
 const herbs = await staticql.from<HerbsRecord>("herbs").exec();
 
-const names = [...new Set(herbs.map((h) => h.name.substring(0, 1)).sort())];
-const groupByName = groupByKeyInitial(herbs, "name");
+const names = [...new Set(herbs.data.map((h) => h.name.substring(0, 1)).sort())];
+const groupByName = groupByKeyInitial(herbs.data, "name");
 
 const scientifics = [
-  ...new Set(herbs.map((h) => h.nameScientific.substring(0, 1)).sort()),
+  ...new Set(herbs.data.map((h) => h.nameScientific.substring(0, 1)).sort()),
 ];
-const groupByScientific = groupByKeyInitial(herbs, "nameScientific");
+const groupByScientific = groupByKeyInitial(herbs.data, "nameScientific");
 
 const breadcrumb: BreadcrumbProps = {
   items: [
@@ -39,7 +43,7 @@ const breadcrumb: BreadcrumbProps = {
       "@context": "https://schema.org",
       "@type": "ItemList",
       name: "ハーブ一覧",
-      itemListElement: herbs.map((herb, index) => ({
+      itemListElement: herbs.data.map((herb, index) => ({
         "@type": "ListItem",
         position: index + 1,
         name: `${herb.name}（${herb.nameScientific}）`,

@@ -26,4 +26,3 @@ pnpm-debug.log*
 # generated files
 public/index
 public/schema
-public/staticql.schema.json

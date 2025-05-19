@@ -1,0 +1,276 @@
+{
+  "sources": {
+    "herbs": {
+      "pattern": "content/herbs/*.md",
+      "type": "markdown",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "slug": { "type": "string" },
+          "name": { "type": "string" },
+          "nameAliases": { "type": "array", "items": { "type": "string" } },
+          "nameScientific": { "type": "string" },
+          "compoundSlugs": { "type": "array", "items": { "type": "string" } },
+          "tagSlugs": { "type": "array", "items": { "type": "string" } },
+          "overview": { "type": "string" },
+          "efficacy": { "type": "string" },
+          "wiki": { "type": "string" },
+          "content": { "type": "string" },
+          "updatedAt": { "type": "date" },
+          "createdAt": { "type": "date" }
+        },
+        "required": [
+          "slug",
+          "name",
+          "nameAliases",
+          "nameScientific",
+          "compoundSlugs",
+          "tagSlugs",
+          "overview",
+          "efficacy",
+          "wiki",
+          "content",
+          "updatedAt",
+          "createdAt"
+        ]
+      },
+      "relations": {
+        "compounds": {
+          "to": "compounds",
+          "localKey": "compoundSlugs",
+          "foreignKey": "slug",
+          "type": "hasMany"
+        },
+        "tags": {
+          "to": "tags",
+          "localKey": "tagSlugs",
+          "foreignKey": "slug",
+          "type": "hasMany"
+        },
+        "reports": {
+          "to": "reports",
+          "through": "reportGroups",
+          "sourceLocalKey": "slug",
+          "throughForeignKey": "combinedHerbs.slug",
+          "throughLocalKey": "slug",
+          "targetForeignKey": "reportGroupSlug",
+          "type": "hasManyThrough"
+        }
+      },
+      "index": ["name", "tagSlugs", { "updatedAt": { "depth": 10 } }]
+    },
+
+    "herbStates": {
+      "pattern": "content/herbStates.yaml",
+      "type": "yaml",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "slug": { "type": "string" },
+          "name": { "type": "string" }
+        },
+        "required": ["slug", "name"]
+      }
+    },
+
+    "herbParts": {
+      "pattern": "content/herbParts.yaml",
+      "type": "yaml",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "slug": { "type": "string" },
+          "name": { "type": "string" }
+        },
+        "required": ["slug", "name"]
+      }
+    },
+
+    "reports": {
+      "pattern": "content/reports/**/*.md",
+      "type": "markdown",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "slug": { "type": "string" },
+          "reportGroupSlug": { "type": "string" },
+          "summary": { "type": "string" },
+          "ingredients": { "type": "array", "items": { "type": "string" } },
+          "recipe": { "type": "array", "items": { "type": "string" } },
+          "flavor": {
+            "type": "object",
+            "properties": {
+              "bitterness": { "type": "number" },
+              "astringency": { "type": "number" },
+              "sweetness": { "type": "number" },
+              "sourness": { "type": "number" },
+              "spiciness": { "type": "number" },
+              "umami": { "type": "number" }
+            },
+            "required": [
+              "bitterness",
+              "astringency",
+              "sweetness",
+              "sourness",
+              "spiciness",
+              "umami"
+            ]
+          },
+          "content": { "type": "string" },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "imageUrl": { "type": "string" },
+                "caption": { "type": "string" },
+                "sortOrder": { "type": "number" }
+              },
+              "required": ["imageUrl", "caption", "sortOrder"]
+            }
+          },
+          "updatedAt": { "type": "date" },
+          "createdAt": { "type": "date" }
+        },
+        "required": [
+          "slug",
+          "reportGroupSlug",
+          "summary",
+          "ingredients",
+          "recipe",
+          "flavor",
+          "content",
+          "images",
+          "updatedAt",
+          "createdAt"
+        ]
+      },
+      "relations": {
+        "reportGroup": {
+          "to": "reportGroups",
+          "localKey": "reportGroupSlug",
+          "foreignKey": "slug",
+          "type": "hasOne"
+        },
+        "herbs": {
+          "to": "herbs",
+          "through": "reportGroups",
+          "sourceLocalKey": "reportGroupSlug",
+          "throughForeignKey": "slug",
+          "throughLocalKey": "combinedHerbs.slug",
+          "targetForeignKey": "slug",
+          "type": "hasManyThrough"
+        },
+        "process": {
+          "to": "processes",
+          "through": "reportGroups",
+          "sourceLocalKey": "reportGroupSlug",
+          "throughForeignKey": "slug",
+          "throughLocalKey": "processSlug",
+          "targetForeignKey": "slug",
+          "type": "hasOneThrough"
+        },
+        "usageMethod": {
+          "to": "usageMethods",
+          "localKey": "usageMethodSlug",
+          "foreignKey": "slug",
+          "type": "hasOne"
+        }
+      },
+      "index": ["reportGroupSlug", { "updatedAt": { "depth": 10 } }]
+    },
+
+    "reportGroups": {
+      "pattern": "content/reportGroups.yaml",
+      "type": "yaml",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "slug": { "type": "string" },
+          "description": { "type": "string" },
+          "combinedHerbs": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "slug": { "type": "string" },
+                "herbStateSlug": { "type": "string" },
+                "herbPartSlug": { "type": "string" }
+              },
+              "required": ["slug", "herbStateSlug", "herbPartSlug"]
+            }
+          },
+          "processSlug": { "type": "string" }
+        },
+        "required": ["slug", "description", "combinedHerbs", "processSlug"]
+      },
+      "relations": {
+        "process": {
+          "to": "processes",
+          "localKey": "processSlug",
+          "foreignKey": "slug",
+          "type": "hasOne"
+        },
+        "herbs": {
+          "to": "herbs",
+          "localKey": "combinedHerbs.slug",
+          "foreignKey": "slug",
+          "type": "hasMany"
+        }
+      }
+    },
+
+    "tags": {
+      "pattern": "content/tags.yaml",
+      "type": "yaml",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "slug": { "type": "string" },
+          "name": { "type": "string" }
+        },
+        "required": ["slug", "name"]
+      }
+    },
+
+    "processes": {
+      "pattern": "content/processes.yaml",
+      "type": "yaml",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "slug": { "type": "string" },
+          "name": { "type": "string" }
+        },
+        "required": ["slug", "name"]
+      }
+    },
+
+    "usageMethods": {
+      "pattern": "content/usageMethods.yaml",
+      "type": "yaml",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "slug": { "type": "string" },
+          "name": { "type": "string" }
+        },
+        "required": ["slug", "name"]
+      }
+    },
+
+    "compounds": {
+      "pattern": "content/compounds.yaml",
+      "type": "yaml",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "slug": { "type": "string" },
+          "name": { "type": "string" },
+          "description": { "type": "string" }
+        },
+        "required": ["slug", "name", "description"]
+      }
+    }
+  }
+}

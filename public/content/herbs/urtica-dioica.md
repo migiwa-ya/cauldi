@@ -5,7 +5,7 @@ nameScientific: Urtica dioica
 nameEn: Nettle
 nameAliases: [セイヨウイラクサ, スティンギングネトル, イラクサ]
 compoundSlugs: [flavonoid, chlorophyll, iron, vitamin-c, calcium]
-tagSlugs: [antiinflammatory, allergy, anemia, diuretic, BPH]
+tagSlugs: [antiinflammatory, allergy, anemia, diuretic]
 overview: ネトルはイラクサ科の多年草で、全草に細かな刺毛を持ち触れると皮膚を刺激することから「スティンギング（刺す）ネトル」とも呼ばれます。ヨーロッパやアジア、北米など世界に広く分布し、古くから食用や薬用に利用されてきました。栄養価が高く、乾燥させた葉はハーブティー（ネトルティー）として親しまれ、現代ではサプリメントにも加工されています。
 efficacy: ネトルには抗炎症作用や抗アレルギー作用が期待され、花粉症などの症状緩和や関節の痛み軽減に役立つとされています。また鉄分などミネラルが豊富なことから貧血予防に、利尿作用によるデトックスやむくみ改善に用いられるほか。
 wiki: https://ja.wikipedia.org/wiki/%E3%82%BB%E3%82%A4%E3%83%A8%E3%82%A6%E3%82%A4%E3%83%A9%E3%82%AF%E3%82%B5

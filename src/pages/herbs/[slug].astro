@@ -1,6 +1,5 @@
 ---
 import type { APIContext } from "astro";
-import define from "../../../staticql.config";
 import { formatDate } from "../../utils/date";
 import {
   renderMarkdownWithCustomLayout,
@@ -22,9 +21,16 @@ import type {
   ReportGroupsRecord,
 } from "../../types/staticql-types";
 import HerbCompounds from "../../components/HerbCompounds";
+import config from "../../../public/staticql.config.json";
+import { defineStaticQL, type StaticQLConfig } from "staticql";
+import { FsRepository } from "staticql/repo/fs";
+import { record } from "astro:schema";
 
 export async function getStaticPaths() {
-  const staticql = define();
+  const staticql = defineStaticQL(config as StaticQLConfig)({
+    repository: new FsRepository("public"),
+  });
+
   const herbs = await staticql
     .from<HerbsRecord>("herbs")
     .join("reports")
@@ -33,7 +39,7 @@ export async function getStaticPaths() {
     .exec();
 
   return await Promise.all(
-    herbs.map(async (herb) => {
+    herbs.data.map(async (herb) => {
       return {
         params: { slug: herb.slug },
         props: { herb },
@@ -46,8 +52,11 @@ export function GET({ props }: APIContext) {
   return new Response(JSON.stringify({ herb: props.herb }));
 }
 
-const staticql = define();
 const { herb }: { herb: HerbsRecord } = Astro.props;
+
+const staticql = defineStaticQL(config as StaticQLConfig)({
+  repository: new FsRepository("public"),
+});
 
 herb.reports = herb.reports
   ? await Promise.all(
@@ -58,9 +67,9 @@ herb.reports = herb.reports
           .where("slug", "eq", r.reportGroupSlug)
           .exec();
 
-        if (rg.length > 0) {
-          r.reportGroup = rg[0];
-          r.process = rg[0].process;
+        if (rg.data.length > 0) {
+          r.reportGroup = rg.data[0];
+          r.process = rg.data[0].process;
         }
 
         return r;
@@ -218,7 +227,7 @@ const breadcrumb: BreadcrumbProps = {
 
       <aside class="otherHerbs">
         {
-          relationHerbs
+          relationHerbs.data
             .slice(0, 5)
             .map((herb) => <HerbDecorationLink herb={herb} />)
         }

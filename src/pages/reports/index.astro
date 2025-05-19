@@ -1,21 +1,27 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import define from "../../../staticql.config";
 import Breadcrumb, { type BreadcrumbProps } from "../../components/Breadcrumb";
 import ListReportsInfinite from "../../components/ListReportsInfinite";
 import "../../styles/index.css";
 import type { ReportsRecord } from "../../types/staticql-types";
 import ListItem from "../../components/ListItem";
+import config from "../../../public/staticql.config.json";
+import { defineStaticQL, type StaticQLConfig } from "staticql";
+import { FsRepository } from "staticql/repo/fs";
 
-const staticql = define();
+const staticql = defineStaticQL(config as StaticQLConfig)({
+  repository: new FsRepository("public"),
+});
 
 const reprots = await staticql
   .from<ReportsRecord>("reports")
   .join("herbs")
   .join("process")
+  .pageSize(6)
+  .orderBy("updatedAt", "desc")
   .exec();
 
-const initialReports = reprots.map((report) => {
+const initialReports = reprots.data.map((report) => {
   return {
     key: report.reportGroupSlug + report.slug,
     displayName: `${(report.herbs ?? []).map((herb) => herb.name).join("・")}の${report?.process?.name}の作り方`,
@@ -28,14 +34,6 @@ const initialReports = reprots.map((report) => {
     updatedAt: report.updatedAt,
   };
 });
-
-const offset = 6;
-
-const newsItems = initialReports
-  .sort(
-    (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
-  )
-  .splice(0, offset);
 
 const breadCrumbItems: BreadcrumbProps["items"] = [
   { label: "Home", link: "/" },
@@ -53,8 +51,8 @@ const breadCrumbItems: BreadcrumbProps["items"] = [
   </div>
 
   <div class="index content container">
-    {newsItems.map((item) => <ListItem item={item} />)}
+    {initialReports.map((item) => <ListItem item={item} />)}
 
-    <ListReportsInfinite offset={offset} client:visible />
+    <ListReportsInfinite pageInfo={reprots.pageInfo} client:visible />
   </div>
 </Layout>

@@ -2,24 +2,51 @@ import React, { useState } from "react";
 import ListItem, { type ListItemData } from "./ListItem";
 import InfiniteScroll from "./InfiniteScroll";
 import { toBotanicalName } from "../utils/herbs";
-import { defineStaticQL } from "@migiwa-ya/staticql/browser";
+import { defineStaticQL, type PageInfo } from "staticql";
+import { FetchRepository } from "staticql/repo/fetch";
 import type { HerbsRecord, ReportsRecord } from "../types/staticql-types";
 
 interface Props {
-  offset: number;
+  herbPageInfo: PageInfo;
+  reportPageInfo: PageInfo;
 }
 
-const ListNewsInfinite: React.FC<Props> = ({ offset }) => {
+const ListNewsInfinite: React.FC<Props> = ({
+  herbPageInfo,
+  reportPageInfo,
+}) => {
   const [items, setItems] = useState<ListItemData[]>([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+  const [herbNextCursor, setHerbNextCursor] = useState(herbPageInfo.endCursor);
+  const [reportNextCursor, setReportNextCursor] = useState(
+    reportPageInfo.endCursor
+  );
 
   const fetchItems = async () => {
-    const schema = await fetch("/staticql.schema.json").then((r) => r.json());
-    const staticql = defineStaticQL(schema)();
+    const schema = await fetch("/staticql.config.json").then((r) => r.json());
+    const staticql = defineStaticQL(schema)({
+      repository: new FetchRepository(),
+    });
 
-    const herbs = await staticql.from<HerbsRecord>("herbs").exec();
-    const newHerbs = herbs.map(
+    const herbs = await staticql
+      .from<HerbsRecord>("herbs")
+      .orderBy("updatedAt", "desc")
+      .cursor(herbNextCursor)
+      .pageSize(3)
+      .exec();
+
+    const reports = await staticql
+      .from<ReportsRecord>("reports")
+      .join("herbs")
+      .join("reportGroup")
+      .join("process")
+      .orderBy("updatedAt", "desc")
+      .cursor(reportNextCursor)
+      .pageSize(3)
+      .exec();
+
+    const newHerbs = herbs.data.map(
       (herb): ListItemData => ({
         key: herb.slug,
         displayName: herb.name,
@@ -35,13 +62,7 @@ const ListNewsInfinite: React.FC<Props> = ({ offset }) => {
       })
     );
 
-    const reports = await staticql
-      .from<ReportsRecord>("reports")
-      .join("herbs")
-      .join("reportGroup")
-      .join("process")
-      .exec();
-    const newReports = reports.map(
+    const newReports = reports.data.map(
       (report): ListItemData => ({
         key: report.slug,
         displayName: `${report.herbs?.map((herb) => herb.name)?.join("・")}の${
@@ -59,14 +80,14 @@ const ListNewsInfinite: React.FC<Props> = ({ offset }) => {
       })
     );
 
-    const newItems = [...newHerbs, ...newReports]
-      .sort(
-        (a, b) =>
-          new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
-      )
-      .slice(offset * page, offset * page + offset);
+    const newItems = [...newHerbs, ...newReports].sort(
+      (a, b) =>
+        new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+    );
 
-    setHasMore(newItems.length > 0);
+    setHerbNextCursor(herbs.pageInfo.endCursor);
+    setReportNextCursor(reports.pageInfo.endCursor);
+    setHasMore(herbs.pageInfo.hasNextPage || reports.pageInfo.hasNextPage);
     setItems((prev) => [...prev, ...newItems]);
     setPage((prev) => prev + 1);
   };

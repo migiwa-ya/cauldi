@@ -2,10 +2,14 @@
 import { defineConfig } from "astro/config";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
-import define from "./staticql.config.ts";
+import { defineStaticQL, type StaticQLConfig } from "staticql";
+import { FsRepository } from "staticql/repo/fs";
+import config from "./public/staticql.config.json";
 import type { HerbsRecord, ReportsRecord } from "./src/types/staticql-types";
 
-const staticql = define();
+const staticql = defineStaticQL(config as StaticQLConfig)({
+  repository: new FsRepository("public"),
+});
 
 // https://astro.build/config
 export default defineConfig({
@@ -24,12 +28,14 @@ export default defineConfig({
             .from<HerbsRecord>("herbs")
             .where("slug", "eq", slug)
             .exec();
-          item.lastmod = herb[0].updatedAt;
+          item.lastmod = herb.data[0].updatedAt;
         }
 
         // ハーブ一覧
         if (/herbs\/$/.test(item.url)) {
-          const herb = (await staticql.from<HerbsRecord>("herbs").exec()).sort(
+          const herb = (
+            await staticql.from<HerbsRecord>("herbs").exec()
+          ).data.sort(
             (a, b) =>
               new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
           );
@@ -45,7 +51,7 @@ export default defineConfig({
             .from<ReportsRecord>("reports")
             .where("reportGroupSlug", "eq", slug)
             .exec();
-          const sortedReport = reports.sort(
+          const sortedReport = reports.data.sort(
             (a, b) =>
               new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
           );
@@ -56,7 +62,7 @@ export default defineConfig({
         if (/reports\/$/.test(item.url)) {
           const reports = (
             await staticql.from<ReportsRecord>("reports").exec()
-          ).sort(
+          ).data.sort(
             (a, b) =>
               new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
           );
@@ -71,9 +77,9 @@ export default defineConfig({
           const herb = (
             await staticql
               .from<HerbsRecord>("herbs")
-              .where("tagSlugs", "contains", slug)
+              .where("tagSlugs", "eq", slug)
               .exec()
-          ).sort(
+          ).data.sort(
             (a, b) =>
               new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
           );

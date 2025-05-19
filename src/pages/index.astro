@@ -1,37 +1,48 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import define from "../../staticql.config";
 import ListNewsInfinite from "../components/ListNewsInfinite";
 import ListNewsItem from "../components/ListItem";
 import "../styles/index.css";
 import Seo from "../components/Seo.astro";
 import type { ReportsRecord, HerbsRecord } from "../types/staticql-types";
+import config from "../../public/staticql.config.json";
+import { defineStaticQL, type StaticQLConfig } from "staticql";
+import { FsRepository } from "staticql/repo/fs";
 
-const staticql = define();
+const staticql = defineStaticQL(config as StaticQLConfig)({
+  repository: new FsRepository("public"),
+});
 
-const initialHerbs = (await staticql.from<HerbsRecord>("herbs").exec()).map(
-  (herb) => ({
-    key: herb.slug,
-    displayName: herb.name,
-    link: `/herbs/${herb.slug}/`,
-    images: [
-      {
-        path: `/images/herbs/${herb.slug}/thumbnail.webp`,
-        label: herb.nameScientific,
-      },
-    ],
-    content: herb.overview,
-    updatedAt: herb.updatedAt,
-  })
-);
+const herbs = await staticql
+  .from<HerbsRecord>("herbs")
+  .orderBy("updatedAt", "desc")
+  .pageSize(3)
+  .exec();
 
-const initialReports = (
-  await staticql
-    .from<ReportsRecord>("reports")
-    .join("herbs")
-    .join("process")
-    .exec()
-).map((report) => ({
+const reports = await staticql
+  .from<ReportsRecord>("reports")
+  .join("herbs")
+  .join("reportGroup")
+  .join("process")
+  .orderBy("updatedAt", "desc")
+  .pageSize(3)
+  .exec();
+
+const initialHerbs = herbs.data.map((herb) => ({
+  key: herb.slug,
+  displayName: herb.name,
+  link: `/herbs/${herb.slug}/`,
+  images: [
+    {
+      path: `/images/herbs/${herb.slug}/thumbnail.webp`,
+      label: herb.nameScientific,
+    },
+  ],
+  content: herb.overview,
+  updatedAt: herb.updatedAt,
+}));
+
+const initialReports = reports.data.map((report) => ({
   key: report.reportGroupSlug + report.slug,
   displayName: `${report.herbs?.map((herb) => herb.name).join("・")}の${report.process?.name}のレポート`,
   images: report.herbs!.map((herb) => ({
@@ -43,20 +54,16 @@ const initialReports = (
   updatedAt: report.updatedAt,
 }));
 
-const offset = 6;
-
-const newsItems = [...initialHerbs, ...initialReports]
-  .sort(
-    (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
-  )
-  .splice(0, offset);
+const newsItems = [...initialHerbs, ...initialReports].sort(
+  (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+);
 ---
 
 <Layout>
   <Seo
     slot="head"
-    title="Cauldi | 植物を五感で楽しむ。ハーブの期待される効能・使い方・解説。"
-    description="Cauldi（コールディ）は、ハーブの期待される効能や使い方を丁寧にまとめ、五感で楽しむための情報と体験レポートを発信するハーブ専門サイトです。"
+    title="Cauldi | ハーブの期待される効能・使い方・解説。"
+    description="Cauldi（コールディ）は、ハーブの期待される効能や使い方を丁寧にまとめ、情報と体験レポートを発信するハーブ専門サイトです。"
     url=`${Astro.site}`
     ldJson={{
       "@context": "https://schema.org",
@@ -69,7 +76,7 @@ const newsItems = [...initialHerbs, ...initialReports]
   <div class="globalHeading">
     <div class="globalHeadingBody container">
       <p>
-        ハーブの知識と暮らしの工夫を紹介する、五感で楽しむハーブ情報サイト「<strong
+        ハーブの知識と暮らしの工夫を紹介するハーブ情報サイト「<strong
           >Cauldi</strong
         >」。
       </p>
@@ -79,6 +86,14 @@ const newsItems = [...initialHerbs, ...initialReports]
   <div class="index content container">
     {newsItems.map((item) => <ListNewsItem item={item} />)}
 
-    <ListNewsInfinite offset={offset} client:visible />
+    {
+      (herbs.pageInfo.hasNextPage || reports.pageInfo.hasNextPage) && (
+        <ListNewsInfinite
+          herbPageInfo={herbs.pageInfo}
+          reportPageInfo={reports.pageInfo}
+          client:visible
+        />
+      )
+    }
   </div>
 </Layout>
