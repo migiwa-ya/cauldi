@@ -3,6 +3,7 @@ import { formatDate } from "../utils/date";
 import styles from "./ReportDetail.module.css";
 import classNames from "classnames";
 import type { ReportsRecord } from "../types/staticql-types";
+import fm from "front-matter"
 
 interface ReportDetailProps {
   report: ReportsRecord;
@@ -21,6 +22,8 @@ const flavorMap = {
 };
 
 const ReportDetail: React.FC<ReportDetailProps> = ({ report }) => {
+  const content = fm(report.raw).body;
+  
   return (
     <article className={styles.article}>
       <header className={styles.header}>
@@ -82,7 +85,7 @@ const ReportDetail: React.FC<ReportDetailProps> = ({ report }) => {
         </section>
         <section className={styles.footerSection}>
           <strong className={styles.noteTitle}>感想</strong>
-          <p className={styles.note}>{report.content}</p>
+          <p className={styles.note}>{content}</p>
           <ul className={styles.flavorRating}>
             {(
               Object.entries(report.flavor) as [

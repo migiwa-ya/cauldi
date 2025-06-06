@@ -15,7 +15,6 @@
           "overview": { "type": "string" },
           "efficacy": { "type": "string" },
           "wiki": { "type": "string" },
-          "content": { "type": "string" },
           "updatedAt": { "type": "date" },
           "createdAt": { "type": "date" }
         },
@@ -29,7 +28,6 @@
           "overview",
           "efficacy",
           "wiki",
-          "content",
           "updatedAt",
           "createdAt"
         ]
@@ -57,7 +55,7 @@
           "type": "hasManyThrough"
         }
       },
-      "index": ["name", "tagSlugs", { "updatedAt": { "depth": 10 } }]
+      "index": { "tagSlugs": {}, "updatedAt": { "depth": 10 } }
     },
 
     "herbStates": {
@@ -116,7 +114,6 @@
               "umami"
             ]
           },
-          "content": { "type": "string" },
           "images": {
             "type": "array",
             "items": {
@@ -139,7 +136,6 @@
           "ingredients",
           "recipe",
           "flavor",
-          "content",
           "images",
           "updatedAt",
           "createdAt"
@@ -177,7 +173,7 @@
           "type": "hasOne"
         }
       },
-      "index": ["reportGroupSlug", { "updatedAt": { "depth": 10 } }]
+      "index": { "updatedAt": { "depth": 10 } }
     },
 
     "reportGroups": {

@@ -24,7 +24,7 @@ import HerbCompounds from "../../components/HerbCompounds";
 import config from "../../../public/staticql.config.json";
 import { defineStaticQL, type StaticQLConfig } from "staticql";
 import { FsRepository } from "staticql/repo/fs";
-import { record } from "astro:schema";
+import fm from "front-matter";
 
 export async function getStaticPaths() {
   const staticql = defineStaticQL(config as StaticQLConfig)({
@@ -87,7 +87,8 @@ const title = `${herbFullname}の期待される効能と使い方 | Cauldi`;
 const desc = `${herbFullname}の期待される効能や使い方、学術的な背景をわかりやすく解説。${herb.tags?.map((t) => t.name).join("・")}で注目されています。Cauldiはハーブを五感で楽しみ、学ぶための専門サイトです。`;
 const h1 = `${herbFullname}の期待される効能・使い方・成分`;
 
-const footnotes = extractFootnoteReferencesFromMarkdown(herb.content);
+const content = fm(herb.raw).body;
+const footnotes = extractFootnoteReferencesFromMarkdown(content);
 
 const citation = {
   scholarlyArticle: footnotes.filter((item) => isScholarlyArticleUrl(item.url)),
@@ -188,7 +189,7 @@ const breadcrumb: BreadcrumbProps = {
       </div>
 
       <div class="columnContainer">
-        <section set:html={renderMarkdownWithCustomLayout(herb.content)} />
+        <section set:html={renderMarkdownWithCustomLayout(content)} />
 
         <section>
           <div class="columnHead">

@@ -26,7 +26,7 @@ const ListNewsInfinite: React.FC<Props> = ({
   const fetchItems = async () => {
     const schema = await fetch("/staticql.config.json").then((r) => r.json());
     const staticql = defineStaticQL(schema)({
-      repository: new FetchRepository(),
+      repository: new FetchRepository("https://cdn.cauldi.com/"),
     });
 
     const herbs = await staticql
