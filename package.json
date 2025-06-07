@@ -22,7 +22,7 @@
     "marked-footnote": "^1.2.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "staticql": "^0.9.0"
+    "staticql": "^0.9.3"
   },
   "engines": {
     "node": "23"
