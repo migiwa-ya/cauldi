@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build && npm run gen-index",
-    "deploy": "astro build && npm run gen-index && gh-pages -d dist",
+    "deploy": "astro build && npm run gen-index && gh-pages -d dist --cname cauldi.com",
     "gen-index": "npx staticql-gen-index ./public/staticql.config.json ./public",
     "gen-type": "npx staticql-gen-types ./public/staticql.config.json ./src/types",
     "preview": "astro preview",
