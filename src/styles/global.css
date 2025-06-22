@@ -40,6 +40,14 @@ ol {
   align-items: center;
   background-color: darkslategrey;
 
+  .container {
+    display: flex;
+    justify-content: center;
+    @media (max-width: 640px) {
+      display: block;
+    }
+  }
+
   .logo {
     display: inline-block;
     padding: 1em;
@@ -47,10 +55,8 @@ ol {
   }
 
   .logomark {
-    width: 60px;
+    width: 30px;
     fill: gold;
-    border: 4px double gold;
-    padding: 0.3em;
   }
 
   nav {
