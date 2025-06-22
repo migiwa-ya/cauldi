@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && npm run gen-index",
+    "build": "astro build && npm run gen-index && gh-pages -d dist",
     "gen-index": "npx staticql-gen-index ./public/staticql.config.json ./public",
     "gen-type": "npx staticql-gen-types ./public/staticql.config.json ./src/types",
     "preview": "astro preview",
@@ -31,5 +31,8 @@
   "volta": {
     "node": "23.11.0",
     "npm": "10.9.2"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
   }
 }

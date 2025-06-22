@@ -13,6 +13,8 @@ const staticql = defineStaticQL(config as StaticQLConfig)({
 
 // https://astro.build/config
 export default defineConfig({
+  base: "/cauldi/",
+  outDir: "./dist",
   vite: {},
   site: "https://cauldi.com",
   integrations: [
