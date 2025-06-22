@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import ListItem, { type ListItemData } from "./ListItem";
 import InfiniteScroll from "./InfiniteScroll";
-import LoadingFooter from "./LoadingFooter";
 import { defineStaticQL } from "staticql";
 import { FetchRepository } from "staticql/repo/fetch";
 import type { ReportsRecord } from "../types/staticql-types";
@@ -20,55 +19,49 @@ const ListReportsInfinite: React.FC<Props> = ({ pageInfo }) => {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [nextCursor, setNextCursor] = useState(pageInfo.endCursor);
-  const [loading, setLoading] = useState(false);
 
   const fetchItems = async () => {
-    setLoading(true);
-    try {
-      const schema = await fetch("/staticql.config.json").then((r) => r.json());
-      const staticql = defineStaticQL(schema)({
-        repository: new FetchRepository("/"),
-      });
+    const schema = await fetch("/staticql.config.json").then((r) => r.json());
+    const staticql = defineStaticQL(schema)({
+      repository: new FetchRepository("/"),
+    });
 
-      const reports = await staticql
-        .from<ReportsRecord>("reports")
-        .join("herbs")
-        .join("reportGroup")
-        .join("process")
-        .cursor(nextCursor)
-        .pageSize(6)
-        .orderBy("updatedAt", "desc")
-        .exec();
+    const reports = await staticql
+      .from<ReportsRecord>("reports")
+      .join("herbs")
+      .join("reportGroup")
+      .join("process")
+      .cursor(nextCursor)
+      .pageSize(6)
+      .orderBy("updatedAt", "desc")
+      .exec();
 
-      const newReports: ListItemData[] = reports.data.map(
-        (report): ListItemData => {
-          return {
-            key: report.slug,
-            displayName:
-              report.herbs?.map((herb) => herb.name)?.join("・") +
-              "の" +
-              report.process?.name +
-              "の作り方",
-            images: (
-              report.reportGroup?.combinedHerbs.map((ch) => ch.slug) ?? []
-            ).map((slug: string) => ({
-              path: `/images/herbs/${slug}/thumbnail.webp`,
-              label: slug,
-            })),
-            link: `/reports/${report.reportGroupSlug}/`,
-            content: "Report:" + report.herbs?.map((herb) => herb.name),
-            updatedAt: report.updatedAt,
-          };
-        }
-      );
+    const newReports: ListItemData[] = reports.data.map(
+      (report): ListItemData => {
+        return {
+          key: report.slug,
+          displayName:
+            report.herbs?.map((herb) => herb.name)?.join("・") +
+            "の" +
+            report.process?.name +
+            "の作り方",
+          images: (
+            report.reportGroup?.combinedHerbs.map((ch) => ch.slug) ?? []
+          ).map((slug: string) => ({
+            path: `/images/herbs/${slug}/thumbnail.webp`,
+            label: slug,
+          })),
+          link: `/reports/${report.reportGroupSlug}/`,
+          content: "Report:" + report.herbs?.map((herb) => herb.name),
+          updatedAt: report.updatedAt,
+        };
+      }
+    );
 
-      setNextCursor(reports.pageInfo.endCursor);
-      setHasMore(reports.pageInfo.hasNextPage);
-      setItems((prev) => [...prev, ...newReports]);
-      setPage((prev) => prev + 1);
-    } finally {
-      setLoading(false);
-    }
+    setNextCursor(reports.pageInfo.endCursor);
+    setHasMore(reports.pageInfo.hasNextPage);
+    setItems((prev) => [...prev, ...newReports]);
+    setPage((prev) => prev + 1);
   };
 
   return (
@@ -79,7 +72,6 @@ const ListReportsInfinite: React.FC<Props> = ({ pageInfo }) => {
         hasMore={hasMore}
         ItemComponent={ListItem}
       />
-      <LoadingFooter loading={loading && hasMore} />
     </>
   );
 };

@@ -1,4 +1,6 @@
-import React, { useRef, useCallback } from "react";
+import React, { useRef, useCallback, useState } from "react";
+
+import LoadingFooter from "./LoadingFooter";
 
 type Props<T> = {
   items: T[];
@@ -14,19 +16,23 @@ function InfiniteScroll<T extends { key: string }>({
   ItemComponent,
 }: Props<T>) {
   const observerRef = useRef<IntersectionObserver | null>(null);
+  const [loading, setLoading] = useState(false);
   const lastItemRef = useCallback(
     (node: HTMLDivElement | null) => {
       if (observerRef.current) observerRef.current.disconnect();
 
       observerRef.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && hasMore) {
-          loadMore();
+        if (entries[0].isIntersecting && hasMore && !loading) {
+          setLoading(true);
+          Promise.resolve(loadMore()).finally(() => {
+            setLoading(false);
+          });
         }
       });
 
       if (node) observerRef.current.observe(node);
     },
-    [loadMore, hasMore]
+    [loadMore, hasMore, loading]
   );
 
   return (
@@ -36,6 +42,7 @@ function InfiniteScroll<T extends { key: string }>({
       ))}
 
       <div ref={lastItemRef} />
+      <LoadingFooter loading={loading && hasMore} />
     </>
   );
 }
