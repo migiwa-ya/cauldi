@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ListItem, { type ListItemData } from "./ListItem";
 import InfiniteScroll from "./InfiniteScroll";
+import LoadingFooter from "./LoadingFooter";
 import { toBotanicalName } from "../utils/herbs";
 import { defineStaticQL, type PageInfo } from "staticql";
 import { FetchRepository } from "staticql/repo/fetch";
@@ -22,85 +23,94 @@ const ListNewsInfinite: React.FC<Props> = ({
   const [reportNextCursor, setReportNextCursor] = useState(
     reportPageInfo.endCursor
   );
+  const [loading, setLoading] = useState(false);
 
   const fetchItems = async () => {
-    const schema = await fetch("https://cauldi.com/staticql.config.json").then(
-      (r) => r.json()
-    );
-    const staticql = defineStaticQL(schema)({
-      repository: new FetchRepository("https://cauldi.com/"),
-    });
+    setLoading(true);
+    try {
+      const schema = await fetch("https://cauldi.com/staticql.config.json").then(
+        (r) => r.json()
+      );
+      const staticql = defineStaticQL(schema)({
+        repository: new FetchRepository("https://cauldi.com/"),
+      });
 
-    const herbs = await staticql
-      .from<HerbsRecord>("herbs")
-      .orderBy("updatedAt", "desc")
-      .cursor(herbNextCursor)
-      .pageSize(3)
-      .exec();
+      const herbs = await staticql
+        .from<HerbsRecord>("herbs")
+        .orderBy("updatedAt", "desc")
+        .cursor(herbNextCursor)
+        .pageSize(3)
+        .exec();
 
-    const reports = await staticql
-      .from<ReportsRecord>("reports")
-      .join("herbs")
-      .join("reportGroup")
-      .join("process")
-      .orderBy("updatedAt", "desc")
-      .cursor(reportNextCursor)
-      .pageSize(3)
-      .exec();
+      const reports = await staticql
+        .from<ReportsRecord>("reports")
+        .join("herbs")
+        .join("reportGroup")
+        .join("process")
+        .orderBy("updatedAt", "desc")
+        .cursor(reportNextCursor)
+        .pageSize(3)
+        .exec();
 
-    const newHerbs = herbs.data.map(
-      (herb): ListItemData => ({
-        key: herb.slug,
-        displayName: herb.name,
-        link: `/herbs/${herb.slug}/`,
-        images: [
-          {
-            path: `/images/herbs/${herb.slug}/thumbnail.webp`,
-            label: toBotanicalName(herb.slug),
-          },
-        ],
-        content: herb.overview,
-        updatedAt: herb.updatedAt,
-      })
-    );
+      const newHerbs = herbs.data.map(
+        (herb): ListItemData => ({
+          key: herb.slug,
+          displayName: herb.name,
+          link: `/herbs/${herb.slug}/`,
+          images: [
+            {
+              path: `/images/herbs/${herb.slug}/thumbnail.webp`,
+              label: toBotanicalName(herb.slug),
+            },
+          ],
+          content: herb.overview,
+          updatedAt: herb.updatedAt,
+        })
+      );
 
-    const newReports = reports.data.map(
-      (report): ListItemData => ({
-        key: report.slug,
-        displayName: `${report.herbs?.map((herb) => herb.name)?.join("・")}の${
-          report.process?.name
-        }のレポート`,
-        link: `/reports/${report.reportGroupSlug}/`,
-        images: (
-          report.reportGroup?.combinedHerbs.map((ch) => ch.slug) ?? []
-        ).map((slug: string) => ({
-          path: `/images/herbs/${slug}/thumbnail.webp`,
-          label: toBotanicalName(slug),
-        })),
-        content: report.summary,
-        updatedAt: report.updatedAt,
-      })
-    );
+      const newReports = reports.data.map(
+        (report): ListItemData => ({
+          key: report.slug,
+          displayName: `${report.herbs?.map((herb) => herb.name)?.join("・")}の${
+            report.process?.name
+          }のレポート`,
+          link: `/reports/${report.reportGroupSlug}/`,
+          images: (
+            report.reportGroup?.combinedHerbs.map((ch) => ch.slug) ?? []
+          ).map((slug: string) => ({
+            path: `/images/herbs/${slug}/thumbnail.webp`,
+            label: toBotanicalName(slug),
+          })),
+          content: report.summary,
+          updatedAt: report.updatedAt,
+        })
+      );
 
-    const newItems = [...newHerbs, ...newReports].sort(
-      (a, b) =>
-        new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
-    );
+      const newItems = [...newHerbs, ...newReports].sort(
+        (a, b) =>
+          new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+      );
 
-    setHerbNextCursor(herbs.pageInfo.endCursor);
-    setReportNextCursor(reports.pageInfo.endCursor);
-    setHasMore(herbs.pageInfo.hasNextPage || reports.pageInfo.hasNextPage);
-    setItems((prev) => [...prev, ...newItems]);
-    setPage((prev) => prev + 1);
+      setHerbNextCursor(herbs.pageInfo.endCursor);
+      setReportNextCursor(reports.pageInfo.endCursor);
+      setHasMore(herbs.pageInfo.hasNextPage || reports.pageInfo.hasNextPage);
+      setItems((prev) => [...prev, ...newItems]);
+      setPage((prev) => prev + 1);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <InfiniteScroll
-      items={items}
-      loadMore={fetchItems}
-      hasMore={hasMore}
-      ItemComponent={ListItem}
-    />
+    <>
+      <InfiniteScroll
+        items={items}
+        loadMore={fetchItems}
+        hasMore={hasMore}
+        ItemComponent={ListItem}
+      />
+      <LoadingFooter loading={loading && hasMore} />
+    </>
   );
 };
 
