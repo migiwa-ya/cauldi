@@ -15,8 +15,8 @@
           "overview": { "type": "string" },
           "efficacy": { "type": "string" },
           "wiki": { "type": "string" },
-          "updatedAt": { "type": "date" },
-          "createdAt": { "type": "date" }
+          "updatedAt": { "type": "string" },
+          "createdAt": { "type": "string" }
         },
         "required": [
           "slug",
@@ -126,8 +126,8 @@
               "required": ["imageUrl", "caption", "sortOrder"]
             }
           },
-          "updatedAt": { "type": "date" },
-          "createdAt": { "type": "date" }
+          "updatedAt": { "type": "string" },
+          "createdAt": { "type": "string" }
         },
         "required": [
           "slug",
@@ -173,7 +173,7 @@
           "type": "hasOne"
         }
       },
-      "index": { "updatedAt": { "depth": 10 } }
+      "index": { "updatedAt": {} }
     },
 
     "reportGroups": {
