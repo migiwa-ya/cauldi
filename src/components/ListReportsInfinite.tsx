@@ -21,9 +21,9 @@ const ListReportsInfinite: React.FC<Props> = ({ pageInfo }) => {
   const [nextCursor, setNextCursor] = useState(pageInfo.endCursor);
 
   const fetchItems = async () => {
-    const schema = await fetch("/staticql.config.json").then((r) => r.json());
+    const schema = await fetch("https://cauldi.com/staticql.config.json").then((r) => r.json());
     const staticql = defineStaticQL(schema)({
-      repository: new FetchRepository("https://cdn.cauldi.com/"),
+      repository: new FetchRepository("https://cauldi.com/"),
     });
     
     const reports = await staticql
