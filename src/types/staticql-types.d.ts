@@ -9,16 +9,16 @@ export type HerbsRecord = SourceRecord & {
   tags?: TagsRecord[];
   reports?: ReportsRecord[];
   slug: string;
-  name: Index<string>;
+  name: string;
   nameAliases: string[];
   nameScientific: string;
-  compoundSlugs: string[];
+  compoundSlugs: Index<string[]>;
   tagSlugs: Index<string[]>;
   overview: string;
   efficacy: string;
   wiki: string;
   updatedAt: Index<string>;
-  createdAt: any;
+  createdAt: string;
 };
 
 export type HerbsRelation_compounds = Record<string, string[]>;
@@ -51,7 +51,7 @@ export type ReportsRecord = SourceRecord & {
   };
   images: { imageUrl: string; caption: string; sortOrder: number }[];
   updatedAt: Index<string>;
-  createdAt: any;
+  createdAt: string;
 };
 
 export type ReportsRelation_reportGroup = Record<string, string>;
@@ -68,11 +68,11 @@ export type ReportGroupsRecord = SourceRecord & {
   slug: string;
   description: string;
   combinedHerbs: {
-    slug: string;
+    slug: Index<string>;
     herbStateSlug: string;
     herbPartSlug: string;
   }[];
-  processSlug: string;
+  processSlug: Index<string>;
 };
 
 export type ReportGroupsRelation_process = Record<string, string>;
