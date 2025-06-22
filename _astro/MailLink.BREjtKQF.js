@@ -1,0 +1,1 @@
+import{j as s}from"./jsx-runtime.D_zvdyIk.js";import"./index.Dy6lLLXr.js";const n=({user:o,domain:i,label:r})=>{const t=`${o}@${i}`,a=`mailto:${t}`;return s.jsx("a",{href:a,children:r||t})};export{n as default};
