@@ -55,7 +55,7 @@
           "type": "hasManyThrough"
         }
       },
-      "index": { "tagSlugs": {}, "updatedAt": { "depth": 10 } }
+      "index": { "tagSlugs": {}, "updatedAt": {} }
     },
 
     "herbStates": {
