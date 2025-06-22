@@ -4,14 +4,11 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && npm run reindex && npm run upload && npm run purge",
+    "build": "astro build && npm run gen-index",
     "gen-index": "npx staticql-gen-index ./public/staticql.config.json ./public",
     "gen-type": "npx staticql-gen-types ./public/staticql.config.json ./src/types",
     "preview": "astro preview",
-    "astro": "astro",
-    "reindex": "node scripts/build-index.js",
-    "upload": "node scripts/upload-r2.js",
-    "purge": "node scripts/purge-cache.js"
+    "astro": "astro"
   },
   "dependencies": {
     "@astrojs/react": "^4.2.4",
